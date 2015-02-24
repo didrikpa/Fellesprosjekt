@@ -60,22 +60,10 @@ CREATE  TABLE `Avtale` (
   `Slutttid` TIME NOT NULL ,
   `Beskrivelse` VARCHAR(45) NOT NULL,
   `Romnavn` VARCHAR(40) NOT NULL,
-   PRIMARY KEY (`AvtaleID`),
-   FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
-    
-);
-
--- -----------------------------------------------------
--- Table`Kalender`
--- -----------------------------------------------------
-
-CREATE  TABLE `Kalender` (
-  `Brukernavn` VARCHAR(45) NOT NULL ,
-  `Dato` DATE NOT NULL ,
-  `Tid` TIME NOT NULL ,
-  PRIMARY KEY (`Brukernavn`),
+  PRIMARY KEY (`AvtaleID`),
+  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-  ON DELETE CASCADE
+  FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`) 
 );
 
 
@@ -86,9 +74,8 @@ CREATE  TABLE `Kalender` (
 CREATE  TABLE `Alarm` (
   `Brukernavn` VARCHAR(45) NOT NULL ,
   `AvtaleID` VARCHAR(45) NOT NULL ,
-  `Tidspunkt` TIME NOT NULL ,
-  `Dato` DATE NOT NULL ,
+  `Tidspunkt` DATETIME NOT NULL ,
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
-  FOREIGN KEY (`AvtaleID`) REFERENCES Bruker(`AvtaleID`)
+  FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
 );
