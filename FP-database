@@ -74,7 +74,7 @@ CREATE  TABLE `Alarm` (
   `Brukernavn` VARCHAR(45) NOT NULL ,
   `AvtaleID` VARCHAR(45) NOT NULL ,
   `Tidspunkt` DATETIME NOT NULL ,
-  PRIMARY KEY (`Brukernavn`, `AvtaleID`)
+  PRIMARY KEY (`Brukernavn`, `AvtaleID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
 
