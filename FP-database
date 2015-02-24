@@ -2,9 +2,9 @@ CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt` DEFAULT CHARACTER SET latin1 COLLAT
 USE `Fellesprosjekt` ;
 
 -- -----------------------------------------------------
--- Table `Ansatt`
+-- Table `Bruker`
 -- -----------------------------------------------------
-CREATE TABLE `Ansatt` (
+CREATE TABLE `Bruker` (
   `Brukernavn` VARCHAR(20) NOT NULL ,
   `Passord` VARCHAR(45) NOT NULL ,
   `Fornavn` VARCHAR(45) NOT NULL ,
@@ -15,11 +15,11 @@ CREATE TABLE `Ansatt` (
 
 
 -- -----------------------------------------------------
--- Table `MÃ¸terom`
+-- Table `Møterom`
 -- -----------------------------------------------------
-CREATE  TABLE `MÃ¸terom` (
+CREATE  TABLE `Møterom` (
   `Romnavn` VARCHAR(40) NOT NULL ,
-  `StÃ¸rrelse` INT NOT NULL ,
+  `Størrelse` INT NOT NULL ,
   PRIMARY KEY (`Romnavn`));
 
 -- -----------------------------------------------------
@@ -31,7 +31,7 @@ CREATE  TABLE `Gruppe` (
   `Tillegsgruppe` VARCHAR(45) NULL ,
   `Brukernavn` VARCHAR(20) NULL,
   PRIMARY KEY (`GruppeID`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Ansatt(`Brukernavn`)
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
     
 );
    
@@ -43,8 +43,8 @@ CREATE TABLE `Gruppemedlem` (
     `GruppeID` INT NOT NULL ,
     `Brukernavn` varchar(20) NOT NULL,
     PRIMARY KEY (`Brukernavn`,`GruppeID`),
-    FOREIGN KEY (`Brukernavn`) REFERENCES Ansatt(`Brukernavn`),
-    FOREIGN KEY (`GruppeID`) REFERENCES Ansatt(`GruppeID`)
+    FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+    FOREIGN KEY (`GruppeID`) REFERENCES Bruker(`GruppeID`)
 
 );
 
@@ -60,8 +60,8 @@ CREATE  TABLE `Avtale` (
   `Beskrivelse` VARCHAR(45) NOT NULL,
   `Romnavn` VARCHAR(40) NOT NULL,
    PRIMARY KEY (`AvtaleID`),
-   FOREIGN KEY (`Romnavn`) REFERENCES MÃ¸terom(`Romnavn`)
-   
+   FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
+    
 );
 
 -- -----------------------------------------------------
@@ -73,7 +73,8 @@ CREATE  TABLE `Kalender` (
   `Dato` DATE NOT NULL ,
   `Tid` TIME NOT NULL ,
   PRIMARY KEY (`Brukernavn`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Ansatt(`Brukernavn`)
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
+  ON DELETE CASCADE
 );
 
 
@@ -87,7 +88,11 @@ CREATE  TABLE `Alarm` (
   `Tidspunkt` TIME NOT NULL ,
   `Dato` DATE NOT NULL ,
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Ansatt(`Brukernavn`),
-  FOREIGN KEY (`AvtaleID`) REFERENCES Ansatt(`AvtaleID`)
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE,
+  FOREIGN KEY (`AvtaleID`) REFERENCES Bruker(`AvtaleID`)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
 
 );
