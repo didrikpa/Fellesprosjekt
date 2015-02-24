@@ -38,8 +38,6 @@ CREATE  TABLE `Gruppe` (
 -- -----------------------------------------------------
 -- Table`Gruppemedlem`
 -- -----------------------------------------------------
-FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
-    FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`)
 
 CREATE TABLE `Gruppemedlem` (
   `GruppeID` INT NOT NULL ,
