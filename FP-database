@@ -32,14 +32,11 @@ CREATE  TABLE `Gruppe` (
   `Brukernavn` VARCHAR(20) NULL,
   PRIMARY KEY (`GruppeID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-    
 );
    
 -- -----------------------------------------------------
 -- Table`Gruppemedlem`
 -- -----------------------------------------------------
-FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
-    FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`)
 
 CREATE TABLE `Gruppemedlem` (
   `GruppeID` INT NOT NULL ,
@@ -60,9 +57,11 @@ CREATE  TABLE `Avtale` (
   `Slutttid` TIME NOT NULL ,
   `Beskrivelse` VARCHAR(45) NOT NULL,
   `Romnavn` VARCHAR(40) NOT NULL,
+  `Brukernavn` VARCHAR(45),
+  `GruppeID` INT,
   PRIMARY KEY (`AvtaleID`),
-  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
-  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
+  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`),
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`) 
 );
 
@@ -75,7 +74,8 @@ CREATE  TABLE `Alarm` (
   `Brukernavn` VARCHAR(45) NOT NULL ,
   `AvtaleID` VARCHAR(45) NOT NULL ,
   `Tidspunkt` DATETIME NOT NULL ,
-  PRIMARY KEY (`Brukernavn`, `AvtaleID`),
+  PRIMARY KEY (`Brukernavn`, `AvtaleID`)
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
+
 );
