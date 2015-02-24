@@ -15,11 +15,11 @@ CREATE TABLE `Bruker` (
 
 
 -- -----------------------------------------------------
--- Table `Møterom`
+-- Table `MÃ¸terom`
 -- -----------------------------------------------------
-CREATE  TABLE `Møterom` (
+CREATE  TABLE `MÃ¸terom` (
   `Romnavn` VARCHAR(40) NOT NULL ,
-  `Størrelse` INT NOT NULL ,
+  `StÃ¸rrelse` INT NOT NULL ,
   PRIMARY KEY (`Romnavn`));
 
 -- -----------------------------------------------------
@@ -38,14 +38,15 @@ CREATE  TABLE `Gruppe` (
 -- -----------------------------------------------------
 -- Table`Gruppemedlem`
 -- -----------------------------------------------------
+FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+    FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`)
 
 CREATE TABLE `Gruppemedlem` (
-    `GruppeID` INT NOT NULL ,
-    `Brukernavn` varchar(20) NOT NULL,
-    PRIMARY KEY (`Brukernavn`,`GruppeID`),
-    FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
-    FOREIGN KEY (`GruppeID`) REFERENCES Bruker(`GruppeID`)
-
+  `GruppeID` INT NOT NULL ,
+  `Brukernavn` varchar(20) NOT NULL,
+  PRIMARY KEY (`Brukernavn`,`GruppeID`),
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+  FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`)
 );
 
 -- -----------------------------------------------------
@@ -60,7 +61,7 @@ CREATE  TABLE `Avtale` (
   `Beskrivelse` VARCHAR(45) NOT NULL,
   `Romnavn` VARCHAR(40) NOT NULL,
    PRIMARY KEY (`AvtaleID`),
-   FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
+   FOREIGN KEY (`Romnavn`) REFERENCES MÃ¸terom(`Romnavn`)
     
 );
 
@@ -88,11 +89,6 @@ CREATE  TABLE `Alarm` (
   `Tidspunkt` TIME NOT NULL ,
   `Dato` DATE NOT NULL ,
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-  ON UPDATE CASCADE
-  ON DELETE CASCADE,
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`AvtaleID`) REFERENCES Bruker(`AvtaleID`)
-  ON UPDATE CASCADE
-  ON DELETE CASCADE
-
 );
