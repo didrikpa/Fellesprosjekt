@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt`;
 USE `Fellesprosjekt` ;
 
 -- -----------------------------------------------------
@@ -15,11 +15,11 @@ CREATE TABLE `Bruker` (
 
 
 -- -----------------------------------------------------
--- Table `Møterom`
+-- Table `MÃ¸terom`
 -- -----------------------------------------------------
-CREATE  TABLE `Møterom` (
+CREATE  TABLE `MÃ¸terom` (
   `Romnavn` VARCHAR(40) NOT NULL ,
-  `Størrelse` INT NOT NULL ,
+  `StÃ¸rrelse` INT NOT NULL ,
   PRIMARY KEY (`Romnavn`));
 
 -- -----------------------------------------------------
@@ -60,7 +60,7 @@ CREATE  TABLE `Avtale` (
   `Brukernavn` VARCHAR(45),
   `GruppeID` INT,
   PRIMARY KEY (`AvtaleID`),
-  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`),
+  FOREIGN KEY (`Romnavn`) REFERENCES MÃ¸terom(`Romnavn`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`) 
 );
