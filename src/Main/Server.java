@@ -1,10 +1,11 @@
-package Cliser;
 import java.sql.*; 
 public class Server {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
 	static final String DB_URL = "jdbc:mysql://LocalHost:3306/fp"; 
 	static final String USER = "root";
 	static final String PASS = "lol";
+	String Brukernavn;
+	String Passord;
 	Connection conn;
 	Statement stmt;
 	boolean gyldig;
@@ -18,8 +19,9 @@ public class Server {
 		catch(Exception e){
 			System.out.println("Tilkoblingen feilet:" + e.getMessage());
 		}
+		gyldig = false;
 	}
-	public boolean valid(String B, String P) throws SQLException{
+	public void valid(String B, String P) throws SQLException{
 		String values = "";
 		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + B + "';";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -29,10 +31,14 @@ public class Server {
 		}
 		String[] sit = values.split("-");
 		if(sit[0].equals(B) && sit[1].equals(P)){
-			return true;
+			gyldig = true;
+			this.Brukernavn = B;
+			this.Passord = P;
 		}
 		else{
-			return false;
+			gyldig = false;
+			this.Brukernavn = null;
+			this.Passord = null;
 		}
 
 	}
@@ -57,8 +63,10 @@ public class Server {
 	}
 	public static void main(String[] args) throws Exception {
 		Server en = new Server();
+		System.out.println(en.gyldig);
+		en.valid("simonssl", "lolol");
 		System.out.println(en.getAll("Bruker"));
-		System.out.println(en.valid("simonssl", "lolol"));
+		System.out.println(en.gyldig);
 		en.avslutt();
 	}
 
