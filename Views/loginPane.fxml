@@ -10,7 +10,7 @@
       <Pane fx:id="loginPaneBox" layoutX="105.0" layoutY="105.0" prefHeight="191.0" prefWidth="391.0" style="-fx-border-width: 1px; -fx-border-color: BLACK;">
          <children>
             <TextField fx:id="loginPaneUsername" layoutX="179.0" layoutY="48.0" />
-            <TextField fx:id="loginPanePassword" layoutX="179.0" layoutY="83.0" />
+            <PasswordField fx:id="loginPanePassword" layoutX="179.0" layoutY="83.0" />
             <Label layoutX="54.0" layoutY="53.0" text="Username:" />
             <Label layoutX="54.0" layoutY="88.0" text="Password:" />
             <Button fx:id="loginPaneForgottenPassword" layoutX="186.0" layoutY="115.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="Forgotten pasword?" />
