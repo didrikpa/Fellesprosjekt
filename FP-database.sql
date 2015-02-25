@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-USE `Fellesprosjekt` ;
+CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt`;
+USE `Fellesprosjekt`;
 
 -- -----------------------------------------------------
 -- Table `Bruker`
@@ -32,7 +32,6 @@ CREATE  TABLE `Gruppe` (
   `Brukernavn` VARCHAR(20) NULL,
   PRIMARY KEY (`GruppeID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-    
 );
    
 -- -----------------------------------------------------
@@ -40,12 +39,11 @@ CREATE  TABLE `Gruppe` (
 -- -----------------------------------------------------
 
 CREATE TABLE `Gruppemedlem` (
-    `GruppeID` INT NOT NULL ,
-    `Brukernavn` varchar(20) NOT NULL,
-    PRIMARY KEY (`Brukernavn`,`GruppeID`),
-    FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
-    FOREIGN KEY (`GruppeID`) REFERENCES Bruker(`GruppeID`)
-
+  `GruppeID` INT NOT NULL ,
+  `Brukernavn` varchar(20) NOT NULL,
+  PRIMARY KEY (`Brukernavn`,`GruppeID`),
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+  FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`)
 );
 
 -- -----------------------------------------------------
@@ -59,22 +57,12 @@ CREATE  TABLE `Avtale` (
   `Slutttid` TIME NOT NULL ,
   `Beskrivelse` VARCHAR(45) NOT NULL,
   `Romnavn` VARCHAR(40) NOT NULL,
-   PRIMARY KEY (`AvtaleID`),
-   FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`)
-    
-);
-
--- -----------------------------------------------------
--- Table`Kalender`
--- -----------------------------------------------------
-
-CREATE  TABLE `Kalender` (
-  `Brukernavn` VARCHAR(45) NOT NULL ,
-  `Dato` DATE NOT NULL ,
-  `Tid` TIME NOT NULL ,
-  PRIMARY KEY (`Brukernavn`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-  ON DELETE CASCADE
+  `Brukernavn` VARCHAR(45),
+  `GruppeID` INT,
+  PRIMARY KEY (`AvtaleID`),
+  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`),
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+  FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`) 
 );
 
 
@@ -85,14 +73,8 @@ CREATE  TABLE `Kalender` (
 CREATE  TABLE `Alarm` (
   `Brukernavn` VARCHAR(45) NOT NULL ,
   `AvtaleID` VARCHAR(45) NOT NULL ,
-  `Tidspunkt` TIME NOT NULL ,
-  `Dato` DATE NOT NULL ,
+  `Tidspunkt` DATETIME NOT NULL ,
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
-  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-  ON UPDATE CASCADE
-  ON DELETE CASCADE,
-  FOREIGN KEY (`AvtaleID`) REFERENCES Bruker(`AvtaleID`)
-  ON UPDATE CASCADE
-  ON DELETE CASCADE
-
+  FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
+  FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
 );
