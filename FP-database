@@ -1,5 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-USE `Fellesprosjekt` ;
+CREATE SCHEMA IF NOT EXISTS `Fellesprosjekt`;
+USE `Fellesprosjekt`;
 
 -- -----------------------------------------------------
 -- Table `Bruker`
@@ -77,5 +77,4 @@ CREATE  TABLE `Alarm` (
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
-
 );
