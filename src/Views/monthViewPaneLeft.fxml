@@ -16,7 +16,7 @@
    <children>
       <Pane fx:id="monthViewPaneLeftTop" prefHeight="200.0" prefWidth="238.0" style="-fx-border-color: Black;">
          <children>
-            <Button alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="103.0" layoutY="3.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="19.0">
+            <Button fx:id="eventSearchButtonMainView" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="103.0" layoutY="3.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="19.0">
                <graphic>
                   <ImageView fx:id="monthViewPaneSearchButton" fitHeight="15.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                      <image>
