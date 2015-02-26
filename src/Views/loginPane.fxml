@@ -12,9 +12,9 @@
             <PasswordField fx:id="loginPanePassword" layoutX="174.0" layoutY="122.0" />
             <Label layoutX="78.0" layoutY="96.0" text="Username:" />
             <Label layoutX="82.0" layoutY="127.0" text="Password:" />
-            <Button fx:id="loginPaneForgottenPassword" layoutX="177.0" layoutY="166.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="Forgotten pasword?" />
+            <Button fx:id="loginPaneForgottenPassword" layoutX="177.0" layoutY="166.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Forgotten pasword?" />
             <Button fx:id="loginPaneLoginButton" layoutX="403.0" layoutY="224.0" mnemonicParsing="false" text="Login" />
-            <Button fx:id="loginPaneNewUser" layoutX="288.0" layoutY="224.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="New user?" />
+            <Button fx:id="loginPaneNewUser" layoutX="288.0" layoutY="224.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="New user?" />
          </children>
       </Pane>
    </children>
