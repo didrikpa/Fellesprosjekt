@@ -24,19 +24,19 @@ public class DatabaseServer {
 		}
 		gyldig = false;
 	}
-	public void valid(String B, String P) throws SQLException{
+	public void valid(String Bruker, String Passord) throws SQLException{
 		String values = "";
-		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + B + "';";
+		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + Bruker + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
 			values += (rs.getString("Brukernavn"));
 			values += ("-" + rs.getString("Passord"));
 		}
 		String[] sit = values.split("-");
-		if(sit[0].equals(B) && sit[1].equals(P)){
+		if(sit[0].equals(Bruker) && sit[1].equals(Passord)){
 			gyldig = true;
-			this.Brukernavn = B;
-			this.Passord = P;
+			this.Brukernavn = Bruker;
+			this.Passord = Passord;
 		}
 		else{
 			gyldig = false;
