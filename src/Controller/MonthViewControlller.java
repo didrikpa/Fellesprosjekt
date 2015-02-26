@@ -69,7 +69,7 @@ public class MonthViewControlller {
     @FXML Label label02;
     @FXML Label label12;
     @FXML Label label22;
-    @FXML Label laebel32;
+    @FXML Label label32;
     @FXML Label label42;
     @FXML Label label52;
     @FXML Label label62;
