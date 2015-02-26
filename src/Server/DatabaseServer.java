@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class DatabaseServer {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
-	static final String DB_URL = "jdbc:mysql://LocalHost:3306/fp"; 
-	static final String USER = "root";
-	static final String PASS = "lol";
+	static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/simonssl_fpgp_fp";
+	static final String USER = "simonssl_fpgp";
+	static final String PASS = "Vierbest";
 	public String Brukernavn;
 	public String Passord;
 	Connection conn;
