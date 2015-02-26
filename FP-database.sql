@@ -15,11 +15,11 @@ CREATE TABLE `Bruker` (
 
 
 -- -----------------------------------------------------
--- Table `Møterom`
+-- Table `MÃ¸terom`
 -- -----------------------------------------------------
-CREATE  TABLE `Møterom` (
+CREATE  TABLE `MÃ¸terom` (
   `Romnavn` VARCHAR(40) NOT NULL ,
-  `Størrelse` INT NOT NULL ,
+  `StÃ¸rrelse` INT NOT NULL ,
   PRIMARY KEY (`Romnavn`));
 
 -- -----------------------------------------------------
@@ -60,7 +60,7 @@ CREATE  TABLE `Avtale` (
   `Brukernavn` VARCHAR(45),
   `GruppeID` INT,
   PRIMARY KEY (`AvtaleID`),
-  FOREIGN KEY (`Romnavn`) REFERENCES Møterom(`Romnavn`),
+  FOREIGN KEY (`Romnavn`) REFERENCES MÃ¸terom(`Romnavn`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`GruppeID`) REFERENCES Gruppe(`GruppeID`) 
 );
@@ -71,10 +71,10 @@ CREATE  TABLE `Avtale` (
 -- -----------------------------------------------------
 
 CREATE  TABLE `Alarm` (
-  `Brukernavn` VARCHAR(45) NOT NULL ,
-  `AvtaleID` VARCHAR(45) NOT NULL ,
-  `Tidspunkt` DATETIME NOT NULL ,
+  `Brukernavn` VARCHAR(20) NOT NULL,
+  `AvtaleID` INT NOT NULL,
+  `Tidspunkt` DATETIME NOT NULL,
   PRIMARY KEY (`Brukernavn`, `AvtaleID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`),
   FOREIGN KEY (`AvtaleID`) REFERENCES Avtale(`AvtaleID`)
-);
+);
