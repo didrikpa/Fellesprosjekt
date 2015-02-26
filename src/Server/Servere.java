@@ -27,7 +27,7 @@ class Servere {
 		while (!in.ready()) {}
 		String hent = in.readLine();
 		System.out.println(hent);
-		Server to = new Server();
+		DatabaseServer to = new DatabaseServer();
 		return to.getAll(hent);
 	}
 	public static void main(String args[]) throws Exception {

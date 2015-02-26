@@ -3,6 +3,7 @@ package Main;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import Server.DatabaseServer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ public class loginController extends Application {
 	Parent root;
 	@FXML
 	Stage ps;
+
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         fxmlLoader = new FXMLLoader();
@@ -51,7 +54,7 @@ public class loginController extends Application {
     
     @FXML
     public void handleUpcaseAction(ActionEvent event) throws Exception{
-    	Server en = new Server();
+    	DatabaseServer en = new DatabaseServer();
     	try {en.valid(loginPaneUsername.getText(), loginPanePassword.getText());} 
     	catch (SQLException e) {e.printStackTrace();}
     	if(en.gyldig){

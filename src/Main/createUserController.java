@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
- 
+import Server.DatabaseServer;
 public class createUserController extends Application {
 	@FXML
 	FXMLLoader fxmlLoader;
@@ -49,7 +49,7 @@ public class createUserController extends Application {
     //Mangler litt validering
     @FXML
     public void createAction(ActionEvent event) throws Exception{
-    	Server en = new Server();
+    	DatabaseServer en = new DatabaseServer();
     	if(!en.userExist(createUserPaneUsername.getText())){
     		en.addUser(createUserPaneUsername.getText(), createUserPanePassword.getText(),createUserPaneFirst.getText(), createUserPaneLast.getText(), createUserPaneEmail.getText(), createUserPanePhone.getText());
     		System.out.println("Vellykket");
