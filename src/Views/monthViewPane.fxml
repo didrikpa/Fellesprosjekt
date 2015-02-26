@@ -28,7 +28,7 @@
 
 
              <!--The panes in the calendar are indexed with "paneXX", and date-labels are indexed "dateXX"-->
-             <!--Where XX's reference gridindexes-->
+             <!--Where XX's reference gridindexes, collumns are indexed first, then rows. -->
              <!--Row 1-->
             <Pane fx:id="pane00" prefHeight="200.0" prefWidth="200.0">
                <children>
