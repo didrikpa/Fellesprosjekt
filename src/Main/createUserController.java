@@ -1,5 +1,8 @@
+package Main;
+
 import java.io.IOException;
 
+import com.sun.corba.se.spi.activation.Server;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,11 +20,12 @@ public class createUserController extends Application {
 	Parent root;
 	@FXML
 	Stage ps;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("createUserPane.fxml"));
+        root = (Parent) fxmlLoader.load(this.getClass().getResource("/createUserPane.fxml"));
         ps = primaryStage;
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

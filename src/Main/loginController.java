@@ -1,3 +1,5 @@
+package Main;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -22,7 +24,7 @@ public class loginController extends Application {
     public void start(Stage primaryStage) throws IOException {
         fxmlLoader = new FXMLLoader();
         fxmlLoader.setController(this);
-        root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("loginPane.fxml"));
+        root = (Parent) fxmlLoader.load(this.getClass().getResource("/loginPane.fxml"));
         ps = primaryStage;
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
