@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TextField?>
 
-<Pane fx:controller="Controller.loginController" id="loginPaneMain" fx:id="loginPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="loginPaneMain" fx:id="loginPaneMain" fx:controller="loginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="loginPaneBox" layoutX="240.0" layoutY="135.0" prefHeight="270.0" prefWidth="480.0" style="-fx-border-width: 1px; -fx-border-color: BLACK;">
          <children>
@@ -13,8 +14,8 @@
             <Label layoutX="78.0" layoutY="96.0" text="Username:" />
             <Label layoutX="82.0" layoutY="127.0" text="Password:" />
             <Button fx:id="loginPaneForgottenPassword" layoutX="177.0" layoutY="166.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="Forgotten pasword?" />
-            <Button fx:id="loginPaneLoginButton" layoutX="403.0" layoutY="224.0" mnemonicParsing="false" text="Login" />
-            <Button fx:id="loginPaneNewUser" layoutX="288.0" layoutY="224.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="New user?" />
+            <Button fx:id="loginPaneLoginButton" onAction="#login" layoutX="403.0" layoutY="224.0" mnemonicParsing="false" text="Login" />
+            <Button fx:id="loginPaneNewUser" onAction="#newUser" layoutX="288.0" layoutY="224.0" mnemonicParsing="false" style="-fx-background-color: WHITE; -fx-text-fill: BLUE;" text="New user?" />
          </children>
       </Pane>
    </children>
