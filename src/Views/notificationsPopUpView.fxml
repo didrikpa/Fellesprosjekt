@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+
+
+<Pane fx:id="notificationsPopUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="notificationsScrollPane" layoutX="50.0" layoutY="50.0" prefHeight="200.0" prefWidth="400.0">
+        <content>
+          <AnchorPane fx:id="notificationsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <GridPane fx:id="notificationsGridPane" prefHeight="200.0" prefWidth="385.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="95.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Pane fx:id="notificationsLeftPane1" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: BLACK;">
+                           <children>
+                              <Label fx:id="notificationsLabel1" layoutX="28.0" layoutY="26.0" text="Invitation to meeting" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="notificationsRightPane1" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: BLACK;" GridPane.columnIndex="1">
+                           <children>
+                              <Button fx:id="notificationsAccept1" layoutX="18.0" layoutY="5.0" mnemonicParsing="false" prefWidth="65.0" text="Accept" />
+                              <Button fx:id="notificationsDecline1" layoutX="18.0" layoutY="36.0" mnemonicParsing="false" prefWidth="65.0" text="Decline" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Button fx:id="notificationsPopUpDone" layoutX="434.0" layoutY="260.0" mnemonicParsing="false" text="Done" />
+      <Label layoutX="175.0" layoutY="15.0" text="Notifications">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
