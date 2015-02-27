@@ -11,39 +11,33 @@ public class DatabaseServer {
 	public String Passord;
 	Connection conn;
 	Statement stmt;
-	public boolean gyldig;
 	public DatabaseServer() {
 		try{
 			Class.forName("com.mysql.jdbc.Driver"); 
-			System.out.println("Connecting to the database");
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			stmt = conn.createStatement();
 		}
 		catch(Exception e){
 			System.out.println("Tilkoblingen feilet:" + e.getMessage());
 		}
-		gyldig = false;
 	}
-	public void valid(String Bruker, String Passord) throws SQLException{
+	public boolean login(String B, String P) throws SQLException{
 		String values = "";
-		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + Bruker + "';";
+		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + B + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
 			values += (rs.getString("Brukernavn"));
 			values += ("-" + rs.getString("Passord"));
 		}
 		String[] sit = values.split("-");
-		if(sit[0].equals(Bruker) && sit[1].equals(Passord)){
-			gyldig = true;
-			this.Brukernavn = Bruker;
-			this.Passord = Passord;
+		if(sit[0].equals(B) && sit[1].equals(P)){
+			Brukernavn = sit[0];
+			Passord = sit[1];
+			return true;
 		}
 		else{
-			gyldig = false;
-			this.Brukernavn = null;
-			this.Passord = null;
+			return false; 
 		}
-
 	}
 	public String getAll(String table) throws Exception {
 		String values = "";
