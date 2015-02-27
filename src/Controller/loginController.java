@@ -1,3 +1,5 @@
+package Controller;
+
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import Server.DatabaseServer;
+
 public class loginController{
     @FXML
     private TextField loginPaneUsername;
@@ -30,11 +35,11 @@ public class loginController{
     		loginPanePassword.clear();
     	}
     }
-    @FXML
-    public void newUser(ActionEvent event) throws Exception{
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserPane.fxml"));
-    		stage = (Stage) loginPaneMain.getScene().getWindow();
-    		stage.setScene(new Scene(loader.load()));
-    		stage.show();
-    }
+//    @FXML
+//    public void newUser(ActionEvent event) throws Exception{
+//    		FXMLLoader loader = new FXMLLoader(getClass().getResource("createUserPane.fxml"));
+//    		stage = (Stage) loginPaneMain.getScene().getWindow();
+//    		stage.setScene(new Scene(loader.load()));
+//    		stage.show();
+//    }
 }

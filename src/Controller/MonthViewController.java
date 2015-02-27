@@ -107,8 +107,13 @@ public class MonthViewController {
     public void clickGrid(MouseEvent e) {
         pane00.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
-                if(e.getClickCount() == 2)
+                if(e.getClickCount() == 2) {
                     System.out.print("Pane 00 ");
+                    Label label = new Label("Go to a meeting");
+                    label.setLayoutX(10);
+                    label.setLayoutY(20);
+                    pane00.getChildren().add(label);
+                }
             }
         });
 
