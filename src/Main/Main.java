@@ -1,3 +1,5 @@
+package Main;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -9,16 +11,13 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application{
-	@FXML
 	FXMLLoader fxmlLoader;
-	@FXML
 	Parent root;
-	@FXML
 	public Stage ps;
     @Override
     public void start(Stage primaryStage) throws IOException {
         fxmlLoader = new FXMLLoader();
-        root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("loginPane.fxml"));
+        root = (Parent) fxmlLoader.load(this.getClass().getResourceAsStream("sample.fxml"));
         ps = primaryStage;
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

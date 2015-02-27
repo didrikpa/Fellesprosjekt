@@ -1,4 +1,6 @@
-import java.sql.*; 
+package Server;
+
+import java.sql.*;
 public class Server {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
 	static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/simonssl_fpgp_fp"; 
