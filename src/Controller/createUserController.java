@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 package Controller;
 
 import Server.DatabaseServer;
-=======
+
 import java.sql.SQLException;
->>>>>>> 42987f2a7c0dd91b63170bc1b94f1a816a55c4eb
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
+
 
 //import Server.DatabaseServer;
  
@@ -56,7 +55,7 @@ public class createUserController{
     public void cancelAction(ActionEvent event) throws Exception{
     	stage.close();
     }
-=======
+
 public class createUserController{
 	@FXML
 	private TextField createUserPaneUsername;
@@ -170,5 +169,4 @@ public class createUserController{
 		}
 		return false;
 	}
->>>>>>> 42987f2a7c0dd91b63170bc1b94f1a816a55c4eb
 }
