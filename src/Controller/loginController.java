@@ -20,15 +20,16 @@ public class loginController{
     private Pane loginPaneMain;
     Stage stage;
     @FXML
-    public void login(ActionEvent event) throws Exception{
+   public void login(ActionEvent event) throws Exception{
     	DatabaseServer en = new DatabaseServer();
-    	try {en.valid(loginPaneUsername.getText(), loginPanePassword.getText());} 
-    	catch (SQLException e) {e.printStackTrace();}
-    	if(en.gyldig){
-    		en.Brukernavn = loginPaneUsername.getText();
-    		en.Passord = loginPanePassword.getText();
+    	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("monthViewPane.fxml"));
+    		//Istedenfor å deklarere kontroller i fxml, så gjøres dette 
+    		//"manuelt" for å videreføre DatabaseServer-objektet
+    		loader.setController(new MonthViewController(en));
     		stage = (Stage) loginPaneMain.getScene().getWindow();
-    		stage.close();
+    		stage.setScene(new Scene(loader.load()));
+    		stage.show();
     	}
     	else{
     		loginPaneUsername.clear();
