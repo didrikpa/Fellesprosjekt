@@ -108,9 +108,9 @@ public class MonthViewController {
     	server = loginServer;
     }
 
-    //Funksjon som gjør det mulig å dobbelklikke på hver eneste rute i kalenderen
-    //Bruker setOnMouseClicked til å gjøre det mulig å klikke
-    //Så bruker jeg MouseEvent e til å sjekke om man har dobbeltklikket og når det gjøres så skjer noe
+//  This method makes it possible to click on each of the days in the calendar
+//  SetOnMouseClicked is used to tell what should happen when someone clicks on a day
+//  the if statement is there so that something only happens if the user doubleclicks
     @FXML
     public void clickGrid(MouseEvent e) {
         pane00.setOnMouseClicked(new EventHandler<MouseEvent>() {
