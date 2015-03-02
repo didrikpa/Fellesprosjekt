@@ -1,6 +1,8 @@
 package Server;
 
 import java.sql.*;
+import Model.PersonalAppointment;
+import java.util.ArrayList;
 
 public class DatabaseServer {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
@@ -80,10 +82,30 @@ public class DatabaseServer {
 			return true;
 		}
 	}
+	
+	public ArrayList<PersonalAppointment> getAppointment(Date date) throws Exception{
+		String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + Brukernavn + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn;";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.dato = Date.valueOf(rs.getString("Dato"));
+			appointment.startTid = Time.valueOf(rs.getString("Starttid"));
+			appointment.sluttTid = Time.valueOf(rs.getString("Slutttid"));
+			appointment.beskrivelse = rs.getString("Beskrivelse");
+			appointment.romnavn = rs.getString("Romnavn");
+			appointments.add(appointment);
+		}
+		return appointments;
+	}
+	public void addAppointment(PersonalAppointment appointment) throws Exception {
+		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.dato.toString() + "', '" + appointment.startTid.toString() +"', '" + appointment.sluttTid.toString() +"', '" + appointment.beskrivelse.toString() +"', '" + appointment.romnavn +"', '" + Brukernavn + "'," + appointment.gruppeid + ");";
+		stmt.executeUpdate(sql);
+	}
+	
 	public void quit() throws SQLException{
 		conn.close();
 		stmt.close();
 	}
-	public static void main(String[] args) throws Exception {
-	}
+	
 }
