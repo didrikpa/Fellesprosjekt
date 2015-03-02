@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import Server.*;
+
 public class MonthViewController {
 
     @FXML Pane pane00;
@@ -115,10 +117,6 @@ public class MonthViewController {
             public void handle(MouseEvent e) {
                 if(e.getClickCount() == 2) {
                     System.out.print("Pane 00 ");
-                    Label label = new Label("Go to a meeting");
-                    label.setLayoutX(10);
-                    label.setLayoutY(20);
-                    pane00.getChildren().add(label);
                 }
             }
         });
