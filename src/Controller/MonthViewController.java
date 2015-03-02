@@ -102,11 +102,11 @@ public class MonthViewController {
     @FXML
     GridPane gridPane;
 
-//    DatabaseServer server;
-    //Viderefører data om innelogget bruker fra loginsekvensen
-//    public MonthViewController(DatabaseServer loginServer){
-//    	server = loginServer;
-//    }
+    DatabaseServer server;
+//    Viderefører data om innelogget bruker fra loginsekvensen
+    public MonthViewController(DatabaseServer loginServer){
+    	server = loginServer;
+    }
 
     //Funksjon som gjør det mulig å dobbelklikke på hver eneste rute i kalenderen
     //Bruker setOnMouseClicked til å gjøre det mulig å klikke
