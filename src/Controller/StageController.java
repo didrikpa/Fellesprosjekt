@@ -7,15 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class StageController {
-    Stage stage = null;
-    Stage popUp = null;
+    Stage stage;
+    Stage popUp;
 
 
     public void setStage(String resource){
         try{
-
-            FXMLLoader stageLoader = new FXMLLoader(getClass().getResource(resource));
-            Parent root = (Parent) stageLoader.load(); 
+            FXMLLoader stageLoader = new FXMLLoader(this.getClass().getResource("/Views/" + resource));
+            Parent root = (Parent) stageLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
