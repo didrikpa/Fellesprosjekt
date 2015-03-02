@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import Server.*;
+import sun.reflect.annotation.ExceptionProxy;
 
 public class createUserController{
     @FXML
@@ -48,14 +50,15 @@ public class createUserController{
         stage = (Stage) createUserPaneMain.getScene().getWindow();
         stage.close();
     }
-//    private void createUser() throws Exception{
-//        en.addUser(createUserPaneUsername.getText(), createUserPanePassword.getText(),createUserPaneFirst.getText(), createUserPaneLast.getText(), createUserPaneEmail.getText(), createUserPanePhone.getText());
-//        System.out.println("Vellykket");
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
-//        stage = (Stage) createUserPaneMain.getScene().getWindow();
-//        stage.setScene(new Scene(loader.load()));
-//        stage.show();
-//    }
+    private void createUser() throws Exception{
+        en.addUser(createUserPaneUsername.getText(), createUserPanePassword.getText(),createUserPaneFirst.getText(), createUserPaneLast.getText(), createUserPaneEmail.getText(), createUserPanePhone.getText());
+        System.out.println("Vellykket");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
+        stage = (Stage) createUserPaneMain.getScene().getWindow();
+        Parent screen = loader.load();
+        stage.setScene(new Scene(screen));
+        stage.show();
+    }
     private void validateNames(){
         if(createUserPaneFirst.getText().replaceAll(" ", "").length() < 2){
             createUserPaneFirst.clear();
@@ -64,6 +67,7 @@ public class createUserController{
             createUserPaneLast.clear();
         }
     }
+
     private void validateMail() {
         String email = createUserPaneEmail.getText();
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";

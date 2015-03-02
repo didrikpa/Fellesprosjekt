@@ -25,6 +25,8 @@ public class StageController {
         }
     }
 
+
+    //This is not done yet
     public void setPopUp(String resource){
         try{
             FXMLLoader stageLoader = new FXMLLoader(getClass().getResource(resource));
