@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="searchEventViewMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="59.0" layoutY="36.0" text="Search results:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="50.0" layoutY="80.0" prefHeight="349.0" prefWidth="860.0">
+         <content>
+            <GridPane fx:id="searchEventViewGridPane" prefHeight="345.0" prefWidth="855.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane fx:id="searchEventViewResults1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="searchEventViewDate1" alignment="CENTER" prefHeight="131.0" prefWidth="312.0" text="Date" />
+                        <Label fx:id="searchEventViewTime1" alignment="CENTER" prefHeight="153.0" prefWidth="315.0" text="Time" GridPane.columnIndex="1" />
+                        <Label fx:id="searchEventViewPlace1" alignment="CENTER" prefHeight="167.0" prefWidth="321.0" text="Place" GridPane.columnIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <Button fx:id="searchEventViewBackButton" layoutX="27.0" layoutY="459.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="136.0" style="-fx-background-color: NONE;">
+         <graphic>
+            <ImageView fitHeight="76.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../pictures/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="searchEventViewSearchField" layoutX="703.0" layoutY="31.0" prefHeight="38.0" prefWidth="216.0" promptText="Search" />
+   </children>
+</Pane>
