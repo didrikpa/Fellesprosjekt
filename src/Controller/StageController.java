@@ -13,7 +13,7 @@ public class StageController {
 
     public void setStage(String resource){
         try{
-            FXMLLoader stageLoader = new FXMLLoader(this.getClass().getResource("/Views/" + resource));
+            FXMLLoader stageLoader = new FXMLLoader(this.getClass().getResource("../Views/" + resource));
             Parent root = (Parent) stageLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);

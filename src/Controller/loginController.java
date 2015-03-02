@@ -44,13 +44,14 @@ public class loginController{
     @FXML
     public void newUser(ActionEvent event) throws Exception{
         try {
-            StageController newView = new StageController();
-            newView.setStage("creatUserPane.fxml");
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserPane.fxml"));
-//            stage = (Stage) loginPaneMain.getScene().getWindow();
-//            Parent screen = loader.load();
-//            stage.setScene(new Scene(screen));
-//            stage.show();
+//Need to try some stuff with the stageController here
+//            StageController newView = new StageController();
+//            newView.setStage("creatUserPane.fxml");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserPane.fxml"));
+            stage = (Stage) loginPaneMain.getScene().getWindow();
+            Parent screen = loader.load();
+            stage.setScene(new Scene(screen));
+            stage.show();
         }
         catch (Exception e) { System.out.print(e);}
 
