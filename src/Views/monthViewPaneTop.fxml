@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
-=======
->>>>>>> 9025a341a2fdb2d61456148216c2a145bb248307
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1130.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="monthViewPaneTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="960.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-<<<<<<< HEAD
-      <ToggleButton fx:id="toggleButtonWeek" layoutX="112.0" layoutY="7.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Week">
+
+      <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="7.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Week">
          <font>
             <Font size="20.0" />
          </font></ToggleButton>
-      <ToggleButton fx:id="toggleButtonMonth" layoutX="278.0" layoutY="7.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Month">
+      <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="7.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Month">
          <font>
             <Font size="20.0" />
          </font></ToggleButton>
-      <ComboBox fx:id="comboBoxWeekMonth" layoutX="112.0" layoutY="42.0" prefHeight="35.0" prefWidth="331.0" />
-      <Label fx:id="labelMonth" layoutX="575.0" layoutY="37.0" prefHeight="32.0" prefWidth="79.0" text="Month">
+      <ComboBox fx:id="comboBoxWeekMonth" layoutX="72.0" layoutY="42.0" prefHeight="35.0" prefWidth="331.0" />
+      <Label fx:id="labelMonth" layoutX="525.0" layoutY="37.0" prefHeight="32.0" prefWidth="79.0" text="Month">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="notificationButton" layoutX="830.0" layoutY="30.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" text="Notifications">
+      <Button fx:id="notificationButton" layoutX="650.0" layoutY="30.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="249.0" text="Notifications">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Pane layoutX="1079.0" layoutY="3.0" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: LIGHTGREY; -fx-border-radius: 50px;">
+      <Pane layoutX="900.0" layoutY="3.0" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: LIGHTGREY; -fx-border-radius: 50px;">
          <children>
             <Circle fx:id="notificationCircle" fill="RED" layoutX="14.0" layoutY="14.0" radius="13.0" stroke="TRANSPARENT" strokeType="INSIDE" />
             <Label fx:id="notificationLabel" layoutX="8.0" layoutY="2.0" text="0">
@@ -41,10 +38,6 @@
             </Label>
          </children>
       </Pane>
-=======
-      <ToggleButton layoutX="112.0" layoutY="7.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Week" />
-      <ToggleButton layoutX="278.0" layoutY="8.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="165.0" text="Month" />
-      <ComboBox layoutX="112.0" layoutY="42.0" prefHeight="35.0" prefWidth="331.0" />
->>>>>>> 9025a341a2fdb2d61456148216c2a145bb248307
+
    </children>
 </Pane>
