@@ -11,10 +11,9 @@ public class StageController {
     Stage popUp;
 
 
-    public void setStage(String resource){
+    public void setStage(String resource) {
         try{
-            FXMLLoader stageLoader = new FXMLLoader(this.getClass().getResource("../Views/" + resource));
-            Parent root = (Parent) stageLoader.load();
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(resource));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -23,7 +22,6 @@ public class StageController {
             System.out.print(e);
         }
     }
-
 
     //This is not done yet
     public void setPopUp(String resource){

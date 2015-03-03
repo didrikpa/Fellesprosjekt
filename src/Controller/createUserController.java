@@ -48,8 +48,11 @@ public class createUserController{
     }
     @FXML
     public void cancelAction(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
         stage = (Stage) createUserPaneMain.getScene().getWindow();
-        stage.close();
+        Parent screen = loader.load();
+        stage.setScene(new Scene(screen));
+        stage.show();
     }
     private void createUser() throws Exception{
         User user = new User();
