@@ -8,21 +8,11 @@ import javafx.stage.Stage;
 import Server.DatabaseServer;
 
 public class mainMonthViewController {
-	@FXML
-    Pane mainMonthViewPane;
-	@FXML
-    GridPane gridPane;
 	DatabaseServer dbSession;
 	Stage stage;
 	public mainMonthViewController(DatabaseServer server) throws Exception{
 		dbSession = server;
-		initScene();
-		stage = (Stage) mainMonthViewPane.getScene().getWindow();		
-	}
-	void initScene() throws Exception{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("monthViewPane.fxml"));
-		fxmlLoader.setRoot(gridPane);
-		fxmlLoader.setController(new MonthViewController(dbSession));
-		fxmlLoader.load();
 	}
 }
+
+//Er det mulig å ha et hovedview med flere panes som igjen inneholder views, men kjøres av samme kontroller?
