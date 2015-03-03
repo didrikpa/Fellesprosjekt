@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.Group?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="monthViewPaneTop" layoutX="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="960.0" style="-fx-background-color: lightgrey;">
          <children>
@@ -40,7 +41,7 @@
                   </Label>
                </children>
             </Pane>
-      
+
          </children>
       </Pane>
       <GridPane fx:id="monthViewPaneLeft" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="150.0" style="-fx-background-color: LIGHTGREY;">
@@ -107,7 +108,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <AnchorPane layoutX="149.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0">
+      <Pane layoutX="149.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0">
          <children>
             <GridPane gridLinesVisible="true" prefHeight="20.0" prefWidth="960.0" style="-fx-background-color: #d3d3d3;">
               <columnConstraints>
@@ -123,13 +124,34 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Monday" />
-                  <Label text="Tuesday" GridPane.columnIndex="1" />
-                  <Label text="Wednesday" GridPane.columnIndex="2" />
-                  <Label text="Thursday" GridPane.columnIndex="3" />
-                  <Label text="Friday" GridPane.columnIndex="4" />
-                  <Label text="Saturday" GridPane.columnIndex="5" />
-                  <Label text="Sunday" GridPane.columnIndex="6" />
+                  <Label text="Monday">
+                     <GridPane.margin>
+                        <Insets left="45.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Tuesday" GridPane.columnIndex="1">
+                     <padding>
+                        <Insets left="45.0" />
+                     </padding></Label>
+                  <Label text="Wednesday" GridPane.columnIndex="2">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding></Label>
+                  <Label text="Thursday" GridPane.columnIndex="3">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
+                  <Label text="Friday" GridPane.columnIndex="4">
+                     <padding>
+                        <Insets left="45.0" />
+                     </padding></Label>
+                  <Label text="Saturday" GridPane.columnIndex="5">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
+                  <Label text="Sunday" GridPane.columnIndex="6">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
                </children>
             </GridPane>
             <GridPane fx:id="gridPane" layoutY="20.0" prefHeight="540.0" prefWidth="960.0" style="-fx-hgap: 0,5; -fx-grid-lines-visible: True; -fx-vgap: 0,5;">
@@ -379,6 +401,6 @@
                </children>
             </GridPane>
          </children>
-      </AnchorPane>
+      </Pane>
    </children>
-</Pane>
+</AnchorPane>
