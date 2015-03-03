@@ -57,9 +57,9 @@ public class DatabaseServer {
 		return values;
 	}
 
-	public boolean addUser(String un, String pw, String first, String last, String em, String tp) throws SQLException{
+	public boolean addUser(User user) throws SQLException{
 		if(!userExist(un)){
-			String sql = "INSERT INTO Bruker VALUES ('" + un + "', '" + pw +"', '" + first +"', '" + last +"', '" + em +"', '" + tp + "');";
+			String sql = "INSERT INTO Bruker VALUES ('" + user.getUsername() + "', '" + user.getPassword() +"', '" + user.getFirstname() +"', '" + user.getLastname() +"', '" + user.getEmail() +"', '" + user.getPhone() + "');";
 			stmt.executeUpdate(sql);
 			return true;
 		}
