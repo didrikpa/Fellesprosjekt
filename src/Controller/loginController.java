@@ -27,11 +27,11 @@ public class loginController{
     	DatabaseServer en = new DatabaseServer();
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainWeekView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
 //    		Istedenfor å deklarere kontroller i fxml, så gjøres dette
 //    		"manuelt" for å videreføre DatabaseServer-objektet
 
-//                loader.setController(new MonthViewController(en));
+                loader.setController(new MonthViewController(en));
                 Parent screen = loader.load();
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));
