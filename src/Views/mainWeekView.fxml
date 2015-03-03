@@ -52,8 +52,8 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="137.14573669433594" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="680.0" minHeight="440.0" prefHeight="532.8542633056641" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="680.0" minHeight="440.0" prefHeight="530.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Pane fx:id="monthViewPaneLeftTop" prefHeight="110.0" prefWidth="238.0">
@@ -67,10 +67,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TextField fx:id="monthViewPaneSearchBar" layoutX="3.0" layoutY="3.0" prefHeight="26.0" prefWidth="100.0" promptText="Search" />
-                  <Button fx:id="monthViewPaneEditProfile" layoutX="-3.0" layoutY="35.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
-                  <Button fx:id="monthViewPaneLogOut" layoutX="-3.0" layoutY="87.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Log out" />
-                  <Button fx:id="monthViewPaneMyGroups" layoutX="-3.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
+                  <TextField fx:id="weekViewPaneSearchBar" layoutX="3.0" layoutY="3.0" prefHeight="26.0" prefWidth="100.0" promptText="Search" />
+                  <Button fx:id="weekViewPaneEditProfile" layoutX="-3.0" layoutY="35.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
+                  <Button fx:id="weekViewPaneLogOut" layoutX="-3.0" layoutY="113.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Log out" />
+                  <Button fx:id="weekViewPaneMyGroups" layoutX="-3.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
+                  <Button fx:id="weekViewPaneMyCalendar" layoutX="-3.0" layoutY="87.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
                </children>
             </Pane>
             <GridPane fx:id="monthViewPaneLeftBottom" GridPane.rowIndex="1">
