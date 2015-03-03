@@ -46,7 +46,7 @@ public class loginController{
         try {
 //Need to try some stuff with the stageController here
 //            StageController newView = new StageController();
-//            newView.setStage("creatUserPane.fxml");
+//            newView.setStage("/Views/createUserPane.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserPane.fxml"));
             stage = (Stage) loginPaneMain.getScene().getWindow();
             Parent screen = loader.load();
