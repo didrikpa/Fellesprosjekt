@@ -3,6 +3,7 @@ package Server;
 import java.sql.*;
 import Model.PersonalAppointment;
 import java.util.ArrayList;
+import Model.User;
 
 public class DatabaseServer {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
@@ -58,7 +59,7 @@ public class DatabaseServer {
 	}
 
 	public boolean addUser(User user) throws SQLException{
-		if(!userExist(un)){
+		if(!userExist(user.getUsername)){
 			String sql = "INSERT INTO Bruker VALUES ('" + user.getUsername() + "', '" + user.getPassword() +"', '" + user.getFirstname() +"', '" + user.getLastname() +"', '" + user.getEmail() +"', '" + user.getPhone() + "');";
 			stmt.executeUpdate(sql);
 			return true;
