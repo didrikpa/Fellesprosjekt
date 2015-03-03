@@ -26,7 +26,7 @@ public class loginController{
     public void login(ActionEvent event) throws Exception{
     	DatabaseServer en = new DatabaseServer();
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("monthViewPane.fxml"));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthViewPane.fxml"));
 //    		Istedenfor å deklarere kontroller i fxml, så gjøres dette
 //    		"manuelt" for å videreføre DatabaseServer-objektet
 
@@ -54,7 +54,5 @@ public class loginController{
             stage.show();
         }
         catch (Exception e) { System.out.print(e);}
-
-
     }
 }
