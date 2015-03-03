@@ -1,4 +1,4 @@
-package Server;
+package Model;
 import java.sql.Time;
 import java.sql.Date;
 public class Appointment {
