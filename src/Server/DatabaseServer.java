@@ -59,7 +59,7 @@ public class DatabaseServer {
 	}
 
 	public boolean addUser(User user) throws SQLException{
-		if(!userExist(user.getUsername)){
+		if(!userExist(user.getUsername())){
 			String sql = "INSERT INTO Bruker VALUES ('" + user.getUsername() + "', '" + user.getPassword() +"', '" + user.getFirstname() +"', '" + user.getLastname() +"', '" + user.getEmail() +"', '" + user.getPhone() + "');";
 			stmt.executeUpdate(sql);
 			return true;
