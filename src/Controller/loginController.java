@@ -26,15 +26,18 @@ public class loginController{
     public void login(ActionEvent event) throws Exception{
     	DatabaseServer en = new DatabaseServer();
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthViewPane.fxml"));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainWeekView.fxml"));
 //    		Istedenfor å deklarere kontroller i fxml, så gjøres dette
 //    		"manuelt" for å videreføre DatabaseServer-objektet
 
-    		loader.setController(new MonthViewController(en));
-            Parent screen = loader.load();
-    		stage = (Stage) loginPaneMain.getScene().getWindow();
-    		stage.setScene(new Scene(screen));
-    		stage.show();
+//                loader.setController(new MonthViewController(en));
+                Parent screen = loader.load();
+                stage = (Stage) loginPaneMain.getScene().getWindow();
+                stage.setScene(new Scene(screen));
+                stage.show();
+            }
+            catch (Exception e) { System.out.print(e);}
     	}
     	else{
     		loginPaneUsername.clear();
@@ -44,7 +47,7 @@ public class loginController{
     @FXML
     public void newUser(ActionEvent event) throws Exception{
         try {
-//Need to try some stuff with the stageController here
+//Ignore the next 2 lines
 //            StageController newView = new StageController();
 //            newView.setStage("/Views/createUserPane.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserPane.fxml"));
