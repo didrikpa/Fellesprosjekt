@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane fx:id="searchEventViewMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="59.0" layoutY="36.0" text="Search results:">
@@ -54,6 +53,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="searchEventViewSearchField" layoutX="703.0" layoutY="31.0" prefHeight="38.0" prefWidth="216.0" promptText="Search" />
+      <TextField fx:id="searchEventViewSearchField" layoutX="453.0" layoutY="31.0" prefHeight="38.0" prefWidth="216.0" promptText="Search" />
+      <CheckBox layoutX="704.0" layoutY="40.0" mnemonicParsing="false" text="Show only previous appointments" />
    </children>
 </Pane>
