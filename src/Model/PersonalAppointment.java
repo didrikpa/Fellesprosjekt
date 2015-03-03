@@ -35,10 +35,4 @@ public class PersonalAppointment extends SuperEvent{
     }
 
     public void setRomnavn(String romnavn) {super.setRomnavn(romnavn);}
-
-    public Integer getGruppeid() {
-        return super.getGruppeid();
-    }
-
-    public void setGruppeid(Integer gruppeid) {super.setGruppeid(gruppeid);}
 }

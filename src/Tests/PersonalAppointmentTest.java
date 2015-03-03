@@ -18,17 +18,8 @@ public class PersonalAppointmentTest {
     PersonalAppointment appointmentTest = new PersonalAppointment();
     Calendar testDate = Calendar.getInstance();
 
-
-    @Before
-    public void setUp() throws Exception {
-
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
+//  Alle tester her kjøres inn i personalAppointment, som er referert i DatabaseServerklassen,
+//  men er kommentert ut er på nåværende tidspunkt(3/2/2015 - 13:33).
 
 //    Tester her det å sette en dato, og å se om den er lik når den kommer ut.
     @Test
@@ -48,38 +39,30 @@ public class PersonalAppointmentTest {
 
         assertEquals(tester,appointmentTest.getDato());
     }
+//    Setter her startTiden, som et Time-objekt. Sjekker om den er riktig tilbake.
     @Test
     public void testSetStartTid() throws Exception {
         Time start = new Time(12, 00,00);
         appointmentTest.setStartTid(start);
         assertEquals(start , appointmentTest.getStartTid());
     }
-//  Setter sluttid og 
+//  Setter sluttid som et Time-objekt og ser om den er riktig når den kommer tilbake.
     @Test
     public void testSetSluttTid() throws Exception {
         Time end = new Time(12,30,00);
         appointmentTest.setSluttTid(end);
         assertEquals(end, appointmentTest.getSluttTid());
-
     }
 //  Setter opp en beskrivelse og ser om denne er lik når den kommer tilbake.
     @Test
     public void testSetBeskrivelse() throws Exception {
         appointmentTest.setBeskrivelse("Testbeskrivelse");
         assertEquals("Testbeskrivelse",appointmentTest.getBeskrivelse());
-
     }
 //  Setter opp et romnavn og ser om den er lik når den kommer tilbake.
     @Test
     public void testSetRomnavn() throws Exception {
         appointmentTest.setRomnavn("IT-vest 22");
         assertEquals("IT-vest 22", appointmentTest.getRomnavn());
-
-    }
-
-    @Test
-    public void testSetGruppeid() throws Exception {
-        appointmentTest.setGruppeid(12);
-        assertEquals(12, appointmentTest.getGruppeid(), 0);
     }
 }
