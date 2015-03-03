@@ -11,9 +11,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="150.0" layoutY="110.0" prefHeight="560.0" prefWidth="960.0" />
-      <Pane layoutX="151.0" prefHeight="110.0" prefWidth="960.0" style="-fx-background-color: green;" />
-      <Pane layoutY="-1.0" prefHeight="670.0" prefWidth="150.0" style="-fx-background-color: blue;" />
       <Pane fx:id="monthViewPaneTop" layoutX="150.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="960.0" style="-fx-background-color: lightgrey;">
          <children>
             <Group>
