@@ -108,7 +108,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <Pane layoutX="149.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0">
+      <Pane fx:id="mainViewMid" layoutX="149.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="960.0">
          <children>
             <GridPane gridLinesVisible="true" prefHeight="20.0" prefWidth="960.0" style="-fx-background-color: #d3d3d3;">
               <columnConstraints>
