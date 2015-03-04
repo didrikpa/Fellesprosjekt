@@ -188,7 +188,8 @@ public class editUserController implements Initializable{
         loader.setController(new MonthViewController(server));
         stage = (Stage) editUserPane.getScene().getWindow();
         Parent scene = loader.load();
-        //stage.setScene(new Scene(loader.load()));
+        stage.setScene(new Scene(scene));
+        stage.setTitle("Calendar");
         stage.show();
     }
 
