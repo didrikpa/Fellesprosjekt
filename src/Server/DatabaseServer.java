@@ -27,22 +27,25 @@ public class DatabaseServer {
 	}
 	
 	public boolean login(String B, String P) throws SQLException{
-		String values = "";
-		String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + B + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			values += (rs.getString("Brukernavn"));
-			values += ("-" + rs.getString("Passord"));
+		if(userExist(B)){
+			String values = "";
+			String sql = "SELECT Brukernavn, Passord FROM Bruker WHERE Brukernavn = '" + B + "';";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				values += (rs.getString("Brukernavn"));
+				values += ("-" + rs.getString("Passord"));
+			}
+			String[] sit = values.split("-");
+			if(sit[0].equals(B) && sit[1].equals(P)){
+				Username = sit[0];
+				Password = sit[1];
+				return true;
+			}
+			else{
+				return false; 
+			}
 		}
-		String[] sit = values.split("-");
-		if(sit[0].equals(B) && sit[1].equals(P)){
-			Username = sit[0];
-			Password = sit[1];
-			return true;
-		}
-		else{
-			return false; 
-		}
+		return false;
 	}
 	
 	public User getUser() throws Exception {
