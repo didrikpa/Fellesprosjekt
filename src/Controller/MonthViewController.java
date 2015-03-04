@@ -114,18 +114,29 @@ public class MonthViewController {
     
 // LeftBar code
 
-  @FXML
+  	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
 		System.out.println("LOL");
  	}
     
-    @FXML
+    	@FXML
 	public void logOut(ActionEvent event) throws Exception {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
 		loader.setController(new loginController());
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		stage.setScene(new Scene(loader.load()));
 		stage.setTitle("Login");
+		stage.show();
+ 	}
+ 	
+ 	@FXML
+	public void editUser(ActionEvent event) throws Exception {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("editUserPane.fxml"));
+		loader.setController(new editUserController(server));
+		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+		Parent root = loader.load();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Edit user");
 		stage.show();
  	}
 
