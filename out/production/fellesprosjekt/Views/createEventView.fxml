@@ -15,6 +15,7 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -23,12 +24,17 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="142.0" text="Time:" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="142.0" text="Start:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="180.0" text="Room:" GridPane.rowIndex="2">
+            <Label alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="180.0" text="Room:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="123.0" prefWidth="298.0" text="End:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -48,7 +54,7 @@
             </Pane>
             <ScrollPane fx:id="creteEventViewAddedParticipants" layoutX="3.0" layoutY="30.0" prefHeight="217.0" prefWidth="330.0">
                <content>
-                  <GridPane fx:id="creteEventViewGridPaneParticipants" prefHeight="40.0" prefWidth="328.0">
+                  <GridPane fx:id="createEventViewGridPaneParticipants" prefHeight="40.0" prefWidth="328.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.2423095703125" minWidth="10.0" prefWidth="278.5469970703125" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.82879638671875" minWidth="10.0" prefWidth="49.4530029296875" />
@@ -59,7 +65,7 @@
                      <children>
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button fx:id="creteEventViewDeleteParticipant1" layoutX="6.0" layoutY="7.0" mnemonicParsing="false">
+                              <Button fx:id="createEventViewDeleteParticipant1" layoutX="6.0" layoutY="7.0" mnemonicParsing="false">
                                  <graphic>
                                     <ImageView fitHeight="17.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -70,7 +76,7 @@
                               </Button>
                            </children>
                         </Pane>
-                        <Label fx:id="creteEventViewParticipant1" text="User" />
+                        <Label fx:id="createEventViewParticipant1" text="User" />
                      </children>
                   </GridPane>
                </content>
@@ -88,7 +94,7 @@
                   </Label>
                </children>
             </Pane>
-            <ScrollPane fx:id="creteEventViewSearchResultsPane" layoutX="1.0" layoutY="30.0" prefHeight="217.0" prefWidth="621.0">
+            <ScrollPane fx:id="createEventViewSearchResultsPane" layoutX="1.0" layoutY="30.0" prefHeight="217.0" prefWidth="621.0">
                <content>
                   <GridPane fx:id="creteEventViewGridPaneSearch" prefHeight="40.0" prefWidth="618.0">
                     <columnConstraints>
@@ -101,10 +107,10 @@
                      <children>
                         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Button fx:id="creteEventViewAddUser1" layoutX="46.0" layoutY="7.0" mnemonicParsing="false" text="Invite" />
+                              <Button fx:id="createEventViewAddUser1" layoutX="46.0" layoutY="7.0" mnemonicParsing="false" text="Invite" />
                            </children>
                         </Pane>
-                        <Label fx:id="creteEventViewSearchUser1" text="User" />
+                        <Label fx:id="createEventViewSearchUser1" text="User" />
                      </children>
                   </GridPane>
                </content>
@@ -116,11 +122,13 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="creteEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
-      <DatePicker fx:id="createEventViewDatePicker" layoutX="325.0" layoutY="75.0" prefWidth="150.0" promptText="Date" />
-      <ComboBox fx:id="creteEventViewHours" layoutX="325.0" layoutY="120.0" prefWidth="73.0" promptText="HH" />
-      <ComboBox fx:id="creteEventViewRoom" layoutX="325.0" layoutY="165.0" prefWidth="150.0" promptText="Meeting room" />
-      <ComboBox fx:id="creteEventViewMinutes" layoutX="401.0" layoutY="120.0" prefWidth="73.0" promptText="MM" />
-      <Button layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Create" />
+      <TextField fx:id="createEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
+      <DatePicker fx:id="createEventViewDatePicker" layoutX="325.0" layoutY="67.0" prefWidth="150.0" promptText="Date" />
+      <ComboBox fx:id="createEventViewStartHours" layoutX="325.0" layoutY="100.0" prefWidth="73.0" promptText="HH" />
+      <ComboBox fx:id="createEventViewRoom" layoutX="325.0" layoutY="165.0" prefWidth="150.0" promptText="Meeting room" />
+      <ComboBox fx:id="createEventViewStartMinutes" layoutX="401.0" layoutY="100.0" prefWidth="73.0" promptText="MM" />
+      <Button fx:id="createEventViewCreate" layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Create" />
+      <ComboBox fx:id="createEventViewEndHours" layoutX="325.0" layoutY="133.0" prefWidth="73.0" promptText="HH" />
+      <ComboBox fx:id="createEventViewEndMinutes" layoutX="401.0" layoutY="133.0" prefWidth="73.0" promptText="MM" />
    </children>
 </Pane>
