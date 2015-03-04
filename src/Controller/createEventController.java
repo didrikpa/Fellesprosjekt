@@ -40,6 +40,11 @@ public class createEventController implements Initializable {
     TextField createEventViewSearch;
     @FXML
     TextArea createEventViewTextArea;
+    @FXML private Label roomError;
+    @FXML private Label startError;
+    @FXML private Label endError;
+    @FXML private Label dateError;
+
 
     @FXML
     public static void setDatePicker(final DatePicker calender) {
@@ -114,19 +119,21 @@ public class createEventController implements Initializable {
     public boolean validateTime(){
         if (createEventViewEndHours.getValue() == createEventViewStartHours.getValue() && createEventViewEndMinutes.getValue() < createEventViewStartMinutes.getValue()) {
             createEventViewEndMinutes.setStyle("-fx-background-color: red");
-            //timeError.setText("Insert error");
-            //timeError.setVisible(true);
+            endError.setStyle("-fx-text-fill: red");
+            endError.setText("End time cannot be set before start time.");
+            endError.setVisible(true);
             return false;
         } else if (createEventViewStartHours.getValue() == createEventViewEndHours.getValue() && createEventViewStartMinutes.getValue() == createEventViewEndMinutes.getValue()) {
             createEventViewEndMinutes.setStyle("-fx-background-color: red");
             createEventViewEndHours.setStyle("-fx-background-color:  red");
-            //timeError.setVisible(true);
-            //timeError.setText("Insert error");
+            endError.setStyle("-fx-text-fill: red");
+            endError.setText("End time and start time cannot be equal.");
+            endError.setVisible(true);
             return false;
         } else {
             createEventViewEndMinutes.setStyle(" ");
             createEventViewEndHours.setStyle(" ");
-            //timeError.setVisible(false);
+            endError.setVisible(false);
             return true;
         }
     }
@@ -137,14 +144,14 @@ public class createEventController implements Initializable {
     }
 
     @FXML
-    public boolean validateTextArea(){
+    public boolean validateDescription(){
         if(createEventViewTextArea.getText().trim().length() == 0){
-            //textError.setVisible(true);
+            createEventViewTextArea.setStyle("-fx-text-fill: red");
+            createEventViewTextArea.setText("There has to be a description of the event.");
             return false;
         }
         else {
             personalAppointment.setBeskrivelse(createEventViewTextArea.getText());
-            //textError.setVisible(false);
             return true;
         }
     }
@@ -152,11 +159,13 @@ public class createEventController implements Initializable {
     @FXML
     public boolean validateRoom(){
         if (createEventViewRoom.getValue() == null){
-            //roomError.setVisible(true);
+            roomError.setStyle("-fx-text-fill: red");
+            roomError.setText("There has to be a room to the event.");
+            roomError.setVisible(true);
             return false;
         }
         else {
-            //roomError.setVisible(false);
+            roomError.setVisible(false);
             return true;
         }
     }
