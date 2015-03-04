@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
@@ -123,13 +124,34 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Monday" />
-                  <Label text="Tuesday" GridPane.columnIndex="1" />
-                  <Label text="Wednesday" GridPane.columnIndex="2" />
-                  <Label text="Thursday" GridPane.columnIndex="3" />
-                  <Label text="Friday" GridPane.columnIndex="4" />
-                  <Label text="Saturday" GridPane.columnIndex="5" />
-                  <Label text="Sunday" GridPane.columnIndex="6" />
+                  <Label text="Monday">
+                     <GridPane.margin>
+                        <Insets left="45.0" />
+                     </GridPane.margin></Label>
+                  <Label text="Tuesday" GridPane.columnIndex="1">
+                     <padding>
+                        <Insets left="45.0" />
+                     </padding></Label>
+                  <Label text="Wednesday" GridPane.columnIndex="2">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding></Label>
+                  <Label text="Thursday" GridPane.columnIndex="3">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
+                  <Label text="Friday" GridPane.columnIndex="4">
+                     <padding>
+                        <Insets left="45.0" />
+                     </padding></Label>
+                  <Label text="Saturday" GridPane.columnIndex="5">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
+                  <Label text="Sunday" GridPane.columnIndex="6">
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding></Label>
                </children>
             </GridPane>
             <GridPane fx:id="gridPane" layoutY="20.0" prefHeight="540.0" prefWidth="960.0" style="-fx-hgap: 0,5; -fx-grid-lines-visible: True; -fx-vgap: 0,5;">
