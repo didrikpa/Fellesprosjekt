@@ -76,6 +76,8 @@ public class DatabaseServer {
 		if(user.getUsername().equalsIgnoreCase(Username)){
 			String sql = "UPDATE Bruker SET Telefon ='" + user.getPhone() + "', Passord ='" + user.getPassword() + "' WHERE Brukernavn ='" + this.Username + "';";
 			stmt.executeUpdate(sql);
+			sql = "UPDATE `Bruker` SET `E-post` = '" + user.getEmail() + "' WHERE `Bruker`.`Brukernavn` = '" + this.Username + "';";
+			stmt.executeUpdate(sql);
 		}
 	}
 
