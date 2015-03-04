@@ -109,6 +109,26 @@ public class DatabaseServer {
 		return appointments;
 	}
 	
+	//Henter n-antall nærmeste avtaler
+	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
+		if(n > 0){
+			String sql = "SELECT * FROM Avtale WHERE Dato < CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC LIMIT " + n + ";";
+			ResultSet rs = stmt.executeQuery(sql);
+			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+			while(rs.next()){
+				PersonalAppointment appointment = new PersonalAppointment();
+				appointment.setDato(Date.valueOf(rs.getString("Dato")));
+				appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+				appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+				appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+				appointment.setRomnavn(rs.getString("Romnavn"));
+				appointments.add(appointment);
+			}
+			return appointments;
+		}
+		return null;
+	}
+	
 	public void addAppointment(PersonalAppointment appointment) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
