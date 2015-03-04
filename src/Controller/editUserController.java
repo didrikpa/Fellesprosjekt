@@ -202,7 +202,6 @@ public class editUserController implements Initializable{
         editUserPaneUsername.setText(user.getUsername());
         editUserPaneUsername.setDisable(true);
         editUserPaneEmail.setText(user.getEmail());
-        editUserPaneEmail.setDisable(true);
         editUserPanePhone.setText(user.getPhone());
 		
 	}
