@@ -125,7 +125,7 @@ public class MonthViewController {
     
     	@FXML
 	public void logOut(ActionEvent event) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
 		loader.setController(new loginController());
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		stage.setScene(new Scene(loader.load()));
@@ -135,7 +135,7 @@ public class MonthViewController {
  	
  	@FXML
 	public void editUser(ActionEvent event) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("editUserPane.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserPane.fxml"));
 		loader.setController(new editUserController(server));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
