@@ -45,20 +45,19 @@ public class DatabaseServer {
 		}
 	}
 	
-	public String getAll(String table) throws Exception {
-		String values = "";
-		String sql = "SELECT * FROM " + table + ";";
+	public User getUser() throws Exception {
+		User user = new User();
+		String sql = "SELECT * FROM Bruker WHERE Brukernavn = '" + this.Username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
-			values += (rs.getString("Brukernavn"));
-			values += (rs.getString("Passord"));
-			values += (rs.getString("Fornavn"));
-			values += (rs.getString("Etternavn"));
-			values += (rs.getString("E-post"));
-			values += (rs.getString("Telefon"));
-			values += " ";
+			user.setUsername(rs.getString("Brukernavn"));
+			user.setPassword(rs.getString("Passord"));
+			user.setFirstname(rs.getString("Fornavn"));
+			user.setLastname(rs.getString("Etternavn"));
+			user.setEmail(rs.getString("E-post"));
+			user.setPhone(rs.getString("Telefon"));
 		}
-		return values;
+		return user;
 	}
 
 	public boolean addUser(User user) throws SQLException{
