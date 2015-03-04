@@ -184,7 +184,7 @@ public class editUserController implements Initializable{
     	switchView();
     }
     private void switchView() throws Exception{
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("mainViewMonth.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
         loader.setController(new MonthViewController(server));
         stage = (Stage) editUserPane.getScene().getWindow();
         Parent scene = loader.load();
