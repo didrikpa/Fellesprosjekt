@@ -68,6 +68,13 @@ public class DatabaseServer {
 		}
 		return false;
 	}
+	
+	public void editUser(User user) throws Exception {
+		if(user.getUsername().equalsIgnoreCase(Username)){
+			String sql = "UPDATE Bruker SET Telefon ='" + user.getPhone() + "', Passord ='" + user.getPassword() + "' WHERE Brukernavn ='" + this.Username + "';";
+			stmt.executeUpdate(sql);
+		}
+	}
 
 	public boolean userExist(String username) throws SQLException{
 		String values = "";
