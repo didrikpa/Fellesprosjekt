@@ -55,19 +55,19 @@ public class createUserController{
         stage.show();
     }
     private void createUser() throws Exception{
-        User user = new User();
-		user.setFirstname(createUserPaneFirst.getText());
-		user.setLastname(createUserPaneLast.getText());
-		user.setUsername(createUserPaneUsername.getText());
-		user.setPassword(createUserPanePassword.getText());
-		user.setEmail(createUserPaneEmail.getText());
-		user.setPhone(createUserPanePhone.getText());
-        en.addUser(user);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
-        stage = (Stage) createUserPaneMain.getScene().getWindow();
-        Parent screen = loader.load();
-        stage.setScene(new Scene(screen));
-        stage.show();
+            User user = new User();
+            user.setFirstname(createUserPaneFirst.getText());
+            user.setLastname(createUserPaneLast.getText());
+            user.setUsername(createUserPaneUsername.getText());
+            user.setPassword(createUserPanePassword.getText());
+            user.setEmail(createUserPaneEmail.getText());
+            user.setPhone(createUserPanePhone.getText());
+            en.addUser(user);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
+            stage = (Stage) createUserPaneMain.getScene().getWindow();
+            Parent screen = loader.load();
+            stage.setScene(new Scene(screen));
+            stage.show();
     }
     private void validateNames(){
         if(createUserPaneFirst.getText().replaceAll(" ", "").length() < 2){
