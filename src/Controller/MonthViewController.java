@@ -126,7 +126,6 @@ public class MonthViewController {
     	@FXML
 	public void logOut(ActionEvent event) throws Exception {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
-		loader.setController(new loginController());
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		stage.setScene(new Scene(loader.load()));
 		stage.setTitle("Login");
