@@ -1,67 +1,71 @@
 package Controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import Model.User;
 import Server.DatabaseServer;
-import Controller.createEventController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-
-/**
- * Created by henrikmm on 3/4/15.
- */
-public class editUserController{
-
+public class editUserController implements Initializable{
     User user;
     Stage stage;
 
-    @FXML
+    @FXML 
     TextField editUserPaneFirst;
-    @FXML TextField editUserPaneLast;
-    @FXML
+    @FXML 
+    TextField editUserPaneLast;
+    @FXML 
     TextField editUserPaneEmail;
-    @FXML TextField editUserPanePhone;
-    @FXML TextField editUserPaneUsername;
-    @FXML TextField editUserPaneOldPassword;
-    @FXML TextField editUserPaneNewPassword;
-    @FXML TextField editUserPaneRepeatPassword;
-    @FXML
+    @FXML 
+    TextField editUserPanePhone;
+    @FXML 
+    TextField editUserPaneUsername;
+    @FXML 
+    PasswordField editUserPaneOldPassword;
+    @FXML 
+    PasswordField editUserPaneNewPassword;
+    @FXML 
+    PasswordField editUserPaneRepeatPassword;
+   
+    @FXML 
     Label phoneError;
-    @FXML Label emailError;
-    @FXML Label oldPwError;
-    @FXML Label newPw2Error;
-    @FXML
+    @FXML 
+    Label emailError;
+    @FXML 
+    Label oldPwError;
+    @FXML 
+    Label newPw2Error;
+    
+    @FXML 
     AnchorPane editUserPane;
+    
     DatabaseServer server;
-
 
     public editUserController(DatabaseServer databaseServer){
         server = databaseServer;
         try {
             user = databaseServer.getUser();
-        }catch (Exception e){
+        }
+        catch (Exception e){
             System.out.println("User not found.");
         }
-        editUserPaneFirst.setText(user.getFirstname());
-        editUserPaneFirst.setDisable(true);
-        editUserPaneLast.setText(user.getLastname());
-        editUserPaneLast.setDisable(true);
-        editUserPaneUsername.setText(user.getUsername());
-        editUserPaneUsername.setDisable(true);
-
+        
+        editUserPaneFirst = new TextField();
+        editUserPaneLast = new TextField();
+        editUserPaneEmail = new TextField();  
+        editUserPaneUsername = new TextField();
+        editUserPanePhone = new TextField(); 
+        initialize(null, null);
     }
 
     private void validatePhone(){
@@ -112,7 +116,7 @@ public class editUserController{
             newPw2Error.setVisible(false);}
     }
     @FXML
-    public void updateAction(javafx.event.ActionEvent evt) throws Exception{
+    public void updateAction(ActionEvent event) throws Exception{
 
         if(!isEmptyFields()){
             if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().trim().isEmpty() && !editUserPaneRepeatPassword.getText().trim().isEmpty()){
@@ -165,13 +169,7 @@ public class editUserController{
             user.setPassword(editUserPaneNewPassword.getText());
         }
         server.editUser(user);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
-        loader.setController(new MonthViewController(server));
-        stage = (Stage) editUserPane.getScene().getWindow();
-        Parent screen = loader.load();
-        stage.setScene(new Scene(screen));
-        stage.show();
-
+        switchView();
     }
 
     public boolean isEmptyFields(){
@@ -182,16 +180,30 @@ public class editUserController{
     }
 
     @FXML
-    public void cancelAction(javafx.event.ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
+    public void cancelAction(ActionEvent event) throws Exception{
+    	switchView();
+    }
+    private void switchView() throws Exception{
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("mainViewMonth.fxml"));
+        loader.setController(new MonthViewController(server));
         stage = (Stage) editUserPane.getScene().getWindow();
-        Parent screen = loader.load();
-        stage.setScene(new Scene(screen));
+        Parent scene = loader.load();
+        //stage.setScene(new Scene(loader.load()));
         stage.show();
     }
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		editUserPaneFirst.setText(user.getFirstname());
+        editUserPaneFirst.setDisable(true);
+        editUserPaneLast.setText(user.getLastname());
+        editUserPaneLast.setDisable(true);
+        editUserPaneUsername.setText(user.getUsername());
+        editUserPaneUsername.setDisable(true);
+        editUserPaneEmail.setText(user.getEmail());
+        editUserPaneEmail.setDisable(true);
+        editUserPanePhone.setText(user.getPhone());
+		
+	}
 
-//    }
 }
