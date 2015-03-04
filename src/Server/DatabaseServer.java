@@ -45,20 +45,19 @@ public class DatabaseServer {
 		}
 	}
 	
-	public String getAll(String table) throws Exception {
-		String values = "";
-		String sql = "SELECT * FROM " + table + ";";
+	public User getUser() throws Exception {
+		User user = new User();
+		String sql = "SELECT * FROM Bruker WHERE Brukernavn = '" + this.Username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
-			values += (rs.getString("Brukernavn"));
-			values += (rs.getString("Passord"));
-			values += (rs.getString("Fornavn"));
-			values += (rs.getString("Etternavn"));
-			values += (rs.getString("E-post"));
-			values += (rs.getString("Telefon"));
-			values += " ";
+			user.setUsername(rs.getString("Brukernavn"));
+			user.setPassword(rs.getString("Passord"));
+			user.setFirstname(rs.getString("Fornavn"));
+			user.setLastname(rs.getString("Etternavn"));
+			user.setEmail(rs.getString("E-post"));
+			user.setPhone(rs.getString("Telefon"));
 		}
-		return values;
+		return user;
 	}
 
 	public boolean addUser(User user) throws SQLException{
@@ -68,6 +67,13 @@ public class DatabaseServer {
 			return true;
 		}
 		return false;
+	}
+	
+	public void editUser(User user) throws Exception {
+		if(user.getUsername().equalsIgnoreCase(Username)){
+			String sql = "UPDATE Bruker SET Telefon ='" + user.getPhone() + "', Passord ='" + user.getPassword() + "' WHERE Brukernavn ='" + this.Username + "';";
+			stmt.executeUpdate(sql);
+		}
 	}
 
 	public boolean userExist(String username) throws SQLException{
@@ -101,6 +107,26 @@ public class DatabaseServer {
 			appointments.add(appointment);
 		}
 		return appointments;
+	}
+	
+	//Henter n-antall nærmeste avtaler
+	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
+		if(n > 0){
+			String sql = "SELECT * FROM Avtale WHERE Dato < CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC LIMIT " + n + ";";
+			ResultSet rs = stmt.executeQuery(sql);
+			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+			while(rs.next()){
+				PersonalAppointment appointment = new PersonalAppointment();
+				appointment.setDato(Date.valueOf(rs.getString("Dato")));
+				appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+				appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+				appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+				appointment.setRomnavn(rs.getString("Romnavn"));
+				appointments.add(appointment);
+			}
+			return appointments;
+		}
+		return null;
 	}
 	
 	public void addAppointment(PersonalAppointment appointment) throws Exception {

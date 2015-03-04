@@ -101,12 +101,33 @@ public class MonthViewController {
 
     @FXML
     GridPane gridPane;
-
+    //Hovedviewet hvor stage hentes fra
+    @FXML
+    Pane mainMonthViewPane;
+    //Underview - mainViewMid inneholder enten month- eller week-kalender
+    @FXML mainViewMid
     DatabaseServer server;
 //    Viderefører data om innelogget bruker fra loginsekvensen
     public MonthViewController(DatabaseServer loginServer){
     	server = loginServer;
     }
+    
+// LeftBar code
+
+  @FXML
+	public void searchEvent(ActionEvent event) throws Exception {
+		System.out.println("LOL");
+ 	}
+    
+    @FXML
+	public void logOut(ActionEvent event) throws Exception {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
+		loader.setController(new loginController());
+		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+		stage.setScene(new Scene(loader.load()));
+		stage.setTitle("Login");
+		stage.show();
+ 	}
 
 //  This method makes it possible to click on each of the days in the calendar
 //  SetOnMouseClicked is used to tell what should happen when someone clicks on a day
