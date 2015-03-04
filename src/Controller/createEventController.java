@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.Callback;
 
 import java.net.URI;
@@ -20,7 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Server.*;
+import Model.*;
+
 public class createEventController implements Initializable {
+
+    PersonalAppointment personalAppointment;
 
     @FXML
     DatePicker createEventViewDatePicker;
@@ -36,6 +38,8 @@ public class createEventController implements Initializable {
     ComboBox<String> createEventViewRoom;
     @FXML
     TextField createEventViewSearch;
+    @FXML
+    TextArea createEventViewTextArea;
 
     @FXML
     public static void setDatePicker(final DatePicker calender) {
@@ -128,6 +132,24 @@ public class createEventController implements Initializable {
     }
 
     @FXML
+    public void setDate(){
+        personalAppointment.setDato(createEventViewDatePicker.getValue());
+    }
+
+    @FXML
+    public boolean validateTextArea(){
+        if(createEventViewTextArea.getText().trim().length() == 0){
+            //textError.setVisible(true);
+            return false;
+        }
+        else {
+            personalAppointment.setBeskrivelse(createEventViewTextArea.getText());
+            //textError.setVisible(false);
+            return true;
+        }
+    }
+
+    @FXML
     public boolean validateRoom(){
         if (createEventViewRoom.getValue() == null){
             //roomError.setVisible(true);
@@ -137,6 +159,15 @@ public class createEventController implements Initializable {
             //roomError.setVisible(false);
             return true;
         }
+    }
+
+    @FXML
+    public void createEvent(){
+        DatabaseServer databaseServer = new DatabaseServer();
+        if(validateTime() && validateRoom()){
+
+        }
+
     }
 
     @FXML
