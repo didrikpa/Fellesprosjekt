@@ -10,8 +10,8 @@ public class DatabaseServer {
 	static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/simonssl_fpgp_fp";
 	static final String USER = "simonssl_fpgp";
 	static final String PASS = "Vierbest";
-	public String Username;
-	public String Password;
+	private String Username;
+	private String Password;
 	Connection conn;
 	Statement stmt;
 	
@@ -22,7 +22,7 @@ public class DatabaseServer {
 			stmt = conn.createStatement();
 		}
 		catch(Exception e){
-			System.out.println("Tilkoblingen feilet:" + e.getMessage());
+			System.out.println("Connection failed:" + e.getMessage());
 		}
 	}
 	

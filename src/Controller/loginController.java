@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -20,6 +21,9 @@ public class loginController{
     private TextField loginPanePassword;
     @FXML
     private Pane loginPaneMain;
+    @FXML private Label userError;
+
+
     Stage stage;
 
     @FXML
@@ -36,12 +40,17 @@ public class loginController{
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));
                 stage.show();
+                userError.setVisible(false);
             }
             catch (Exception e) { System.out.print(e);}
     	}
     	else{
     		loginPaneUsername.clear();
     		loginPanePassword.clear();
+            userError.setVisible(true);
+            userError.setStyle("-fx-text-fill: red");
+            userError.setText("Username or password do not\n match or do not exist.");
+
     	}
     }
     @FXML
