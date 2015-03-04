@@ -39,7 +39,7 @@
             <TextField fx:id="editUserPaneUsername" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <PasswordField fx:id="editUserPaneOldPassword" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <PasswordField fx:id="editUserPaneNewPassword" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField fx:id="editUserPaneRepeatPassword" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <PasswordField fx:id="editUserPaneRepeatPassword" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <Label fx:id="phoneError" style="-fx-text-fill: red;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label fx:id="emailError" style="-fx-text-fill: red;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label fx:id="oldPwError" style="-fx-text-fill: red;" GridPane.columnIndex="3" GridPane.rowIndex="5" />
