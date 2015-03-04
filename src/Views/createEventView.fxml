@@ -116,11 +116,11 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="creteEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
+      <TextField fx:id="createEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
       <DatePicker fx:id="createEventViewDatePicker" layoutX="325.0" layoutY="75.0" prefWidth="150.0" promptText="Date" />
-      <ComboBox fx:id="creteEventViewHours" layoutX="325.0" layoutY="120.0" prefWidth="73.0" promptText="HH" />
-      <ComboBox fx:id="creteEventViewRoom" layoutX="325.0" layoutY="165.0" prefWidth="150.0" promptText="Meeting room" />
-      <ComboBox fx:id="creteEventViewMinutes" layoutX="401.0" layoutY="120.0" prefWidth="73.0" promptText="MM" />
+      <ComboBox fx:id="createEventViewHours" layoutX="325.0" layoutY="120.0" prefWidth="73.0" promptText="HH" />
+      <ComboBox fx:id="createEventViewRoom" layoutX="325.0" layoutY="165.0" prefWidth="150.0" promptText="Meeting room" />
+      <ComboBox fx:id="createEventViewMinutes" layoutX="401.0" layoutY="120.0" prefWidth="73.0" promptText="MM" />
       <Button layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Create" />
    </children>
 </Pane>
