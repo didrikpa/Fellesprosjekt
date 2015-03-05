@@ -126,6 +126,16 @@ public class MonthViewController {
     public MonthViewController(DatabaseServer loginServer){
     	server = loginServer;
     }
+    // TopPane code
+    
+    @FXML
+    private void switchIt(ActionEvent event) throws Exception {
+    	mainViewMid.getChildren().clear();
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("weekView.fxml"));
+    	loader.setController(new weekViewController());
+		mainViewMid.getChildren().add(loader.load());
+	}
+    
     
 // LeftBar code 
     @FXML
