@@ -138,10 +138,10 @@ public class createEventController implements Initializable {
         }
     }
 
-    @FXML
-    public void setDate(){
-        personalAppointment.setDato(createEventViewDatePicker.getValue());
-    }
+//    @FXML
+//    public void setDate(){
+//        personalAppointment.setDato(createEventViewDatePicker.getValue());
+//    }
 
     @FXML
     public boolean validateDescription(){

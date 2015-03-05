@@ -36,7 +36,7 @@ public class loginController{
                 Parent screen = loader.load();
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));
-                stage.setTitle("Calendar")
+                stage.setTitle("Calendar");
                 stage.show();
                 userError.setVisible(false);
             }
