@@ -1,5 +1,10 @@
 package Controller;
 
+import java.util.ArrayList;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -7,10 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import Model.PersonalAppointment;
 import Server.*;
 
 public class MonthViewController {
@@ -100,6 +108,9 @@ public class MonthViewController {
     @FXML Label label45;
     @FXML Label label55;
     @FXML Label label65;
+    
+    @FXML TextField searchBar;
+    @FXML ListView<String> searchList;
 
     @FXML
     GridPane gridPane;
@@ -116,11 +127,21 @@ public class MonthViewController {
     	server = loginServer;
     }
     
-// LeftBar code
-
+// LeftBar code 
+    @FXML
+    private void chooseAppointment(ActionEvent event){
+    	searchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    	    @Override
+			public void changed(ObservableValue<? extends String> observable,
+					String oldValue, String newValue) {
+    	    	System.out.println("LOL");
+			}
+    	});
+	}
+    
   	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
-		if(!searchList.isVisible()){
+  		if(!searchList.isVisible()){
 		eventSearchController evs = new eventSearchController(server);
 		ArrayList<PersonalAppointment> pas = new ArrayList<PersonalAppointment>();
 		pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(10));
@@ -136,19 +157,18 @@ public class MonthViewController {
   		}
  	}
     
-    	@FXML
+  	@FXML
 	public void logOut(ActionEvent event) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
-        Parent screen = loader.load();
-		stage.setScene(new Scene(screen));
+		stage.setScene(new Scene(loader.load()));
 		stage.setTitle("Login");
 		stage.show();
  	}
  	
  	@FXML
 	public void editUser(ActionEvent event) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserPane.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("editUserPane.fxml"));
 		loader.setController(new editUserController(server));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
