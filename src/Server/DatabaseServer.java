@@ -2,8 +2,12 @@ package Server;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import Model.PersonalAppointment;
 import Model.User;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 
 public class DatabaseServer {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
@@ -138,6 +142,17 @@ public class DatabaseServer {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
 	}
+
+    public List getRoomName() throws Exception {
+        List<String> romnavn = new ArrayList<String>();
+        String sql = "SELECT Romnavn FROM Møterom;";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            romnavn.add(rs.getString("Romnavn"));
+        }
+        return romnavn;
+    }
+
 	
 	public void quit() throws SQLException{
 		conn.close();
