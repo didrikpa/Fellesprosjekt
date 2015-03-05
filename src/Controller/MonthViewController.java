@@ -120,7 +120,20 @@ public class MonthViewController {
 
   	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
-		System.out.println("LOL");
+		if(!searchList.isVisible()){
+		eventSearchController evs = new eventSearchController(server);
+		ArrayList<PersonalAppointment> pas = new ArrayList<PersonalAppointment>();
+		pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(10));
+		ArrayList<String> nas = new ArrayList<String>();
+		for(PersonalAppointment pa :  pas){
+			nas.add(pa.getBeskrivelse());
+		}
+		searchList.setVisible(true);
+		searchList.setItems(FXCollections.observableArrayList(nas));
+  		}
+  		else{
+  			searchList.setVisible(false);
+  		}
  	}
     
     	@FXML
