@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-public class monthMidViewController {
+public class monthViewController {
     @FXML Pane pane00;
     @FXML Pane pane10;
     @FXML Pane pane20;
@@ -104,7 +104,7 @@ public class monthMidViewController {
     @FXML
     GridPane gridPane;
     DatabaseServer server;
-    public monthMidViewController(DatabaseServer loginServer){
+    public monthViewController(DatabaseServer loginServer){
     	server = loginServer;
     }
     //Funksjon som gjør det mulig å dobbelklikke på hver eneste rute i kalenderen

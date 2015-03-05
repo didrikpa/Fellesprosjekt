@@ -263,21 +263,21 @@ public class weekViewController implements Initializable {
 			}
         });
        
-		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-            	 /* data is dragged over the target */
-            	
-            	Pane temp = (Pane) event.getSource();
-
-            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
-            	
-            	
-            	
-            	
-
-                event.consume();
-            }
-        });
+//		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
+//            public void handle(DragEvent event) {
+//            	 /* data is dragged over the target */
+//
+//            	Pane temp = (Pane) event.getSource();
+//
+//            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
+//
+//
+//
+//
+//
+//                event.consume();
+//            }
+//        });
 
 		newEvent.setOnDragDone(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {

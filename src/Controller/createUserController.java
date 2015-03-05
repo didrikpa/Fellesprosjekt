@@ -1,6 +1,5 @@
 package Controller;
 
-import java.awt.*;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 
 import Server.*;
 import Model.User;
-import sun.reflect.annotation.ExceptionProxy;
 
 public class createUserController{
     @FXML
@@ -60,7 +58,7 @@ public class createUserController{
     }
     @FXML
     public void cancelAction(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginView.fxml"));
         stage = (Stage) createUserPaneMain.getScene().getWindow();
         Parent screen = loader.load();
         stage.setScene(new Scene(screen));
@@ -75,7 +73,7 @@ public class createUserController{
             user.setEmail(createUserPaneEmail.getText().trim());
             user.setPhone(createUserPanePhone.getText().trim());
             en.addUser(user);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginView.fxml"));
             stage = (Stage) createUserPaneMain.getScene().getWindow();
             Parent screen = loader.load();
             stage.setScene(new Scene(screen));

@@ -1,6 +1,5 @@
 package Controller;
 
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import Controller.StageController;
 import Server.DatabaseServer;
 
 public class loginController{
@@ -31,8 +29,8 @@ public class loginController{
     	DatabaseServer en = new DatabaseServer();
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
-                loader.setController(new MonthViewController(en));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
+                loader.setController(new calendarViewController(en));
                 Parent screen = loader.load();
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));
@@ -56,8 +54,8 @@ public class loginController{
         try {
 //Ignore the next 2 lines
 //            StageController newView = new StageController();
-//            newView.setStage("/Views/createUserPane.fxml");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserPane.fxml"));
+//            newView.setStage("/Views/createUserView.fxml");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserView.fxml"));
             stage = (Stage) loginPaneMain.getScene().getWindow();
             Parent screen = loader.load();
             stage.setScene(new Scene(screen));

@@ -230,8 +230,8 @@ public class editUserController implements Initializable{
     	switchView();
     }
     private void switchView() throws Exception{
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/mainViewMonth.fxml"));
-        loader.setController(new MonthViewController(server));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
+        loader.setController(new calendarViewController(server));
         stage = (Stage) editUserPane.getScene().getWindow();
         Parent scene = loader.load();
         stage.setScene(new Scene(scene));

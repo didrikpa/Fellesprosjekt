@@ -1,31 +1,25 @@
 package Controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import Model.PersonalAppointment;
 import Server.*;
 
-public class MonthViewController implements Initializable{
+public class calendarViewController implements Initializable{
 
 	@FXML ToggleButton toggleButtonWeek;
 	@FXML ToggleButton toggleButtonMonth;
@@ -41,7 +35,7 @@ public class MonthViewController implements Initializable{
 	DatabaseServer server;
 	Stage stage;
 
-	public MonthViewController(DatabaseServer loginServer) throws Exception{
+	public calendarViewController(DatabaseServer loginServer) throws Exception{
 		server = loginServer;
 	}
 	
@@ -61,8 +55,8 @@ public class MonthViewController implements Initializable{
 	public void switchToMonth(ActionEvent event) throws Exception {
 		if(!toggleButtonMonth.isPressed()){
 			mainViewMid.getChildren().clear();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthViewPane.fxml"));
-			loader.setController(new monthMidViewController(server));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
+			loader.setController(new monthViewController(server));
 			mainViewMid.getChildren().add((Parent) loader.load());
 		}
 	}
@@ -100,7 +94,7 @@ public class MonthViewController implements Initializable{
 
 	@FXML
 	public void logOut(ActionEvent event) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginView.fxml"));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
@@ -110,7 +104,7 @@ public class MonthViewController implements Initializable{
 
 	@FXML
 	public void editUser(ActionEvent event) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserPane.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserView.fxml"));
 		loader.setController(new editUserController(server));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();

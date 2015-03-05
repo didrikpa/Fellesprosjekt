@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-public class MonthViewTopController {
+public class calendarViewTopController {
 
 
 
@@ -105,7 +105,7 @@ public class MonthViewTopController {
 
     DatabaseServer server;
     //    Viderefører data om innelogget bruker fra loginsekvensen
-    public MonthViewTopController(DatabaseServer loginServer){
+    public calendarViewTopController(DatabaseServer loginServer){
         server = loginServer;
     }
 
