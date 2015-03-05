@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -25,6 +26,7 @@ public class CalendarViewController implements Initializable{
 	@FXML ToggleButton toggleButtonMonth;
 	@FXML TextField searchBar;
 	@FXML ListView<String> searchList;
+    @FXML Label labelMonth;
 
 	//Hovedviewet hvor stage hentes fra
 	@FXML
@@ -48,6 +50,7 @@ public class CalendarViewController implements Initializable{
 			loader.setController(new WeekViewController());
 			mainViewMid.getChildren().add((Parent) loader.load());
 			toggleButtonMonth.setSelected(false);
+            labelMonth.setText("Week");
 		}
 
 	}
@@ -58,6 +61,7 @@ public class CalendarViewController implements Initializable{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
 			loader.setController(new MonthViewController(server));
 			mainViewMid.getChildren().add((Parent) loader.load());
+            labelMonth.setText("Month");
 		}
 	}
 
