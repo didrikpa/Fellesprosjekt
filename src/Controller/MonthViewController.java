@@ -131,7 +131,7 @@ public class MonthViewController {
     @FXML
     private void switchIt(ActionEvent event) throws Exception {
     	mainViewMid.getChildren().clear();
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("weekView.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
     	loader.setController(new weekViewController());
 		mainViewMid.getChildren().add(loader.load());
 	}
