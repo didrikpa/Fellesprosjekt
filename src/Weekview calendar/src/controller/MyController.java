@@ -1,83 +1,298 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class MyController implements Initializable {
+
+	private int startEventRowCreation;
+	private int finalRow;
+	//private List<Rectangle> panesToChange = new ArrayList<Rectangle>();
+	private Rectangle eventRect;
+	private Color eventColor;
+	private Color eventLabelColor;
+	private int tempIndex;
+	private int currentEventMoveIndex;
+	
+	@FXML
+	private Circle greenCircle;
+	
+	@FXML
+	private Circle lightOrangeCircle;
+	
+	@FXML
+	private Circle blueCircle;
+	
+	@FXML
+	private Circle lightBlueCircle;
+	
+	@FXML
+	private Circle redCircle;
+	
+	@FXML
+	private Circle grayCircle;
 	
 	@FXML
 	private GridPane weekGrid;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub	
+	@FXML 
+	private void changeColorGray(){
 		
-		Pane[][] pne = new Pane[8][25];
-		
-		for(int i=1; i<8; i++){
-            for(int j=1; j<25;j++){            
-                    pne[i][j] = new Pane();
-                    pne[i][j].setOnDragDetected(new EventHandler<MouseEvent>(){
-						@Override
-						public void handle(MouseEvent event) {
-							Rectangle r = new Rectangle();
-                			r.setWidth(175);
-                			r.setHeight(60);
-                			r.setArcWidth(20);
-                			r.setArcHeight(20);
-                			r.setStroke(Color.AQUAMARINE);
-                			r.setFill(Color.AQUAMARINE);
-                        	Pane temp = (Pane) event.getSource();
-                        	temp.getChildren().add(r);
-                        	temp.startFullDrag();
-                        	
-                        	/* drag was detected, start drag-and-drop gesture*/
-
-						}
-                    });
-
-                    pne[i][j].setOnDragEntered(new EventHandler<DragEvent>(){
-
-						@Override
-						public void handle(DragEvent event) {
-							
-							Pane temp = (Pane) event.getSource();
-                        	temp.onDragEnteredProperty();
-                        	System.out.println("drag over");
-							
-						}
-                    	
-                    	
-                    	
-                    });
-                   
-                    weekGrid.add(pne[i][j], i, j);  
-                    }
-    }
-	
-	
+		this.eventColor = Color.LIGHTGRAY;
+		this.eventLabelColor = Color.BLACK;
 		
 	}
+	
+	@FXML
+	void changeColorOrange(){
+		
+		this.eventColor = Color.ORANGE;
+		this.eventLabelColor = Color.BLACK;
+		
+	}
+	
+	@FXML
+	void changeColorLightBlue(){
+		
+		this.eventColor = Color.LIGHTBLUE;
+		
+	}
+	
+	@FXML
+	void changeColorFuchsia(){
+		
+		this.eventColor = Color.FUCHSIA;
+		this.eventLabelColor = Color.BLACK;
+		
+		
+	}
+	
+	@FXML
+	void changeColorLime(){
+		
+		this.eventColor = Color.LIME;
+		this.eventLabelColor = Color.GRAY;
+		
+	}
+	
+	@FXML
+	void changeColorBlue(){
+		
+		this.eventColor = Color.CADETBLUE;
+		this.eventLabelColor = Color.WHITESMOKE;
+		
+	}
+	
+	private ImageView dragImageView = new ImageView();
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {	
+		finalRow = 0;
+		startEventRowCreation=0;
+		this.eventColor = Color.LIME;
+		this.eventLabelColor = Color.GRAY;
+
+		Pane[][] pne = new Pane[8][96];	
+		for(int i=1; i<8; i++){
+            for(int j=0; j<96;j++){            
+                    pne[i][j] = new Pane();
+                    createThisPane(pne[i][j]);
+                    weekGrid.add(pne[i][j], i, j);  
+                    }
+		}
+
+		
+	}
 	
-	@FXML
-	private Label monthLabel;
+	private void createThisPane(Pane newPane){
+		
+		newPane.setOnDragDetected(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent event) {
+
+
+				/* drag was detected, start drag-and-drop gesture*/
+                System.out.println("onDragDetected");
+                
+                Label newEventLabel = new Label();
+                newEventLabel.setText("My New Event");
+                newEventLabel.setTextFill(eventLabelColor);
+                newEventLabel.setAlignment(Pos.TOP_CENTER);
+ 
+                
+                
+				eventRect = new Rectangle();
+				eventRect.setWidth(120);
+				eventRect.setHeight(15);
+				eventRect.setArcWidth(20);
+				eventRect.setArcHeight(20);
+				eventRect.setStroke(eventColor);
+				eventRect.setFill(eventColor);
+				eventRect.setOpacity(1);
+
+            	Pane temp = (Pane) event.getSource();
+            	startEventRowCreation = GridPane.getRowIndex(temp);
+            	System.out.println(startEventRowCreation);
+            	
+            	
+            	
+            	/* allow any transfer mode */
+            	Dragboard db = temp.startDragAndDrop(TransferMode.ANY);
+            	
+            	/* put a string on dragboard */
+                ClipboardContent content = new ClipboardContent();
+                content.putString("");
+                db.setContent(content);
+                
+            	temp.getChildren().add(eventRect);
+            	tempIndex=1;
+            	temp.getChildren().add(newEventLabel);
+            	
+            	SnapshotParameters snapParams = new SnapshotParameters();
+                snapParams.setFill(Color.TRANSPARENT);
+                dragImageView.setImage(temp.snapshot(snapParams, null));
+
+                temp.getChildren().add(dragImageView);
+            	
+            	
+            	event.consume();
+            	
+			}
+        });
+       
+		newPane.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	 /* data is dragged over the target */
+            	
+            	Pane temp = (Pane) event.getSource();
+            	Pane source = (Pane) event.getGestureSource();
+            	
+            	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && GridPane.getRowIndex(source)<GridPane.getRowIndex(temp)){
+            	
+                System.out.println("onDragOverPlus");
+                
+                eventRect.setHeight(eventRect.getHeight()+15);
+
+                event.consume();
+            }
+            	else if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && GridPane.getRowIndex(source)>GridPane.getRowIndex(temp)){
+            		
+            		System.out.println("onDragOverMinus");
+                    
+                    eventRect.setHeight(eventRect.getHeight()-15);
+
+                    event.consume();
+            		
+            		
+            	}
+            	
+            	
+            }
+        });
+
+		newPane.setOnDragDone(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		    	
+		    	event.acceptTransferModes(TransferMode.ANY);
+            	System.out.println("Drop occurred!");
+           
+	            int startRowIndexForEvent = startEventRowCreation;
+	            int numberOfRows = finalRow - startRowIndexForEvent;
+	            int heightForRect = (numberOfRows) * 15;
+
+                event.consume();
+		    }
+		});
+		
+	}
 	
-	@FXML
-	private Label yearLabel;
+	
+	private void createThisEvent(Rectangle newEvent){
+		
+		newEvent.setOnDragDetected(new EventHandler<MouseEvent>(){
+			public void handle(MouseEvent event) {
+
+				/* drag was detected, start drag-and-drop gesture*/
+                System.out.println("onDragDetectedForRect");
+
+            	Pane temp = (Pane) event.getSource();
+            	currentEventMoveIndex=GridPane.getRowIndex(temp);
+            	System.out.println(currentEventMoveIndex);
+
+            	/* allow any transfer mode */
+            	Dragboard db = temp.startDragAndDrop(TransferMode.ANY);
+            	
+            	/* put a string on dragboard */
+                ClipboardContent content = new ClipboardContent();
+                content.putString("");
+                db.setContent(content);
+            	
+            	event.consume();
+            	
+			}
+        });
+       
+		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	 /* data is dragged over the target */
+            	
+            	Pane temp = (Pane) event.getSource();
+            	Pane source = (Pane) event.getGestureSource();
+            	
+            	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp)){
+            	
+                System.out.println("onDragOver");
+                
+                eventRect.setHeight(eventRect.getHeight()+15);
+
+                event.consume();
+            }
+            }
+        });
+
+		newEvent.setOnDragDone(new EventHandler<DragEvent>() {
+		    public void handle(DragEvent event) {
+		    	
+		    	event.acceptTransferModes(TransferMode.ANY);
+            	System.out.println("Drop occurred!");
+           
+	            int startRowIndexForEvent = startEventRowCreation;
+	            int numberOfRows = finalRow - startRowIndexForEvent;
+	            int heightForRect = (numberOfRows) * 15;
+
+                event.consume();
+		    }
+		});
+		
+	}
+	
 	
 	@FXML
 	private Label mondayDateLabel;
