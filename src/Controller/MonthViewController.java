@@ -1,14 +1,16 @@
 package Controller;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
+import javafx.stage.Stage;
 import Server.*;
 
 public class MonthViewController {
@@ -105,8 +107,10 @@ public class MonthViewController {
     @FXML
     Pane mainMonthViewPane;
     //Underview - mainViewMid inneholder enten month- eller week-kalender
-    @FXML mainViewMid
+    @FXML 
+    Pane mainViewMid;
     DatabaseServer server;
+    Stage stage;
 //    Viderefører data om innelogget bruker fra loginsekvensen
     public MonthViewController(DatabaseServer loginServer){
     	server = loginServer;
@@ -114,18 +118,28 @@ public class MonthViewController {
     
 // LeftBar code
 
-  @FXML
+  	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
 		System.out.println("LOL");
  	}
     
-    @FXML
+    	@FXML
 	public void logOut(ActionEvent event) throws Exception {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPane.fxml"));
-		loader.setController(new loginController());
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		stage.setScene(new Scene(loader.load()));
 		stage.setTitle("Login");
+		stage.show();
+ 	}
+ 	
+ 	@FXML
+	public void editUser(ActionEvent event) throws Exception {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserPane.fxml"));
+		loader.setController(new editUserController(server));
+		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+		Parent root = loader.load();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Edit user");
 		stage.show();
  	}
 

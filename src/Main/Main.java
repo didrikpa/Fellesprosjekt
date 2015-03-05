@@ -20,6 +20,7 @@ public class Main extends Application{
         root = (Parent) fxmlLoader.load(this.getClass().getResource("/Views/loginPane.fxml"));
         ps = primaryStage;
         primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Login");
         primaryStage.show();
     }
 	public static void main(String[] args) {

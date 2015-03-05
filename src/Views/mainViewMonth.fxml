@@ -65,7 +65,7 @@
                      </graphic>
                   </Button>
                   <TextField fx:id="monthViewPaneSearchBar" layoutX="3.0" layoutY="3.0" prefHeight="26.0" prefWidth="100.0" promptText="Search" />
-                  <Button fx:id="monthViewPaneEditProfile" layoutX="-3.0" layoutY="35.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
+                  <Button fx:id="monthViewPaneEditProfile" onAction="#editUser" layoutX="-3.0" layoutY="35.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
                   <Button fx:id="monthViewPaneLogOut" onAction="#logOut" layoutX="-3.0" layoutY="113.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Log out" />
                   <Button fx:id="monthViewPaneMyGroups" layoutX="-3.0" layoutY="61.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
                   <Button fx:id="monthViewPaneMyCalendar" layoutX="-3.0" layoutY="87.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
