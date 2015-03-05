@@ -52,7 +52,7 @@ public class MonthViewController implements Initializable{
 			mainViewMid.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
 			loader.setController(new weekViewController());
-			mainViewMid.getChildren().add(loader.load());
+			mainViewMid.getChildren().add((Parent) loader.load());
 			toggleButtonMonth.setSelected(false);
 		}
 
@@ -63,7 +63,7 @@ public class MonthViewController implements Initializable{
 			mainViewMid.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthViewPane.fxml"));
 			loader.setController(new monthMidViewController(server));
-			mainViewMid.getChildren().add(loader.load());
+			mainViewMid.getChildren().add((Parent) loader.load());
 		}
 	}
 
