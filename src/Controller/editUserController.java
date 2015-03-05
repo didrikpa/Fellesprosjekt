@@ -45,7 +45,8 @@ public class editUserController implements Initializable{
     Label oldPwError;
     @FXML 
     Label newPw2Error;
-    
+    @FXML
+    Label newPw1Error;
     @FXML 
     AnchorPane editUserPane;
     
@@ -72,7 +73,8 @@ public class editUserController implements Initializable{
         if(!(editUserPanePhone.getText().replaceAll(" ", "").length() == 8)){
             editUserPanePhone.clear();
             phoneError.setStyle("-fx-text-fill: red");
-            phoneError.setText("Phone number has to be extactly eight digits.");
+            phoneError.setText("Phone number has to be exactly eight digits.");
+            phoneError.setVisible(true);
         }else{
             phoneError.setVisible(false);}
     }
@@ -91,24 +93,31 @@ public class editUserController implements Initializable{
     }
 
     private void validatePassword(){
-        if (!editUserPaneOldPassword.equals(user.getPassword())){
-            System.out.println(user.getPassword());
+        newPw2Error.setText("Skal prokke");
+        newPw2Error.setVisible(true);
+
+        if (!editUserPaneOldPassword.getText().equals(user.getPassword())){
             editUserPaneOldPassword.clear();
             oldPwError.setStyle("-fx-text-fill: red");
             oldPwError.setText("Old password does not match.");
             oldPwError.setVisible(true);
-        }else{
+            }
+        else{
             oldPwError.setVisible(false);
-        }
-        if(editUserPaneNewPassword.getText().replaceAll(" ", "").length() < 8){
+            }
+
+        if((editUserPaneNewPassword.getText().replaceAll(" ", "").length()) < 8){
+            editUserPaneOldPassword.clear();
             editUserPaneNewPassword.clear();
             editUserPaneRepeatPassword.clear();
-            newPw2Error.setStyle("-fx-text-fill: red");
-            newPw2Error.setText("Password needs to be at least 8 characters long.");
+            newPw1Error.setStyle("-fx-text-fill: red");
+            newPw1Error.setText("Password needs to be at least 8 characters long.");
+            newPw1Error.setVisible(true);
         }else{
-            newPw2Error.setVisible(false);}
+            newPw1Error.setVisible(false);}
         if(!editUserPaneNewPassword.getText().trim().equals(editUserPaneRepeatPassword.getText().trim())){
             editUserPaneNewPassword.clear();
+            editUserPaneOldPassword.clear();
             editUserPaneRepeatPassword.clear();
             newPw2Error.setStyle("-fx-text-fill: red");
             newPw2Error.setText("The new passwords do not match.");
@@ -118,38 +127,60 @@ public class editUserController implements Initializable{
     }
     @FXML
     public void updateAction(ActionEvent event) throws Exception{
-
         if(!isEmptyFields()){
             if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().trim().isEmpty() && !editUserPaneRepeatPassword.getText().trim().isEmpty()){
                 validatePhone();
                 validatePassword();
                 validateMail();
-                updateUser();
-            }else if(!editUserPaneEmail.getText().trim().isEmpty() && !editUserPanePhone.getText().trim().isEmpty()){
+                if(!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().trim().isEmpty() && !editUserPaneRepeatPassword.getText().trim().isEmpty()){
+                    updateUser();
+                }
+
+            }else if(!editUserPaneEmail.getText().trim().isEmpty() && !editUserPanePhone.getText().trim().isEmpty() && isPasswordEmpty()){
                 validateMail();
                 validatePhone();
-                updateUser();
+                if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPanePhone.getText().trim().isEmpty() && isPasswordEmpty()){
+                    updateUser();
+                }
+
             }else if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePhone();
                 validatePassword();
-                updateUser();
+                if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
+                    updateUser();
+                }
+
             }else if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
                 validateMail();
-                updateUser();
+                if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
+                    updateUser();
+                }
+
             }
             else if (!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
-                updateUser();
-            }else if (!editUserPanePhone.getText().isEmpty()){
+                if (!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
+                    updateUser();
+                }
+
+            }else if (!editUserPanePhone.getText().isEmpty() && isPasswordEmpty()){
                 validatePhone();
-                updateUser();
-            }else if (!editUserPaneEmail.getText().isEmpty()){
+                if (!editUserPanePhone.getText().isEmpty()){
+                    updateUser();
+                }
+
+            }else if (!editUserPaneEmail.getText().isEmpty() && isPasswordEmpty()){
                 validateMail();
-                updateUser();
+                if (!editUserPaneEmail.getText().isEmpty()){
+                    updateUser();
+                }
+
             }else if(!editUserPaneOldPassword.getText().isEmpty()){
                 validatePassword();
             }else if(!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty()){
+                validatePassword();
+            }else if (!editUserPaneOldPassword.getText().isEmpty() && editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
             }
         }
@@ -207,6 +238,14 @@ public class editUserController implements Initializable{
         stage.setTitle("Calendar");
         stage.show();
     }
+    @FXML
+    public boolean isPasswordEmpty(){
+        if(editUserPaneOldPassword.getText().isEmpty() && editUserPaneNewPassword.getText().isEmpty() && editUserPaneRepeatPassword.getText().isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

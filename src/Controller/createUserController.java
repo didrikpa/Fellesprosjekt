@@ -68,12 +68,12 @@ public class createUserController{
     }
     private void createUser() throws Exception{
             User user = new User();
-            user.setFirstname(createUserPaneFirst.getText());
-            user.setLastname(createUserPaneLast.getText());
-            user.setUsername(createUserPaneUsername.getText());
-            user.setPassword(createUserPanePassword.getText());
-            user.setEmail(createUserPaneEmail.getText());
-            user.setPhone(createUserPanePhone.getText());
+            user.setFirstname(createUserPaneFirst.getText().trim());
+            user.setLastname(createUserPaneLast.getText().trim());
+            user.setUsername(createUserPaneUsername.getText().trim());
+            user.setPassword(createUserPanePassword.getText().trim());
+            user.setEmail(createUserPaneEmail.getText().trim());
+            user.setPhone(createUserPanePhone.getText().trim());
             en.addUser(user);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginPane.fxml"));
             stage = (Stage) createUserPaneMain.getScene().getWindow();
