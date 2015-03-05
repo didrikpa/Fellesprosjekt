@@ -92,6 +92,7 @@ public class editUserController implements Initializable{
 
     private void validatePassword(){
         if (!editUserPaneOldPassword.equals(user.getPassword())){
+            System.out.println(user.getPassword());
             editUserPaneOldPassword.clear();
             oldPwError.setStyle("-fx-text-fill: red");
             oldPwError.setText("Old password does not match.");
@@ -106,11 +107,11 @@ public class editUserController implements Initializable{
             newPw2Error.setText("Password needs to be at least 8 characters long.");
         }else{
             newPw2Error.setVisible(false);}
-        if(!editUserPaneNewPassword.getText().equals(editUserPaneRepeatPassword.getText())){
+        if(!editUserPaneNewPassword.getText().trim().equals(editUserPaneRepeatPassword.getText().trim())){
             editUserPaneNewPassword.clear();
             editUserPaneRepeatPassword.clear();
             newPw2Error.setStyle("-fx-text-fill: red");
-            newPw2Error.setText("The passwords do not match.");
+            newPw2Error.setText("The new passwords do not match.");
             newPw2Error.setVisible(true);
         }else{
             newPw2Error.setVisible(false);}
@@ -128,14 +129,28 @@ public class editUserController implements Initializable{
                 validateMail();
                 validatePhone();
                 updateUser();
-            }else if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty()){
+            }else if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePhone();
                 validatePassword();
                 updateUser();
-            }else if (!editUserPaneEmail.getText().trim().isEmpty() && editUserPaneOldPassword.getText().trim().isEmpty()){
+            }else if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
                 validateMail();
                 updateUser();
+            }
+            else if (!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
+                validatePassword();
+                updateUser();
+            }else if (!editUserPanePhone.getText().isEmpty()){
+                validatePhone();
+                updateUser();
+            }else if (!editUserPaneEmail.getText().isEmpty()){
+                validateMail();
+                updateUser();
+            }else if(!editUserPaneOldPassword.getText().isEmpty()){
+                validatePassword();
+            }else if(!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty()){
+                validatePassword();
             }
         }
 
@@ -173,7 +188,7 @@ public class editUserController implements Initializable{
     }
 
     public boolean isEmptyFields(){
-        if (editUserPaneEmail.getText().trim().isEmpty() || editUserPanePhone.getText().trim().isEmpty() || editUserPaneNewPassword.getText().trim().isEmpty() || editUserPaneNewPassword.getText().trim().isEmpty() || editUserPaneRepeatPassword.getText().trim().isEmpty()){
+        if (!editUserPaneEmail.getText().trim().isEmpty() || !editUserPanePhone.getText().trim().isEmpty() || !editUserPaneNewPassword.getText().trim().isEmpty() || !editUserPaneNewPassword.getText().trim().isEmpty() || !editUserPaneRepeatPassword.getText().trim().isEmpty()){
             return false;
         }
         return true;
