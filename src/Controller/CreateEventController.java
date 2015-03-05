@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import Server.*;
 import Model.*;
 
-public class createEventController implements Initializable {
+public class CreateEventController implements Initializable {
 
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();

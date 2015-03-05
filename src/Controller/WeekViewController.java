@@ -31,7 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class weekViewController implements Initializable {
+public class WeekViewController implements Initializable {
 
 	private int startEventRowCreation;
 	private int finalRow;

@@ -9,9 +9,9 @@ import Server.DatabaseServer;
 
 
 @SuppressWarnings("unused")
-public class eventSearchController{
+public class EventSearchController {
 	private DatabaseServer server = new DatabaseServer();
-	public eventSearchController(DatabaseServer db){
+	public EventSearchController(DatabaseServer db){
 		server = db;
 	}
 	ArrayList<PersonalAppointment> eventSearch(String sokeord, boolean upcoming, ArrayList<PersonalAppointment> appointmentsIn){

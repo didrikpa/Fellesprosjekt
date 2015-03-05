@@ -1,17 +1,19 @@
 package Controller;
+
 import Server.DatabaseServer;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-public class monthViewController {
+
+public class CalendarViewTopController {
+
+
+
     @FXML Pane pane00;
     @FXML Pane pane10;
     @FXML Pane pane20;
@@ -97,25 +99,26 @@ public class monthViewController {
     @FXML Label label45;
     @FXML Label label55;
     @FXML Label label65;
-    
-	@FXML AnchorPane monthViewPaneMain;
-    Stage stage;
-    
+
     @FXML
     GridPane gridPane;
+
     DatabaseServer server;
-    public monthViewController(DatabaseServer loginServer){
-    	server = loginServer;
+    //    Viderefører data om innelogget bruker fra loginsekvensen
+    public CalendarViewTopController(DatabaseServer loginServer){
+        server = loginServer;
     }
-    //Funksjon som gjør det mulig å dobbelklikke på hver eneste rute i kalenderen
-    //Bruker setOnMouseClicked til å gjøre det mulig å klikke
-    //Så bruker jeg MouseEvent e til å sjekke om man har dobbeltklikket og når det gjøres så skjer noe
+
+    //  This method makes it possible to click on each of the days in the calendar
+//  SetOnMouseClicked is used to tell what should happen when someone clicks on a day
+//  the if statement is there so that something only happens if the user doubleclicks
     @FXML
     public void clickGrid(MouseEvent e) {
         pane00.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent e) {
-              //  if(e.getClickCount() == 2)
-            		System.out.println("LOL");
+                if(e.getClickCount() == 2) {
+                    System.out.print("Pane 00 ");
+                }
             }
         });
 
@@ -156,10 +159,10 @@ public class monthViewController {
             }
         });
         pane01.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent e) {
-                    if(e.getClickCount() == 2)
-                        System.out.print("Pane 01 ");
-                }
+            public void handle(MouseEvent e) {
+                if(e.getClickCount() == 2)
+                    System.out.print("Pane 01 ");
+            }
         });
 
         pane11.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -199,10 +202,10 @@ public class monthViewController {
             }
         });
         pane02.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent e) {
-                    if(e.getClickCount() == 2)
-                        System.out.print("Pane 02 ");
-                }
+            public void handle(MouseEvent e) {
+                if(e.getClickCount() == 2)
+                    System.out.print("Pane 02 ");
+            }
         });
 
         pane12.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -371,4 +374,12 @@ public class monthViewController {
             }
         });
     }
+
+    @FXML
+    public void notificationPopUp(ActionEvent event){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/notificationPopUpView"));
+
+    }
+
+
 }

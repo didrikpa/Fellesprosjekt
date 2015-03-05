@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import Server.*;
 import Model.User;
 
-public class createUserController{
+public class CreateUserController {
     @FXML
     private TextField createUserPaneUsername;
     @FXML

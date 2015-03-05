@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import Server.DatabaseServer;
 
-public class loginController{
+public class LoginController {
     @FXML
     private TextField loginPaneUsername;
     @FXML
@@ -30,7 +30,7 @@ public class loginController{
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
-                loader.setController(new calendarViewController(en));
+                loader.setController(new CalendarViewController(en));
                 Parent screen = loader.load();
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));

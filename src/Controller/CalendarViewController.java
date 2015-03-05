@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import Model.PersonalAppointment;
 import Server.*;
 
-public class calendarViewController implements Initializable{
+public class CalendarViewController implements Initializable{
 
 	@FXML ToggleButton toggleButtonWeek;
 	@FXML ToggleButton toggleButtonMonth;
@@ -35,7 +35,7 @@ public class calendarViewController implements Initializable{
 	DatabaseServer server;
 	Stage stage;
 
-	public calendarViewController(DatabaseServer loginServer) throws Exception{
+	public CalendarViewController(DatabaseServer loginServer) throws Exception{
 		server = loginServer;
 	}
 	
@@ -45,7 +45,7 @@ public class calendarViewController implements Initializable{
 		if(!toggleButtonWeek.isPressed()){
 			mainViewMid.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
-			loader.setController(new weekViewController());
+			loader.setController(new WeekViewController());
 			mainViewMid.getChildren().add((Parent) loader.load());
 			toggleButtonMonth.setSelected(false);
 		}
@@ -56,7 +56,7 @@ public class calendarViewController implements Initializable{
 		if(!toggleButtonMonth.isPressed()){
 			mainViewMid.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
-			loader.setController(new monthViewController(server));
+			loader.setController(new MonthViewController(server));
 			mainViewMid.getChildren().add((Parent) loader.load());
 		}
 	}
@@ -77,7 +77,7 @@ public class calendarViewController implements Initializable{
 	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
 		if(!searchList.isVisible()){
-			eventSearchController evs = new eventSearchController(server);
+			EventSearchController evs = new EventSearchController(server);
 			ArrayList<PersonalAppointment> pas = new ArrayList<PersonalAppointment>();
 			pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(10));
 			ArrayList<String> nas = new ArrayList<String>();
@@ -105,7 +105,7 @@ public class calendarViewController implements Initializable{
 	@FXML
 	public void editUser(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserView.fxml"));
-		loader.setController(new editUserController(server));
+		loader.setController(new EditUserController(server));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));

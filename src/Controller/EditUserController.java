@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class editUserController implements Initializable{
+public class EditUserController implements Initializable{
     User user;
     Stage stage;
 
@@ -52,7 +52,7 @@ public class editUserController implements Initializable{
     
     DatabaseServer server;
 
-    public editUserController(DatabaseServer databaseServer){
+    public EditUserController(DatabaseServer databaseServer){
         server = databaseServer;
         try {
             user = databaseServer.getUser();
@@ -231,7 +231,7 @@ public class editUserController implements Initializable{
     }
     private void switchView() throws Exception{
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
-        loader.setController(new calendarViewController(server));
+        loader.setController(new CalendarViewController(server));
         stage = (Stage) editUserPane.getScene().getWindow();
         Parent scene = loader.load();
         stage.setScene(new Scene(scene));
