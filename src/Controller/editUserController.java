@@ -111,7 +111,7 @@ public class editUserController implements Initializable{
             editUserPaneNewPassword.clear();
             editUserPaneRepeatPassword.clear();
             newPw1Error.setStyle("-fx-text-fill: red");
-            newPw1Error.setText("Password needs to be at least 8 characters long.");
+            newPw1Error.setText("Password needs to be at least\n 8 characters long.");
             newPw1Error.setVisible(true);
         }else{
             newPw1Error.setVisible(false);}
