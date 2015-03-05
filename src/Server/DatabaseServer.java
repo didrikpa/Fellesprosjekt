@@ -121,7 +121,7 @@ public class DatabaseServer {
 	//Henter n-antall nærmeste avtaler
 	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
 		if(n > 0){
-			String sql = "SELECT * FROM Avtale WHERE Dato < CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC LIMIT " + n + ";";
+			String sql = "SELECT * FROM Avtale WHERE Dato >= CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC LIMIT " + n + ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 			while(rs.next()){
