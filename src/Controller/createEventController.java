@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 
-import java.net.URI;
 import java.net.URL;
+import java.sql.Time;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,7 +22,8 @@ import Model.*;
 
 public class createEventController implements Initializable {
 
-    PersonalAppointment personalAppointment;
+    PersonalAppointment personalAppointment = new PersonalAppointment();
+    DatabaseServer databaseServer = new DatabaseServer();
 
     @FXML
     DatePicker createEventViewDatePicker;
@@ -58,21 +59,16 @@ public class createEventController implements Initializable {
                             @Override
                             public void updateItem(LocalDate item, boolean empty) {
                                 super.updateItem(item, empty);
-
                                 if (item.isBefore(LocalDate.now())) {
                                     setDisable(true);
                                     setStyle("-fx-background-color: pink;");
                                 }
-
                             }
                         };
                     }
                 };
-
         calender.setDayCellFactory(dayCellFactory);
-
     }
-
 
     @FXML
     public void setHourFrom() {
@@ -92,7 +88,6 @@ public class createEventController implements Initializable {
         createEventViewStartMinutes.setValue(5 * (Math.round((LocalTime.now().getMinute() + 5) / 5)));
         createEventViewStartHours.setValue(LocalTime.now().getHour() + 1);
     }
-
 
     @FXML
     public void setHourToo(){
@@ -134,14 +129,27 @@ public class createEventController implements Initializable {
             createEventViewEndMinutes.setStyle(" ");
             createEventViewEndHours.setStyle(" ");
             endError.setVisible(false);
+            int second = 0;
+            personalAppointment.setStartTid(java.sql.Time.valueOf(LocalTime.of(createEventViewStartHours.getValue(), createEventViewStartMinutes.getValue(), second)));
+            personalAppointment.setSluttTid(java.sql.Time.valueOf(LocalTime.of(createEventViewEndHours.getValue(), createEventViewEndMinutes.getValue(), second)));
             return true;
         }
     }
 
-//    @FXML
-//    public void setDate(){
-//        personalAppointment.setDato(createEventViewDatePicker.getValue());
-//    }
+    @FXML
+    public void setRoom(){
+        try{
+            ObservableList<String> roomlist = FXCollections.observableArrayList(databaseServer.getRoomName());
+            createEventViewRoom.setItems(roomlist);
+        }
+        catch (Exception e) {System.out.println(e);}
+    }
+
+    @FXML
+    public void setDate(){
+        personalAppointment.setDato(java.sql.Date.valueOf(createEventViewDatePicker.getValue()));
+
+    }
 
     @FXML
     public boolean validateDescription(){
@@ -166,15 +174,18 @@ public class createEventController implements Initializable {
         }
         else {
             roomError.setVisible(false);
+            personalAppointment.setRomnavn(createEventViewRoom.getValue());
             return true;
         }
     }
 
     @FXML
     public void createEvent(){
-        DatabaseServer databaseServer = new DatabaseServer();
-        if(validateTime() && validateRoom()){
-
+        if(validateTime() && validateRoom() && validateDescription()){
+            try {
+                databaseServer.addAppointment(personalAppointment);
+            }
+            catch (Exception e) { System.out.println(e);}
         }
 
     }
@@ -188,6 +199,7 @@ public class createEventController implements Initializable {
         setMinuteFrom();
         setHourToo();
         setMinuteToo();
+        setRoom();
     }
 
 }
