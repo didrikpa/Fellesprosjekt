@@ -138,16 +138,10 @@ public class MonthViewController {
     
     
 // LeftBar code 
-    @FXML
-    private void chooseAppointment(ActionEvent event){
-    	searchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-    	    @Override
-			public void changed(ObservableValue<? extends String> observable,
-					String oldValue, String newValue) {
-    	    	System.out.println("LOL");
-			}
-    	});
-	}
+    	@FXML
+    	private void chooseAppointment(ActionEvent event){
+    		
+    	}
     
   	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
