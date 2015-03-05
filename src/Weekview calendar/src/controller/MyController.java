@@ -35,11 +35,10 @@ public class MyController implements Initializable {
 
 	private int startEventRowCreation;
 	private int finalRow;
-	//private List<Rectangle> panesToChange = new ArrayList<Rectangle>();
+	private int currentRow;
 	private Rectangle eventRect;
 	private Color eventColor;
 	private Color eventLabelColor;
-	private int tempIndex;
 	private int currentEventMoveIndex;
 	
 	@FXML
@@ -159,6 +158,7 @@ public class MyController implements Initializable {
 
             	Pane temp = (Pane) event.getSource();
             	startEventRowCreation = GridPane.getRowIndex(temp);
+            	finalRow = startEventRowCreation;
             	System.out.println(startEventRowCreation);
             	
             	
@@ -172,7 +172,6 @@ public class MyController implements Initializable {
                 db.setContent(content);
                 
             	temp.getChildren().add(eventRect);
-            	tempIndex=1;
             	temp.getChildren().add(newEventLabel);
             	
             	SnapshotParameters snapParams = new SnapshotParameters();
@@ -193,20 +192,26 @@ public class MyController implements Initializable {
             	
             	Pane temp = (Pane) event.getSource();
             	Pane source = (Pane) event.getGestureSource();
+
+            	currentRow = GridPane.getRowIndex(temp);
             	
-            	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && GridPane.getRowIndex(source)<GridPane.getRowIndex(temp)){
+            	System.out.println("This is the first row: " + startEventRowCreation);
+            	System.out.println("This is the final row:" + finalRow);
+            	
+            	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && finalRow<currentRow){
             	
                 System.out.println("onDragOverPlus");
                 
                 eventRect.setHeight(eventRect.getHeight()+15);
+                finalRow = currentRow;
 
                 event.consume();
             }
-            	else if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && GridPane.getRowIndex(source)>GridPane.getRowIndex(temp)){
-            		
-            		System.out.println("onDragOverMinus");
+            	else if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && finalRow>currentRow){
+            		            		System.out.println("onDragOverMinus");
                     
                     eventRect.setHeight(eventRect.getHeight()-15);
+                    finalRow = currentRow;
 
                     event.consume();
             		
@@ -232,7 +237,6 @@ public class MyController implements Initializable {
 		});
 		
 	}
-	
 	
 	private void createThisEvent(Rectangle newEvent){
 		
@@ -264,16 +268,14 @@ public class MyController implements Initializable {
             	 /* data is dragged over the target */
             	
             	Pane temp = (Pane) event.getSource();
-            	Pane source = (Pane) event.getGestureSource();
+
+            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
             	
-            	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp)){
             	
-                System.out.println("onDragOver");
-                
-                eventRect.setHeight(eventRect.getHeight()+15);
+            	
+            	
 
                 event.consume();
-            }
             }
         });
 
