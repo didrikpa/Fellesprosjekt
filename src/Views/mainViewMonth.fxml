@@ -16,15 +16,15 @@
          <children>
             <Group>
                <children>
-               <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="35.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Week" />
-               <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="35.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Month" />
+               <ToggleButton fx:id="toggleButtonWeek" onAction="#switchToWeek" layoutX="72.0" layoutY="35.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Week" />
+               <ToggleButton fx:id="toggleButtonMonth" onAction="#switchToMonth" layoutX="238.0" layoutY="35.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Month" />
                <ComboBox fx:id="comboBoxWeekMonth" layoutX="73.0" layoutY="68.0" prefHeight="20.0" prefWidth="331.0" />
                <Label fx:id="labelMonth" layoutX="504.0" layoutY="37.0" prefHeight="24.0" prefWidth="79.0" text="Month">
                   <font>
                      <Font size="25.0" />
                   </font>
                </Label>
-               <Button fx:id="notificationButton" onAction="#switchIt" layoutX="650.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="249.0" text="Notifications">
+               <Button fx:id="notificationButton" layoutX="650.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="249.0" text="Notifications">
                   <font>
                      <Font size="20.0" />
                   </font>
