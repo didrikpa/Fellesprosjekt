@@ -12,10 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import Model.PersonalAppointment;
@@ -23,6 +20,8 @@ import Server.*;
 
 public class CalendarViewController implements Initializable{
 
+    @FXML
+    Button notificationButton;
 	@FXML ToggleButton toggleButtonWeek;
 	@FXML ToggleButton toggleButtonMonth;
 	@FXML TextField searchBar;
@@ -146,4 +145,17 @@ public class CalendarViewController implements Initializable{
 		}
         labelMonth.setText("Month");
 	}
+
+    @FXML
+    public void openNotification(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/notificationsPopUpView.fxml"));
+//          loader.setController(new NotificationController);
+            stage = new Stage();
+            stage.setTitle("Notifications");
+            stage.setScene(new Scene((Parent) fxmlLoader.load()));
+            stage.show();
+        }
+        catch (Exception e) { System.out.println(e);}
+    }
 }
