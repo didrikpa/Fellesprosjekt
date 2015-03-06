@@ -26,7 +26,7 @@
             <Button fx:id="monthViewPaneMyCalendar" layoutX="322.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
             <Button fx:id="monthViewPaneMyGroups" layoutX="236.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
             <Button fx:id="monthViewPaneEditProfile" layoutX="147.0" layoutY="2.0" mnemonicParsing="false" onAction="#editUser" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
-            <Button fx:id="monthViewPaneMyCalendar1" layoutX="421.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="Create Event" />
+            <Button fx:id="monthViewPaneMyCalendar1" layoutX="421.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="Create Event" onAction="#createEvent"/>
             <Button alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="110.0" layoutY="2.0" mnemonicParsing="false" onAction="#searchEvent" prefHeight="16.0" prefWidth="19.0">
                <graphic>
                   <ImageView fx:id="monthViewPaneSearchButton" fitHeight="15.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
