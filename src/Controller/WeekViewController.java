@@ -33,7 +33,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class weekViewController implements Initializable {
+public class WeekViewController implements Initializable {
 
 	private int startEventRowCreation;
 	private int finalRow;
@@ -154,7 +154,7 @@ public class weekViewController implements Initializable {
 				eventRect.setFill(eventColor);
 				eventRect.setOpacity(0.5);
 				
-				createThisEvent(eventRect);
+//				createThisEvent(eventRect);
 				
             	Pane temp = (Pane) event.getSource();
             	startEventRowCreation = GridPane.getRowIndex(temp);
@@ -240,56 +240,56 @@ public class weekViewController implements Initializable {
 		
 	}
 	
-	private void createThisEvent(Rectangle newEvent){
-		
-		newEvent.setOnDragDetected(new EventHandler<MouseEvent>(){
-			public void handle(MouseEvent event) {
-
-				/* drag was detected, start drag-and-drop gesture*/
-                System.out.println("Detected RECTANGLE MOVE");
-
-            	Pane temp = (Pane) event.getSource();
-            	currentEventMoveIndex=GridPane.getRowIndex(temp);
-            	System.out.println(currentEventMoveIndex);
-
-            	/* allow any transfer mode */
-            	Dragboard db = temp.startDragAndDrop(TransferMode.ANY);
-            	
-            	/* put a string on dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString("");
-                db.setContent(content);
-            	
-            	event.consume();
-            	
-			}
-        });
-       
-		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-            	 /* data is dragged over the target */
-            	System.out.println("Entered RECTANGLE MOVE");
-            	Pane temp = (Pane) event.getSource();
-            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
-                event.consume();
-            }
-        });
-
-		newEvent.setOnDragDone(new EventHandler<DragEvent>() {
-		    public void handle(DragEvent event) {
-		    	
-		    	event.acceptTransferModes(TransferMode.ANY);
-            	System.out.println("Drop occurred!");
-           
-	            int startRowIndexForEvent = startEventRowCreation;
-	            int numberOfRows = finalRow - startRowIndexForEvent;
-	            int heightForRect = (numberOfRows) * 15;
-
-                event.consume();
-		    }
-		});
-		
-	}
+//	private void createThisEvent(Rectangle newEvent){
+//
+//		newEvent.setOnDragDetected(new EventHandler<MouseEvent>(){
+//			public void handle(MouseEvent event) {
+//
+//				/* drag was detected, start drag-and-drop gesture*/
+//                System.out.println("Detected RECTANGLE MOVE");
+//
+//            	Pane temp = (Pane) event.getSource();
+//            	currentEventMoveIndex=GridPane.getRowIndex(temp);
+//            	System.out.println(currentEventMoveIndex);
+//
+//            	/* allow any transfer mode */
+//            	Dragboard db = temp.startDragAndDrop(TransferMode.ANY);
+//
+//            	/* put a string on dragboard */
+//                ClipboardContent content = new ClipboardContent();
+//                content.putString("");
+//                db.setContent(content);
+//
+//            	event.consume();
+//
+//			}
+//        });
+//
+//		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
+//            public void handle(DragEvent event) {
+//            	 /* data is dragged over the target */
+//            	System.out.println("Entered RECTANGLE MOVE");
+//            	Pane temp = (Pane) event.getSource();
+//            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
+//                event.consume();
+//            }
+//        });
+//
+//		newEvent.setOnDragDone(new EventHandler<DragEvent>() {
+//		    public void handle(DragEvent event) {
+//
+//		    	event.acceptTransferModes(TransferMode.ANY);
+//            	System.out.println("Drop occurred!");
+//
+//	            int startRowIndexForEvent = startEventRowCreation;
+//	            int numberOfRows = finalRow - startRowIndexForEvent;
+//	            int heightForRect = (numberOfRows) * 15;
+//
+//                event.consume();
+//		    }
+//		});
+//
+//	}
 	
 	@FXML
 	private Label mondayDateLabel;
