@@ -3,9 +3,15 @@ package Controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -24,7 +30,14 @@ public class CreateEventController implements Initializable {
 
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();
+    Stage stage;
 
+    public CreateEventController(DatabaseServer server){
+        databaseServer = server;
+    }
+
+    @FXML
+    AnchorPane createEventViewMainPane;
     @FXML
     DatePicker createEventViewDatePicker;
     @FXML
@@ -129,9 +142,10 @@ public class CreateEventController implements Initializable {
             createEventViewEndMinutes.setStyle(" ");
             createEventViewEndHours.setStyle(" ");
             endError.setVisible(false);
-            int second = 0;
-            personalAppointment.setStartTid(java.sql.Time.valueOf(LocalTime.of(createEventViewStartHours.getValue(), createEventViewStartMinutes.getValue(), second)));
-            personalAppointment.setSluttTid(java.sql.Time.valueOf(LocalTime.of(createEventViewEndHours.getValue(), createEventViewEndMinutes.getValue(), second)));
+            Time start = new Time(createEventViewStartHours.getValue(), createEventViewStartMinutes.getValue(), 00);
+            Time end = new Time(createEventViewEndHours.getValue(), createEventViewEndMinutes.getValue(), 00);
+            personalAppointment.setStartTid(start);
+            personalAppointment.setSluttTid(end);
             return true;
         }
     }
@@ -184,6 +198,13 @@ public class CreateEventController implements Initializable {
         if(validateTime() && validateRoom() && validateDescription()){
             try {
                 databaseServer.addAppointment(personalAppointment);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
+                loader.setController(new CalendarViewController(databaseServer));
+                stage = (Stage) createEventViewMainPane.getScene().getWindow();
+                Parent root = loader.load();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Calendar");
+                stage.show();
             }
             catch (Exception e) { System.out.println(e);}
         }
@@ -191,7 +212,15 @@ public class CreateEventController implements Initializable {
     }
 
     @FXML
-
+    public void cancelEvent(ActionEvent e) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
+        loader.setController(new CalendarViewController(databaseServer));
+        stage = (Stage) createEventViewMainPane.getScene().getWindow();
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Calendar");
+        stage.show();
+    }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDatePicker(createEventViewDatePicker);
