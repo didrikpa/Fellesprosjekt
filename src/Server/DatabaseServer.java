@@ -137,16 +137,34 @@ public class DatabaseServer {
 		}
 		return null;
 	}
+
+
 	
 	public void addAppointment(PersonalAppointment appointment) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
 	}
 
+    public boolean emailExist(String email) throws SQLException{
+        String values = "";
+        String sql = "SELECT `E-post` FROM Bruker WHERE `E-post` = '" + email + "';";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            values += (rs.getString("E-post"));
+        }
+        values.replaceAll(" ", "");
+        if(values.equals("")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     public String getPassword(String email) throws Exception {
         String password;
         password = this.Password;
-        String sql = "SELECT Passord FROM Bruker WHERE E-post = '" + email + "' ;";
+        String sql = "SELECT Passord FROM Bruker WHERE `E-post` = '" + email + "' ;";
         ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()){
             password = rs.getString("Passord");
