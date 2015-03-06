@@ -45,7 +45,7 @@ public class EmailController {
                 String from = "calendar@email.com";
 
                 // Assuming you are sending email from localhost
-                String host = "smtp.gmail.no";
+                String host = "smtp.stud.ntnu.no";
 
                 // Get system properties
                 Properties properties = System.getProperties();
