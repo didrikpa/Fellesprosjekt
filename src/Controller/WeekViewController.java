@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -28,10 +29,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class WeekViewController implements Initializable {
+public class weekViewController implements Initializable {
 
 	private int startEventRowCreation;
 	private int finalRow;
@@ -114,6 +116,7 @@ public class WeekViewController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
+		
 		finalRow = 0;
 		startEventRowCreation=0;
 		this.eventColor = Color.LIME;
@@ -135,27 +138,24 @@ public class WeekViewController implements Initializable {
 		
 		newPane.setOnDragDetected(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent event) {
-
-
 				/* drag was detected, start drag-and-drop gesture*/
                 System.out.println("onDragDetected");
-                
                 Label newEventLabel = new Label();
                 newEventLabel.setText("My New Event");
                 newEventLabel.setTextFill(eventLabelColor);
-                newEventLabel.setAlignment(Pos.TOP_CENTER);
- 
-                
-                
+                newEventLabel.setAlignment(Pos.TOP_CENTER);         
+
 				eventRect = new Rectangle();
 				eventRect.setWidth(120);
 				eventRect.setHeight(15);
 				eventRect.setArcWidth(20);
 				eventRect.setArcHeight(20);
-				eventRect.setStroke(eventColor);
+				eventRect.setStrokeType(StrokeType.OUTSIDE);
 				eventRect.setFill(eventColor);
-				eventRect.setOpacity(1);
-
+				eventRect.setOpacity(0.5);
+				
+				createThisEvent(eventRect);
+				
             	Pane temp = (Pane) event.getSource();
             	startEventRowCreation = GridPane.getRowIndex(temp);
             	finalRow = startEventRowCreation;
@@ -172,15 +172,7 @@ public class WeekViewController implements Initializable {
                 db.setContent(content);
                 
             	temp.getChildren().add(eventRect);
-            	temp.getChildren().add(newEventLabel);
-            	
-            	SnapshotParameters snapParams = new SnapshotParameters();
-                snapParams.setFill(Color.TRANSPARENT);
-                dragImageView.setImage(temp.snapshot(snapParams, null));
-
-                temp.getChildren().add(dragImageView);
-            	
-            	
+            	temp.getChildren().add(newEventLabel);      	
             	event.consume();
             	
 			}
@@ -227,6 +219,16 @@ public class WeekViewController implements Initializable {
 		    	
 		    	event.acceptTransferModes(TransferMode.ANY);
             	System.out.println("Drop occurred!");
+            	
+            
+            	Pane temp = (Pane) event.getGestureTarget();
+            	System.out.println("Is this empty");
+            	
+//            	if (event.getGestureTarget() instanceof Rectangle){
+//            		
+//            		
+//            		
+//            	}
            
 	            int startRowIndexForEvent = startEventRowCreation;
 	            int numberOfRows = finalRow - startRowIndexForEvent;
@@ -244,7 +246,7 @@ public class WeekViewController implements Initializable {
 			public void handle(MouseEvent event) {
 
 				/* drag was detected, start drag-and-drop gesture*/
-                System.out.println("onDragDetectedForRect");
+                System.out.println("Detected RECTANGLE MOVE");
 
             	Pane temp = (Pane) event.getSource();
             	currentEventMoveIndex=GridPane.getRowIndex(temp);
@@ -263,21 +265,15 @@ public class WeekViewController implements Initializable {
 			}
         });
        
-//		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
-//            public void handle(DragEvent event) {
-//            	 /* data is dragged over the target */
-//
-//            	Pane temp = (Pane) event.getSource();
-//
-//            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
-//
-//
-//
-//
-//
-//                event.consume();
-//            }
-//        });
+		newEvent.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	 /* data is dragged over the target */
+            	System.out.println("Entered RECTANGLE MOVE");
+            	Pane temp = (Pane) event.getSource();
+            	weekGrid.add(newEvent, GridPane.getColumnIndex(temp), GridPane.getRowIndex(temp));
+                event.consume();
+            }
+        });
 
 		newEvent.setOnDragDone(new EventHandler<DragEvent>() {
 		    public void handle(DragEvent event) {
@@ -294,7 +290,6 @@ public class WeekViewController implements Initializable {
 		});
 		
 	}
-	
 	
 	@FXML
 	private Label mondayDateLabel;
