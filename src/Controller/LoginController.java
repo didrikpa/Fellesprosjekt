@@ -50,13 +50,23 @@ public class LoginController {
     	}
     }
     @FXML
-    public void newUser(ActionEvent event) throws Exception{
+     public void newUser(ActionEvent event) throws Exception{
         try {
-//Ignore the next 2 lines
-//            StageController newView = new StageController();
-//            newView.setStage("/Views/createUserView.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createUserView.fxml"));
             stage = (Stage) loginPaneMain.getScene().getWindow();
+            Parent screen = loader.load();
+            stage.setScene(new Scene(screen));
+            stage.show();
+        }
+        catch (Exception e) { System.out.print(e);}
+    }
+
+    @FXML
+    public void getPassword(ActionEvent event) throws Exception{
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/resetPasswordView.fxml"));
+            stage = (Stage) loginPaneMain.getScene().getWindow();
+            loader.setController(new EmailController());
             Parent screen = loader.load();
             stage.setScene(new Scene(screen));
             stage.show();
