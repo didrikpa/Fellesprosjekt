@@ -37,7 +37,7 @@ public class EmailController {
                 emailError.setVisible(true);
                 emailError.setStyle("-fx-text-fill: green");
                 emailError.setText("Your password has been sent to " + resetPasswordEmail.getText() + ".");
-                // Recipient's email ID needs to be mentioned.
+               // Recipient's email ID needs to be mentioned.
                 String to;
                 to = resetPasswordEmail.getText();
 
@@ -80,7 +80,6 @@ public class EmailController {
                     // Send message
                     Transport.send(message);
                     System.out.println("Sent message successfully....");
-                    closeWindow();
 
                 } catch (MessagingException mex) {
                     mex.printStackTrace();
@@ -100,12 +99,4 @@ public class EmailController {
         }
     }
 
-     public void closeWindow(){
-         try {
-             stage.close();
-         }
-         catch (Exception e) {
-             System.out.println(e);
-         }
-     }
 }
