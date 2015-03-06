@@ -58,8 +58,25 @@ public class CreateEventController implements Initializable {
     @FXML private Label startError;
     @FXML private Label endError;
     @FXML private Label dateError;
+    @FXML ListView<String> userList;
+    
 
 
+    @FXML
+    public void inviteUser() {
+	}
+    
+    @FXML
+    public void searchUser() throws Exception {
+    	ArrayList<User> users = new ArrayList<User>();
+		users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
+		ArrayList<String> nas = new ArrayList<String>();
+		for(User user :  users){
+			nas.add(user.getFirstname() + " " + user.getLastname());
+		}
+		userList.setItems(FXCollections.observableArrayList(nas));
+	}
+    
     @FXML
     public static void setDatePicker(final DatePicker calender) {
         calender.setValue(LocalDate.now());
