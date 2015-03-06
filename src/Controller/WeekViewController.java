@@ -145,9 +145,11 @@ public class WeekViewController implements Initializable {
                 newEventLabel.setTextFill(eventLabelColor);
                 newEventLabel.setAlignment(Pos.TOP_CENTER);         
 
+                Pane temp = (Pane) event.getSource();
+                
 				eventRect = new Rectangle();
-				eventRect.setWidth(120);
-				eventRect.setHeight(15);
+				eventRect.setWidth(temp.getWidth());
+				eventRect.setHeight(temp.getHeight());
 				eventRect.setArcWidth(20);
 				eventRect.setArcHeight(20);
 				eventRect.setStrokeType(StrokeType.OUTSIDE);
@@ -155,8 +157,7 @@ public class WeekViewController implements Initializable {
 				eventRect.setOpacity(0.5);
 				
 //				createThisEvent(eventRect);
-				
-            	Pane temp = (Pane) event.getSource();
+
             	startEventRowCreation = GridPane.getRowIndex(temp);
             	finalRow = startEventRowCreation;
             	System.out.println(startEventRowCreation);
@@ -193,8 +194,8 @@ public class WeekViewController implements Initializable {
             	if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && finalRow<currentRow){
             	
                 System.out.println("onDragOverPlus");
-                
-                eventRect.setHeight(eventRect.getHeight()+15);
+                 
+                eventRect.setHeight(eventRect.getHeight()+temp.getHeight());
                 finalRow = currentRow;
 
                 event.consume();
@@ -202,7 +203,7 @@ public class WeekViewController implements Initializable {
             	else if (eventRect!=null && event.getGestureSource() != temp && GridPane.getColumnIndex(source)==GridPane.getColumnIndex(temp) && finalRow>currentRow){
             		            		System.out.println("onDragOverMinus");
                     
-                    eventRect.setHeight(eventRect.getHeight()-15);
+                    eventRect.setHeight(eventRect.getHeight()-temp.getHeight());
                     finalRow = currentRow;
 
                     event.consume();
