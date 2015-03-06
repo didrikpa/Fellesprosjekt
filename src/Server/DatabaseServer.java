@@ -143,6 +143,17 @@ public class DatabaseServer {
 		stmt.executeUpdate(sql);
 	}
 
+    public String getPassword(String email) throws Exception {
+        String password;
+        password = this.Password;
+        String sql = "SELECT Passord FROM Bruker WHERE E-post = '" + email + "' ;";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            password = rs.getString("Passord");
+        }
+        return password;
+    }
+
     public List getRoomName() throws Exception {
         List<String> romnavn = new ArrayList<String>();
         String sql = "SELECT Romnavn FROM Møterom;";
