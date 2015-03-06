@@ -122,16 +122,16 @@ public class CalendarViewController implements Initializable{
 		stage.show();
 	}
 	
-	@FXML
-	public void createEvent(ActionEvent event) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
-		loader.setController(new CreateEventController(server));
-		stage = (Stage) mainMonthViewPane.getScene().getWindow();
-		Parent root = loader.load();
-		stage.setScene(new Scene(root));
-		stage.setTitle("Create event");
-		stage.show();
-	}
+//	@FXML
+//	public void createEvent(ActionEvent event) throws Exception {
+//		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
+//		loader.setController(new CreateEventController(server));
+//		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+//		Parent root = loader.load();
+//		stage.setScene(new Scene(root));
+//		stage.setTitle("Create event");
+//		stage.show();
+//	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
