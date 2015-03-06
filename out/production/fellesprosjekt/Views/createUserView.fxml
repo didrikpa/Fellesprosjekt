@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="createUserPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CreateUserController">
+   <children>
+      <GridPane layoutX="142.0" layoutY="100.0" prefHeight="275.0" prefWidth="375.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER_RIGHT" prefHeight="77.0" prefWidth="172.0" text="First name:" />
+            <Label alignment="CENTER_RIGHT" prefHeight="94.0" prefWidth="166.0" text="Last name:" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="210.0" text="Email:" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="206.0" text="Phone:" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="220.0" text="Username:" GridPane.rowIndex="4" />
+            <Label alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="197.0" text="Password:" GridPane.rowIndex="5" />
+            <Label alignment="CENTER_RIGHT" prefHeight="129.0" prefWidth="239.0" text="Repeat password:" GridPane.rowIndex="6" />
+            <TextField fx:id="createUserPaneFirst" GridPane.columnIndex="2" />
+            <TextField fx:id="createUserPaneLast" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="createUserPaneEmail" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="createUserPanePhone" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="createUserPaneUsername" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <PasswordField fx:id="createUserPanePassword" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <PasswordField fx:id="createUserPanePasswordRepeat" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+      <Button fx:id="createUserPaneCreate" layoutX="872.0" layoutY="494.0" mnemonicParsing="false" onAction="#createAction" text="Create" />
+      <Button fx:id="createUserPaneCancel" layoutX="787.0" layoutY="494.0" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
+      <GridPane layoutX="528.0" layoutY="106.0" prefHeight="263.0" prefWidth="428.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="fNameError" />
+            <Label fx:id="emailError" GridPane.rowIndex="2" />
+            <Label fx:id="userError" GridPane.rowIndex="4" />
+            <Label fx:id="lNameError" GridPane.rowIndex="1" />
+            <Label fx:id="pw1Error" GridPane.rowIndex="5" />
+            <Label fx:id="pw2Error" GridPane.rowIndex="6" />
+            <Label fx:id="phoneError" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+   </children>
+</Pane>

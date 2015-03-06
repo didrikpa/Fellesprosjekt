@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="createEventViewMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.createEventController">
+<Pane fx:id="createEventViewMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CreateEventController">
    <children>
       <GridPane layoutX="35.0" layoutY="58.0" prefHeight="135.0" prefWidth="125.0">
         <columnConstraints>
@@ -123,11 +123,11 @@
          </font>
       </Label>
       <TextField fx:id="createEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
-      <DatePicker fx:id="createEventViewDatePicker" layoutX="182.0" layoutY="68.0" prefWidth="150.0" promptText="Date" />
+      <DatePicker onAction="#setDate" fx:id="createEventViewDatePicker" layoutX="182.0" layoutY="68.0" prefWidth="150.0" promptText="Date" />
       <ComboBox fx:id="createEventViewStartHours" layoutX="182.0" layoutY="100.0" prefWidth="73.0" promptText="HH" />
       <ComboBox fx:id="createEventViewRoom" layoutX="182.0" layoutY="162.0" prefWidth="150.0" promptText="Meeting room" />
       <ComboBox fx:id="createEventViewStartMinutes" layoutX="257.0" layoutY="100.0" prefWidth="73.0" promptText="MM" />
-      <Button fx:id="createEventViewCreate" layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Create" />
+      <Button onAction="#createEvent" fx:id="createEventViewCreate" layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Create" />
       <ComboBox fx:id="createEventViewEndHours" layoutX="182.0" layoutY="131.0" prefWidth="73.0" promptText="HH" />
       <ComboBox fx:id="createEventViewEndMinutes" layoutX="257.0" layoutY="131.0" prefWidth="73.0" promptText="MM" />
       <Label alignment="CENTER_RIGHT" layoutX="647.0" layoutY="22.0" prefHeight="46.0" prefWidth="127.0" text="Description:">
