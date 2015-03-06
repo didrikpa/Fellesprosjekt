@@ -94,27 +94,9 @@
                   </Label>
                </children>
             </Pane>
-            <ScrollPane fx:id="createEventViewSearchResultsPane" layoutX="1.0" layoutY="30.0" prefHeight="217.0" prefWidth="621.0">
-               <content>
-                  <GridPane fx:id="creteEventViewGridPaneSearch" prefHeight="40.0" prefWidth="618.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="503.70587158203125" minWidth="10.0" prefWidth="467.3801574707031" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.1878662109375" minWidth="10.0" prefWidth="150.61984252929688" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="createEventViewAddUser1" layoutX="46.0" layoutY="7.0" mnemonicParsing="false" text="Invite" />
-                           </children>
-                        </Pane>
-                        <Label fx:id="createEventViewSearchUser1" text="User" />
-                     </children>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <ListView fx:id="userList" layoutY="60.0" prefHeight="190.0" prefWidth="623.0" />
+            <Label layoutX="10.0" layoutY="38.0" text="User" />
+            <Button layoutX="540.0" layoutY="33.0" mnemonicParsing="false" onAction="#inviteUser" text="Invite" />
          </children>
       </Pane>
       <Label layoutX="134.0" layoutY="250.0" text="Search users:">
@@ -122,7 +104,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="createEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
+      <TextField fx:id="createEventViewSearch" layoutX="325.0" layoutY="250.0" onAction="#searchUser" onInputMethodTextChanged="#searchUser" onKeyTyped="#searchUser" prefWidth="150.0" promptText="Search" />
       <DatePicker fx:id="createEventViewDatePicker" layoutX="182.0" layoutY="68.0" onAction="#setDate" prefWidth="150.0" promptText="Date" />
       <ComboBox fx:id="createEventViewStartHours" layoutX="182.0" layoutY="100.0" prefWidth="73.0" promptText="HH" />
       <ComboBox fx:id="createEventViewRoom" layoutX="182.0" layoutY="162.0" prefWidth="150.0" promptText="Meeting room" />
@@ -153,6 +135,6 @@
             <Label fx:id="roomError" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="createEventViewCancel" layoutX="814.0" layoutY="250.0" mnemonicParsing="false" onAction="#cancelEvent" text="Cancel"/>
+      <Button fx:id="createEventViewCancel" layoutX="814.0" layoutY="250.0" mnemonicParsing="false" onAction="#cancelEvent" text="Cancel" />
    </children>
 </AnchorPane>
