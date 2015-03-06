@@ -66,6 +66,23 @@ public class DatabaseServer {
 		}
 		return user;
 	}
+	
+	public ArrayList<User> getUsers() throws Exception {
+		ArrayList<User> users= new ArrayList<User>();
+		String sql = "SELECT * FROM Bruker;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			User user = new User();
+			user.setUsername(rs.getString("Brukernavn"));
+			user.setPassword(rs.getString("Passord"));
+			user.setFirstname(rs.getString("Fornavn"));
+			user.setLastname(rs.getString("Etternavn"));
+			user.setEmail(rs.getString("E-post"));
+			user.setPhone(rs.getString("Telefon"));
+			users.add(user);
+		}
+		return users;
+	}
 
 	public boolean addUser(User user) throws SQLException{
 		if(!userExist(user.getUsername())){
