@@ -238,6 +238,30 @@ public class CreateEventController implements Initializable {
         stage.setTitle("Calendar");
         stage.show();
     }
+    
+    ArrayList<User> userSearch(String sok, ArrayList<User> namesIn){
+		String søker = sok;
+		søker = søker.toLowerCase();
+		ArrayList<User> navnene = namesIn;
+		ArrayList<User> namesOut = new ArrayList<User>();
+		while(!søker.equals("")){
+			for(User namn:navnene){
+				if((namn.getFirstname()+""+namn.getLastname()).toLowerCase().contains(søker)){
+					if(!namesOut.contains(namn)){
+						namesOut.add(namn);
+					}
+				}
+			}
+			String [] con = søker.split("");
+			søker = "";
+			int ant = con.length - 1;
+			for (int i = 0; i < ant; i++){
+				if(!(søker.length() == ant) || søker.length() < 3)søker += con[i];
+				
+			}
+		}
+		return namesOut;
+	}
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDatePicker(createEventViewDatePicker);
