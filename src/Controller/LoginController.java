@@ -8,9 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import Server.DatabaseServer;
+import javafx.stage.StageStyle;
 
 public class LoginController {
     @FXML
@@ -65,10 +67,11 @@ public class LoginController {
     public void getPassword(ActionEvent event) throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/resetPasswordView.fxml"));
-            stage = (Stage) loginPaneMain.getScene().getWindow();
             loader.setController(new EmailController());
-            Parent screen = loader.load();
-            stage.setScene(new Scene(screen));
+            Parent screen = (Parent) loader.load();
+            stage = new Stage();
+            stage.setTitle("Retrieve password");
+            stage.setScene(new Scene(screen, 500, 300));
             stage.show();
         }
         catch (Exception e) { System.out.print(e);}
