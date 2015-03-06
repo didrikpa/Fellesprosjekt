@@ -1,6 +1,5 @@
 package Controller;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.net.URL;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -22,7 +20,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import Server.*;
 import Model.*;
 
@@ -59,12 +56,11 @@ public class CreateEventController implements Initializable {
     @FXML private Label endError;
     @FXML private Label dateError;
     @FXML ListView<String> userList;
-    
-
 
     @FXML
     public void inviteUser() {
-	}
+    	
+    }
     
     @FXML
     public void searchUser() throws Exception {
@@ -179,7 +175,6 @@ public class CreateEventController implements Initializable {
     @FXML
     public void setDate(){
         personalAppointment.setDato(java.sql.Date.valueOf(createEventViewDatePicker.getValue()));
-
     }
 
     @FXML
@@ -225,7 +220,6 @@ public class CreateEventController implements Initializable {
             }
             catch (Exception e) { System.out.println(e);}
         }
-
     }
 
     @FXML
@@ -271,5 +265,4 @@ public class CreateEventController implements Initializable {
         setMinuteToo();
         setRoom();
     }
-
 }
