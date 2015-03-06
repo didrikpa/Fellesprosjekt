@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -39,6 +40,10 @@ public class CalendarViewController implements Initializable{
 
 	public CalendarViewController(DatabaseServer loginServer) throws Exception{
 		server = loginServer;
+		mainViewMid = new Pane();
+		labelMonth = new Label();
+		mainMonthViewPane = new Pane();
+		initialize(null, null);
 	}
 	
 	// TopPane code
@@ -116,8 +121,29 @@ public class CalendarViewController implements Initializable{
 		stage.setTitle("Edit user");
 		stage.show();
 	}
+	
+	@FXML
+	public void createEvent(ActionEvent event) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
+		loader.setController(new CreateEventController(server));
+		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+		Parent root = loader.load();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Create event");
+		stage.show();
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		mainViewMid.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
+		loader.setController(new MonthViewController(server));
+		try {
+			mainViewMid.getChildren().add((Parent) loader.load());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        labelMonth.setText("Month");
 	}
 }
