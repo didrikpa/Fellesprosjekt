@@ -3,6 +3,7 @@ package Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import Model.PersonalAppointment;
@@ -20,66 +24,125 @@ import Server.*;
 
 public class CalendarViewController implements Initializable{
 
-    @FXML
-    Button notificationButton;
 	@FXML ToggleButton toggleButtonWeek;
 	@FXML ToggleButton toggleButtonMonth;
 	@FXML TextField searchBar;
 	@FXML ListView<String> searchList;
-    @FXML Label labelMonth;
-
-	//Hovedviewet hvor stage hentes fra
-	@FXML
-	Pane mainMonthViewPane;
-	//Underview - mainViewMid inneholder enten month- eller week-kalender
-	@FXML 
-	Pane mainViewMid;
+	@FXML Label labelMonth;
+	@FXML Pane mainMonthViewPane;
+	@FXML Pane mainViewMid;
+	MonthViewController midViewEn;
+	WeekViewController midViewTo;
 	DatabaseServer server;
 	Stage stage;
+	int maned = 0;
+	int aar = 0;
 
 	public CalendarViewController(DatabaseServer loginServer) throws Exception{
 		server = loginServer;
-		mainViewMid = new Pane();
-		labelMonth = new Label();
-		mainMonthViewPane = new Pane();
+		init();
 		initialize(null, null);
+	}
+	
+	@FXML
+	public void openNotification(){
+		try{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/notificationsPopUpView.fxml"));
+			fxmlLoader.setController(new NotificationController());
+			stage = new Stage();
+			stage.setTitle("Notifications");
+			stage.setScene(new Scene((Parent) fxmlLoader.load()));
+			stage.show();
+		}
+		catch (Exception e) { System.out.println(e);}
 	}
 	
 	// TopPane code
 	@FXML
-	public void switchToWeek(ActionEvent event) throws Exception {
-		if(!toggleButtonWeek.isPressed()){
-			mainViewMid.getChildren().clear();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
-			loader.setController(new WeekViewController());
-			mainViewMid.getChildren().add((Parent) loader.load());
-			toggleButtonMonth.setSelected(false);
-            labelMonth.setText("Week");
+	public void manedBak(ActionEvent event) throws Exception {
+		if(!midViewEn.equals(null)){
+			maned -= 1;
+			midViewEn.setMonth(aar,maned);
+			updatelMonth();
 		}
-
+	}
+	@FXML
+	public void manedFrem(ActionEvent event) throws Exception {
+		if(!midViewEn.equals(null)){
+			maned += 1;
+			midViewEn.setMonth(aar,maned);
+			updatelMonth();
+		}
 	}
 
-	public void switchToMonth(ActionEvent event) throws Exception {
-		if(!toggleButtonMonth.isPressed()){
-			mainViewMid.getChildren().clear();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
-			loader.setController(new MonthViewController(server));
-			mainViewMid.getChildren().add((Parent) loader.load());
-            labelMonth.setText("Month");
+	private void updatelMonth(){
+		int mid = maned;
+		int yid = aar;
+		while(mid > 11){
+			mid -= 12;
+			yid += 1;
 		}
+		while(mid < 0){
+			mid+=12;
+			yid -= 1;
+		}
+		switch (mid) {
+		case 0:  labelMonth.setText("January "+yid);
+		break;
+		case 1:  labelMonth.setText("February "+yid);
+		break;
+		case 2:  labelMonth.setText("March "+yid);
+		break;
+		case 3:  labelMonth.setText("April "+yid);
+		break;
+		case 4:  labelMonth.setText("May "+yid);
+		break;
+		case 5:  labelMonth.setText("June "+yid);
+		break;
+		case 6:  labelMonth.setText("July "+yid);
+		break;
+		case 7:  labelMonth.setText("August "+yid);
+		break;
+		case 8:  labelMonth.setText("September "+yid);
+		break;
+		case 9:  labelMonth.setText("October "+yid);
+		break;
+		case 10: labelMonth.setText("November "+yid);
+		break;
+		case 11: labelMonth.setText("December "+yid);
+		break;
+		default: labelMonth.setText("Ukjent");
+		break;
+		}
+	}
+
+	@FXML
+	public void switchToWeek(ActionEvent event) throws Exception {
+		mainViewMid.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
+		midViewTo = new WeekViewController();
+		loader.setController(midViewTo);
+		midViewEn = null;
+		mainViewMid.getChildren().add((Parent) loader.load());
+		toggleButtonMonth.setSelected(false);
+		labelMonth.setText("Week");
+	}
+	
+	@FXML
+	public void switchToMonth(ActionEvent event) throws Exception {
+		mainViewMid.getChildren().clear();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
+		midViewEn = new MonthViewController(server);
+		loader.setController(midViewEn);
+		midViewEn.setMonth(aar, maned);
+		updatelMonth();
+		midViewTo = null;
+		mainViewMid.getChildren().add((Parent) loader.load());
 	}
 
 	// LeftBar code 
 	@FXML
 	private void chooseAppointment(ActionEvent event){
-		System.out.println("LOL");
-		//    	searchList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-		//    	    @Override
-		//			public void changed(ObservableValue<? extends String> observable,
-		//					String oldValue, String newValue) {
-		//    	    	System.out.println("LOL");
-		//			}
-		//    	});
 	}
 
 	@FXML
@@ -120,7 +183,7 @@ public class CalendarViewController implements Initializable{
 		stage.setTitle("Edit user");
 		stage.show();
 	}
-	
+
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
@@ -132,30 +195,32 @@ public class CalendarViewController implements Initializable{
 		stage.show();
 	}
 	
+	@SuppressWarnings("static-access")
+	void init(){
+		mainViewMid = new Pane();
+		labelMonth = new Label();
+		mainMonthViewPane = new Pane();
+		GregorianCalendar cg = new GregorianCalendar();
+		aar = cg.get(cg.YEAR);
+		maned = cg.get(cg.MONTH);
+	}
+
+	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
-		loader.setController(new MonthViewController(server));
+		midViewEn = new MonthViewController(server);
+		loader.setController(midViewEn);
 		try {
 			mainViewMid.getChildren().add((Parent) loader.load());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        labelMonth.setText("Month");
-	}
+		labelMonth.setText("Month");
+		GregorianCalendar en = new GregorianCalendar();
+		midViewEn.setMonth(en.get(en.YEAR),en.get(en.MONTH));
+		updatelMonth();
 
-    @FXML
-    public void openNotification(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/notificationsPopUpView.fxml"));
-            fxmlLoader.setController(new NotificationController());
-            stage = new Stage();
-            stage.setTitle("Notifications");
-            stage.setScene(new Scene((Parent) fxmlLoader.load()));
-            stage.show();
-        }
-        catch (Exception e) { System.out.println(e);}
-    }
+	}
 }

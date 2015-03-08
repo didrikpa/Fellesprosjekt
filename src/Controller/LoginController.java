@@ -67,16 +67,16 @@ public class LoginController {
 
     @FXML
     public void getPassword(ActionEvent event) throws Exception{
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/resetPasswordView.fxml"));
-            loader.setController(new EmailController());
-            Parent screen = (Parent) loader.load();
-            stage = new Stage();
-            stage.setTitle("Retrieve password");
-            stage.setScene(new Scene(screen, 500, 300));
-            stage.show();
-        }
-        catch (Exception e) { System.out.print(e);}
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/resetPasswordView.fxml"));
+//            loader.setController(new EmailController());
+//            Parent screen = (Parent) loader.load();
+//            stage = new Stage();
+//            stage.setTitle("Retrieve password");
+//            stage.setScene(new Scene(screen, 500, 300));
+//            stage.show();
+//        }
+//        catch (Exception e) { System.out.print(e);}
     }
 
     @FXML
