@@ -1,6 +1,8 @@
 package Controller;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+
 import Model.PersonalAppointment;
 import Server.DatabaseServer;
 import javafx.event.EventHandler;
@@ -53,6 +55,49 @@ public class MonthViewController{
 	@FXML Pane pane45;
 	@FXML Pane pane55;
 	@FXML Pane pane65;
+	
+	@FXML Pane sane00;
+	@FXML Pane sane10;
+	@FXML Pane sane20;
+	@FXML Pane sane30;
+	@FXML Pane sane40;
+	@FXML Pane sane50;
+	@FXML Pane sane60;
+	@FXML Pane sane01;
+	@FXML Pane sane11;
+	@FXML Pane sane21;
+	@FXML Pane sane31;
+	@FXML Pane sane41;
+	@FXML Pane sane51;
+	@FXML Pane sane61;
+	@FXML Pane sane02;
+	@FXML Pane sane12;
+	@FXML Pane sane22;
+	@FXML Pane sane32;
+	@FXML Pane sane42;
+	@FXML Pane sane52;
+	@FXML Pane sane62;
+	@FXML Pane sane03;
+	@FXML Pane sane13;
+	@FXML Pane sane23;
+	@FXML Pane sane33;
+	@FXML Pane sane43;
+	@FXML Pane sane53;
+	@FXML Pane sane63;
+	@FXML Pane sane04;
+	@FXML Pane sane14;
+	@FXML Pane sane24;
+	@FXML Pane sane34;
+	@FXML Pane sane44;
+	@FXML Pane sane54;
+	@FXML Pane sane64;
+	@FXML Pane sane05;
+	@FXML Pane sane15;
+	@FXML Pane sane25;
+	@FXML Pane sane35;
+	@FXML Pane sane45;
+	@FXML Pane sane55;
+	@FXML Pane sane65;
 
 	@FXML Label date00;
 	@FXML Label date10;
@@ -110,7 +155,57 @@ public class MonthViewController{
 		innehald = new Date[42];
 		init();
 	}
+	
+	void dateInit(){
+		date00 = new Label();
+		date10 = new Label();
+		date20 = new Label();
+		date30 = new Label();
+		date40 = new Label();
+		date50 = new Label();
+		date60 = new Label();
 
+		date01 = new Label();
+		date11 = new Label();
+		date21 = new Label();
+		date31 = new Label();
+		date41 = new Label();
+		date51 = new Label();
+		date61 = new Label();
+
+		date02 = new Label();
+		date12 = new Label();
+		date22 = new Label();
+		date32 = new Label();
+		date42 = new Label();
+		date52 = new Label();
+		date62 = new Label();
+
+		date03 = new Label();
+		date13 = new Label();
+		date23 = new Label();
+		date33 = new Label();
+		date43 = new Label();
+		date53 = new Label();
+		date63 = new Label();
+
+		date04 = new Label();
+		date14 = new Label();
+		date24 = new Label();
+		date34 = new Label();
+		date44 = new Label();
+		date54 = new Label();
+		date64 = new Label();
+
+		date05 = new Label();
+		date15 = new Label();
+		date25 = new Label();
+		date35 = new Label();
+		date45 = new Label();
+		date55 = new Label();
+		date65 = new Label();
+	}
+	
 	//Instansierer alle panes
 	public void init(){	
 		monthViewPaneMain = new AnchorPane();
@@ -162,7 +257,7 @@ public class MonthViewController{
 		date45 = new Label();
 		date55 = new Label();
 		date65 = new Label();
-
+		
 		pane00 = new Pane();
 		pane10 = new Pane();
 		pane20 = new Pane();
@@ -210,11 +305,102 @@ public class MonthViewController{
 		pane45 = new Pane();
 		pane55 = new Pane();
 		pane65 = new Pane();
+		
+		sane00 = new Pane();
+		sane10 = new Pane();
+		sane20 = new Pane();
+		sane30 = new Pane();
+		sane40 = new Pane();
+		sane50 = new Pane();
+		sane60 = new Pane();
+
+		sane01 = new Pane();
+		sane11 = new Pane();
+		sane21 = new Pane();
+		sane31 = new Pane();
+		sane41 = new Pane();
+		sane51 = new Pane();
+		sane61 = new Pane();
+
+		sane02 = new Pane();
+		sane12 = new Pane();
+		sane22 = new Pane();
+		sane32 = new Pane();
+		sane42 = new Pane();
+		sane52 = new Pane();
+		sane62 = new Pane();
+
+		sane03 = new Pane();
+		sane13 = new Pane();
+		sane23 = new Pane();
+		sane33 = new Pane();
+		sane43 = new Pane();
+		sane53 = new Pane();
+		sane63 = new Pane();
+
+		sane04 = new Pane();
+		sane14 = new Pane();
+		sane24 = new Pane();
+		sane34 = new Pane();
+		sane44 = new Pane();
+		sane54 = new Pane();
+		sane64 = new Pane();
+
+		sane05 = new Pane();
+		sane15 = new Pane();
+		sane25 = new Pane();
+		sane35 = new Pane();
+		sane45 = new Pane();
+		sane55 = new Pane();
+		sane65 = new Pane();
 	}
 
 	//får settMonth til å fylle array, og legger deretter hver verdi til hver dag
-	public void setMonth(int ayear,int amonth){
+	public void setMonth(int ayear,int amonth) throws Exception{
 		dagar = settMonth(ayear, amonth);
+		showEvents(sane00,innehald[0]);
+		showEvents(sane10,innehald[1]);
+		showEvents(sane20,innehald[2]);
+		showEvents(sane30,innehald[3]);
+		showEvents(sane40,innehald[4]);
+		showEvents(sane50,innehald[5]);
+		showEvents(sane60,innehald[6]);
+		showEvents(sane01,innehald[7]);
+		showEvents(sane11,innehald[8]);
+		showEvents(sane21,innehald[9]);
+		showEvents(sane31,innehald[10]);
+		showEvents(sane41,innehald[11]);
+		showEvents(sane51,innehald[12]);
+		showEvents(sane61,innehald[13]);
+		showEvents(sane02,innehald[14]);
+		showEvents(sane12,innehald[15]);
+		showEvents(sane22,innehald[16]);
+		showEvents(sane32,innehald[17]);
+		showEvents(sane42,innehald[18]);
+		showEvents(sane52,innehald[19]);
+		showEvents(sane62,innehald[20]);
+		showEvents(sane03,innehald[21]);
+		showEvents(sane13,innehald[22]);
+		showEvents(sane23,innehald[23]);
+		showEvents(sane33,innehald[24]);
+		showEvents(sane43,innehald[25]);
+		showEvents(sane53,innehald[26]);
+		showEvents(sane63,innehald[27]);
+		showEvents(sane04,innehald[28]);
+		showEvents(sane14,innehald[29]);
+		showEvents(sane24,innehald[30]);
+		showEvents(sane34,innehald[31]);
+		showEvents(sane44,innehald[32]);
+		showEvents(sane54,innehald[33]);
+		showEvents(sane64,innehald[34]);
+		showEvents(sane05,innehald[35]);
+		showEvents(sane15,innehald[36]);
+		showEvents(sane25,innehald[37]);
+		showEvents(sane35,innehald[38]);
+		showEvents(sane45,innehald[39]);
+		showEvents(sane55,innehald[40]);
+		showEvents(sane65,innehald[41]);
+		
 		date00.setText(dagar[0]+"");
 		date10.setText(dagar[1]+"");
 		date20.setText(dagar[2]+"");
@@ -262,6 +448,7 @@ public class MonthViewController{
 		date45.setText(dagar[39]+"");
 		date55.setText(dagar[40]+"");
 		date65.setText(dagar[41]+"");
+		
 	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
@@ -364,14 +551,29 @@ public class MonthViewController{
 	public void clickGrid(MouseEvent e) {
 		pane00.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.println("00");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[0])){
-						System.out.println(en.getBeskrivelse());
+				try{
+					ArrayList<PersonalAppointment> ena = server.getAppointment(innehald[0]);
+					GridPane gridPane = new GridPane();
+					gridPane.setHgap(10);
+					gridPane.setVgap(10);
+					if(ena.size() <= 3){
+						int i = 0;
+						for(PersonalAppointment enu:ena){
+							Label eni = new Label();
+							String desc = enu.getBeskrivelse();
+							if(enu.getBeskrivelse().length() > 6){
+								desc = desc.substring(0, 6);
+								desc += "..";
+							}
+							eni.setText(enu.getStartTid().getHours() + ":" + enu.getStartTid().getMinutes() + "-" + enu.getSluttTid().getHours() + ":" + enu.getSluttTid().getMinutes() + " " + desc);
+							gridPane.add(eni, 0,i);
+							i+=1;
+						}
+						pane00.getChildren().add(gridPane);
 					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				}
+				catch(Exception e1){
+					System.out.println(e1);
 				}
 			}
 		});
@@ -914,5 +1116,29 @@ public class MonthViewController{
 				}
 			}
 		});
+	}
+	private void showEvents(Pane pane, Date date) throws Exception {
+		pane.getChildren().clear();
+		ArrayList<PersonalAppointment> ena = server.getAppointment(date);
+		if(!ena.isEmpty() || !ena.equals(null)){
+			GridPane gridPane = new GridPane();
+			gridPane.setHgap(10);
+			gridPane.setVgap(10);
+			if(ena.size() <= 3){
+				int i = 0;
+				for(PersonalAppointment enu:ena){
+					Label eni = new Label();
+					String desc = enu.getBeskrivelse();
+					if(enu.getBeskrivelse().length() > 6){
+						desc = desc.substring(0, 6);
+						desc += "..";
+					}
+					eni.setText(enu.getStartTid().getHours() + ":" + enu.getStartTid().getMinutes() + "-" + enu.getSluttTid().getHours() + ":" + enu.getSluttTid().getMinutes() + " " + desc);
+					gridPane.add(eni, 0,i);
+					i+=1;
+				}
+				pane.getChildren().add(gridPane);
+			}
+		}
 	}
 }
