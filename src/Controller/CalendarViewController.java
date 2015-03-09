@@ -1,11 +1,7 @@
 package Controller;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.ResourceBundle;
-
+import Model.PersonalAppointment;
+import Server.DatabaseServer;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,8 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import Model.PersonalAppointment;
-import Server.*;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.ResourceBundle;
 
 public class CalendarViewController implements Initializable{
 
@@ -202,7 +202,7 @@ public class CalendarViewController implements Initializable{
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
-		loader.setController(new CreateEventController(server));
+		loader.setController(new CreateEventController(server, thisgit ));
         stage = new Stage();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
