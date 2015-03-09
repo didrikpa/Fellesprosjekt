@@ -42,7 +42,7 @@ public class EmailController {
                 to = resetPasswordEmail.getText();
 
                 // Sender's email ID needs to be mentioned
-                String from = "calendar@email.com";
+                String from = "awesome@calendar.com";
 
                 // Assuming you are sending email from localhost
                 String host = "smtp.stud.ntnu.no";
