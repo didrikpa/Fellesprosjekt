@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -208,31 +209,19 @@ public class CreateEventController implements Initializable {
     }
 
     @FXML
-    public void createEvent(){
+    public void createEvent(ActionEvent event){
         if(validateTime() && validateRoom() && validateDescription()){
             try {
                 databaseServer.addAppointment(personalAppointment);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
-                loader.setController(new CalendarViewController(databaseServer));
-                stage = (Stage) createEventViewMainPane.getScene().getWindow();
-                Parent root = loader.load();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Calendar");
-                stage.show();
+                ((Node)(event.getSource())).getScene().getWindow().hide();
             }
             catch (Exception e) { System.out.println(e);}
         }
     }
 
     @FXML
-    public void cancelEvent(ActionEvent e) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
-        loader.setController(new CalendarViewController(databaseServer));
-        stage = (Stage) createEventViewMainPane.getScene().getWindow();
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Calendar");
-        stage.show();
+    public void cancelEvent(ActionEvent event) throws Exception{
+        ((Node)(event.getSource())).getScene().getWindow().hide();
     }
     
     ArrayList<User> userSearch(String search, ArrayList<User> namesIn){
