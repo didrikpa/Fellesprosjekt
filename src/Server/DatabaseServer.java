@@ -125,6 +125,7 @@ public class DatabaseServer {
 		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 		while(rs.next()){
 			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
 			appointment.setDato(Date.valueOf(rs.getString("Dato")));
 			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
 			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
@@ -143,6 +144,7 @@ public class DatabaseServer {
 			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 			while(rs.next()){
 				PersonalAppointment appointment = new PersonalAppointment();
+				appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
 				appointment.setDato(Date.valueOf(rs.getString("Dato")));
 				appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
 				appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
