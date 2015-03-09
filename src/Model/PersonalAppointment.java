@@ -7,6 +7,14 @@ public class PersonalAppointment extends SuperEvent{
 
 	public PersonalAppointment(){}
 
+	public int getAvtaleID() {
+		return super.getAvtaleID();
+	}
+
+	public void setAvtaleID(int aid) {
+		super.setAvtaleID(aid);
+	}
+
 	public Date getDato() {
 		return super.getDato();
 	}
@@ -47,4 +55,8 @@ public class PersonalAppointment extends SuperEvent{
 		super.setRomnavn(romnavn);
 	}
 
+	@Override
+	public String toString() {
+		return getBeskrivelse();
+	}
 }
