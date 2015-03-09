@@ -68,6 +68,7 @@ public class CreateEventController implements Initializable {
     
     @FXML
     public void searchUser() throws Exception {
+    	userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     	ArrayList<User> users = new ArrayList<User>();
 		users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
 		ArrayList<String> nas = new ArrayList<String>();
