@@ -194,6 +194,17 @@ public class CalendarViewController implements Initializable{
 		stage.setTitle("Create event");
 		stage.show();
 	}
+
+    @FXML
+    public void accessMyGroups(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/myGroupsPopUpView.fxml"));
+        loader.setController(new MyGroupController(server));
+        stage = new Stage();
+        Parent root = loader.load();
+        stage.setTitle("My Groups");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 	
 	@SuppressWarnings("static-access")
 	void init(){
