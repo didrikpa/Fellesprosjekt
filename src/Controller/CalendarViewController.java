@@ -188,7 +188,7 @@ public class CalendarViewController implements Initializable{
 	public void createEvent(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
 		loader.setController(new CreateEventController(server));
-		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+        stage = new Stage();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Create event");
