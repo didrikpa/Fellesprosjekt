@@ -27,7 +27,7 @@ public class CalendarViewController implements Initializable{
 	@FXML ToggleButton toggleButtonWeek;
 	@FXML ToggleButton toggleButtonMonth;
 	@FXML TextField searchBar;
-	@FXML ListView<String> searchList;
+	@FXML ListView<PersonalAppointment> searchList;
 	@FXML Label labelMonth;
 	@FXML Pane mainMonthViewPane;
 	@FXML Pane mainViewMid;
