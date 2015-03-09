@@ -1,13 +1,13 @@
 package Server;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.PersonalAppointment;
 import Model.User;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 
 public class DatabaseServer {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; 
@@ -209,9 +209,48 @@ public class DatabaseServer {
         return groupNames;
     }
 
+    public List getGroupMembers(String groupName) throws Exception{
+        List<String> groupMembers = new ArrayList<String>();
+        String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeNavn = '" + groupName + "';";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()){
+            groupMembers.add(rs.getString("Fornavn"));
+            groupMembers.add(rs.getString("Etternavn"));
+        }
+        return groupMembers;
+    }
+
 
 	public void quit() throws SQLException{
 		conn.close();
 		stmt.close();
 	}
+
+    public void hashPassword(String Password)
+    {
+        String passwordToHash = Password;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(generatedPassword);
+    }
 }
