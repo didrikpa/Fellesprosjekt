@@ -29,6 +29,8 @@ public class CreateEventController implements Initializable {
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();
     Stage stage;
+    ArrayList<String> selectedUsers = new ArrayList<String>();//users added to the event
+
 
     public CreateEventController(DatabaseServer server){
         databaseServer = server;
@@ -73,6 +75,26 @@ public class CreateEventController implements Initializable {
 		}
 		userList.setItems(FXCollections.observableArrayList(nas));
 	}
+	@FXML
+    public void inviteUser(ActionEvent event)throws Exception {
+        participantList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        ObservableList<String> users = userList.getSelectionModel().getSelectedItems();
+        //Iterates through selected items and adds them to the selected user list if not already there.
+        for (int i = 0; i <users.size(); i++) {
+            if(!selectedUsers.contains(users.get(i))){
+                selectedUsers.add(users.get(i));
+            }
+        }
+        //Adds all the participants in the selected user list to the invited user pan.
+        participantList.setItems(FXCollections.observableArrayList(selectedUsers));
+    }
+
+    @FXML
+    public void deleteInvitedUser(ActionEvent event) throws Exception{
+        ObservableList<String> participants = participantList.getSelectionModel().getSelectedItems();
+        selectedUsers.removeAll(participants);
+        participantList.setItems(FXCollections.observableArrayList(selectedUsers));
+    }
     
     @FXML
     public static void setDatePicker(final DatePicker calender) {
