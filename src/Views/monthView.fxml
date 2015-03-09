@@ -84,7 +84,7 @@
             <Pane fx:id="pane10" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <Label fx:id="date10" layoutX="138.0" layoutY="3.0" text="27" />
-                  <Pane fx:id="sane10" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane10" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="125.0" />
                </children></Pane>
             <Pane fx:id="pane20" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
@@ -104,7 +104,7 @@
             <Pane fx:id="pane50" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
                   <Label fx:id="date50" layoutX="138.0" layoutY="3.0" text="31" />
-                  <Pane fx:id="sane50" layoutX="4.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane50" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0" />
                </children></Pane>
             <Pane fx:id="pane60" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
@@ -116,7 +116,7 @@
             <Pane fx:id="pane01" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="date01" layoutX="138.0" layoutY="3.0" text="2" />
-                  <Pane fx:id="sane01" layoutX="11.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane01" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0" />
                </children></Pane>
             <Pane fx:id="pane11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
@@ -154,7 +154,7 @@
             <Pane fx:id="pane02" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Label fx:id="date02" layoutX="138.0" layoutY="3.0" text="9" />
-                  <Pane fx:id="sane02" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0" />
+                  <Pane fx:id="sane02" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="119.0" />
                </children></Pane>
             <Pane fx:id="pane12" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
@@ -191,7 +191,7 @@
             <Pane fx:id="pane03" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
                   <Label fx:id="date03" layoutX="138.0" layoutY="3.0" text="16" />
-                  <Pane fx:id="sane03" layoutX="11.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane03" layoutX="11.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0" />
                </children></Pane>
             <Pane fx:id="pane13" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
@@ -254,7 +254,7 @@
             <Pane fx:id="pane54" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <children>
                   <Label fx:id="date54" layoutX="138.0" layoutY="3.0" text="28" />
-                  <Pane fx:id="sane54" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane54" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0" />
                </children></Pane>
             <Pane fx:id="pane64" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
@@ -292,7 +292,7 @@
             <Pane fx:id="pane55" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <children>
                   <Label fx:id="date55" layoutX="138.0" layoutY="3.0" text="7" />
-                  <Pane fx:id="sane55" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Pane fx:id="sane55" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
                </children></Pane>
             <Pane fx:id="pane65" prefHeight="156.0" prefWidth="138.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <children>
