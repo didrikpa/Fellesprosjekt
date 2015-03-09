@@ -16,18 +16,17 @@
          <children>
             <Group layoutX="250.0" layoutY="2.0">
                <children>
-               <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToWeek" prefHeight="16.0" prefWidth="165.0" text="Week">
+               <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToWeek" prefHeight="16.0" prefWidth="165.0" text="Week">
                      <toggleGroup>
                         <ToggleGroup fx:id="monthWeek" />
                      </toggleGroup></ToggleButton>
-               <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="35.0" mnemonicParsing="false" onAction="#switchToMonth" prefHeight="16.0" prefWidth="165.0" selected="true" text="Month" toggleGroup="$monthWeek" />
-               <ComboBox fx:id="comboBoxWeekMonth" layoutX="73.0" layoutY="68.0" prefHeight="20.0" prefWidth="331.0" />
+               <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToMonth" prefHeight="16.0" prefWidth="165.0" selected="true" text="Month" toggleGroup="$monthWeek" />
                </children>
             </Group>
             <Pane layoutX="900.0" layoutY="8.0" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: LIGHTGREY; -fx-border-radius: 50px;" />
             <Button fx:id="monthViewPaneLogOut" layoutX="524.0" layoutY="3.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Log out" />
             <Button fx:id="monthViewPaneMyCalendar" layoutX="322.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
-            <Button fx:id="monthViewPaneMyGroups" layoutX="236.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" onAction="#accessMyGroups" />
+            <Button fx:id="monthViewPaneMyGroups" layoutX="236.0" layoutY="3.0" mnemonicParsing="false" onAction="#accessMyGroups" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
             <Button fx:id="monthViewPaneEditProfile" layoutX="147.0" layoutY="2.0" mnemonicParsing="false" onAction="#editUser" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
             <Button fx:id="createEventCalendarView" layoutX="421.0" layoutY="3.0" mnemonicParsing="false" onAction="#createEvent" style="-fx-background-color: none; -fx-text-fill: blue;" text="Create Event" />
             <Button alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="110.0" layoutY="2.0" mnemonicParsing="false" onAction="#searchEvent" prefHeight="16.0" prefWidth="19.0">
@@ -40,13 +39,13 @@
                </graphic>
             </Button>
             <TextField fx:id="searchBar" layoutX="10.0" layoutY="1.0" prefHeight="26.0" prefWidth="100.0" promptText="Search" />
-         <Button fx:id="notificationButton" layoutX="835.0" layoutY="36.0" mnemonicParsing="false" onAction="#openNotification" prefHeight="38.0" prefWidth="221.0" text="Notifications">
+         <Button fx:id="notificationButton" layoutX="835.0" layoutY="42.0" mnemonicParsing="false" onAction="#openNotification" prefHeight="38.0" prefWidth="221.0" text="Notifications">
             <font>
                <Font size="20.0" />
             </font>
          </Button>
-            <Circle visible="false" fx:id="notificationCircle" fill="RED" layoutX="1069.0" layoutY="27.0" radius="13.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Label visible="false" fx:id="notificationLabel" layoutX="1063.0" layoutY="16.0" text="0">
+            <Circle fx:id="notificationCircle" fill="RED" layoutX="1069.0" layoutY="27.0" radius="13.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" />
+            <Label fx:id="notificationLabel" layoutX="1063.0" layoutY="16.0" text="0" visible="false">
                <font>
                   <Font size="20.0" />
                </font>
