@@ -53,8 +53,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="createEventViewDeleteParticipant1" layoutX="377.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" />
-            <Label fx:id="createEventViewParticipant1" layoutX="14.0" layoutY="39.0" text="User" />
+            <Button fx:id="createEventViewDeleteParticipant1" layoutX="377.0" layoutY="34.0" mnemonicParsing="false" onAction="#deleteInvitedUser" prefHeight="25.0" prefWidth="30.0" />
             <ImageView fitHeight="17.0" fitWidth="12.0" layoutX="386.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../pictures/krysscopy.png" />
@@ -74,7 +73,6 @@
                </children>
             </Pane>
             <ListView fx:id="userList" layoutY="60.0" prefHeight="190.0" prefWidth="691.0" />
-            <Label layoutX="10.0" layoutY="38.0" text="User" />
             <Button layoutX="622.0" layoutY="33.0" mnemonicParsing="false" onAction="#inviteUser" text="Invite" />
          </children>
       </Pane>
