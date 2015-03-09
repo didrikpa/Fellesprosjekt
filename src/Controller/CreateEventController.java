@@ -30,10 +30,11 @@ public class CreateEventController implements Initializable {
     DatabaseServer databaseServer = new DatabaseServer();
     Stage stage;
     ArrayList<String> selectedUsers = new ArrayList<String>();//users added to the event
-
-
-    public CreateEventController(DatabaseServer server){
+    CalendarViewController parent;
+  
+    public CreateEventController(DatabaseServer server, CalendarViewController pt){
         databaseServer = server;
+        parent = pt;
     }
 
     @FXML
@@ -235,6 +236,8 @@ public class CreateEventController implements Initializable {
         if(validateTime() && validateRoom() && validateDescription()){
             try {
                 databaseServer.addAppointment(personalAppointment);
+                parent.monthB();
+                parent.monthF();
                 ((Node)(event.getSource())).getScene().getWindow().hide();
             }
             catch (Exception e) { System.out.println(e);}
