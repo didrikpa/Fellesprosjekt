@@ -230,8 +230,13 @@ public class CalendarViewController implements Initializable{
 		}
 		labelMonth.setText("Month");
 		GregorianCalendar en = new GregorianCalendar();
-		midViewEn.setMonth(en.get(en.YEAR),en.get(en.MONTH));
-		updatelMonth();
+        try {
+            midViewEn.setMonth(en.get(en.YEAR), en.get(en.MONTH));
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+            updatelMonth();
 
 	}
 }
