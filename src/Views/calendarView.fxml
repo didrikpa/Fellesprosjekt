@@ -42,8 +42,8 @@
                <Font size="20.0" />
             </font>
          </Button>
-            <Circle fx:id="notificationCircle" fill="RED" layoutX="1069.0" layoutY="27.0" radius="13.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Label fx:id="notificationLabel" layoutX="1063.0" layoutY="16.0" text="0">
+            <Circle visible="false" fx:id="notificationCircle" fill="RED" layoutX="1069.0" layoutY="27.0" radius="13.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label visible="false" fx:id="notificationLabel" layoutX="1063.0" layoutY="16.0" text="0">
                <font>
                   <Font size="20.0" />
                </font>
