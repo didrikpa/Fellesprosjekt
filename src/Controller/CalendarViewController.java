@@ -44,6 +44,18 @@ public class CalendarViewController implements Initializable{
 		initialize(null, null);
 	}
 	
+	public void openAppointment(PersonalAppointment pa){
+		try{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/appointmentView.fxml"));
+			fxmlLoader.setController(new appointmentController(server, pa));
+			stage = new Stage();
+			stage.setTitle("Appointment");
+			stage.setScene(new Scene((Parent) fxmlLoader.load()));
+			stage.show();
+		}
+		catch (Exception e) { System.out.println(e);}
+	}
+	
 	@FXML
 	public void openNotification(){
 		try{
@@ -166,12 +178,22 @@ public class CalendarViewController implements Initializable{
 			EventSearchController evs = new EventSearchController(server);
 			ArrayList<PersonalAppointment> pas = new ArrayList<PersonalAppointment>();
 			pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(10));
-			ArrayList<String> nas = new ArrayList<String>();
+			ArrayList<PersonalAppointment> nas = new ArrayList<PersonalAppointment>();
 			for(PersonalAppointment pa :  pas){
-				nas.add(pa.getBeskrivelse());
+				nas.add(pa);
 			}
 			searchList.setVisible(true);
 			searchList.setItems(FXCollections.observableArrayList(nas));
+			searchList.getSelectionModel().selectedItemProperty()
+	        .addListener(new ChangeListener<PersonalAppointment>() {
+			@Override
+			public void changed(
+					ObservableValue<? extends PersonalAppointment> observable,
+					PersonalAppointment oldValue, PersonalAppointment newValue) {
+					searchList.setVisible(false);
+					openAppointment(newValue);
+			}
+	        });
 		}
 		else{
 			searchList.setVisible(false);
