@@ -199,7 +199,17 @@ public class DatabaseServer {
         return romnavn;
     }
 
-	
+	public List getGroups() throws Exception{
+        List<String> groupNames = new ArrayList<String>();
+        String sql = "SELECT Gruppenavn FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "';";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()){
+            groupNames.add(rs.getString("Gruppenavn"));
+        }
+        return groupNames;
+    }
+
+
 	public void quit() throws SQLException{
 		conn.close();
 		stmt.close();
