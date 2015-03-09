@@ -59,7 +59,7 @@ public class CreateEventController implements Initializable {
     @FXML private Label endError;
     @FXML private Label dateError;
     @FXML ListView<String> userList;
-
+    @FXML ListView<String> participantList;
     @FXML
     public void inviteUser() {
     	
