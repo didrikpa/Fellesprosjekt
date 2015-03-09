@@ -202,7 +202,7 @@ public class CalendarViewController implements Initializable{
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
-		loader.setController(new CreateEventController(server, thisgit ));
+		loader.setController(new CreateEventController(server, this ));
         stage = new Stage();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
