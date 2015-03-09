@@ -4,53 +4,67 @@ import java.sql.Time;
 import java.sql.Date;
 
 public abstract class SuperEvent {
-    private Date dato;
-    private Time startTid;
-    private Time sluttTid;
-    private String beskrivelse;
-    private String romnavn;
+	private int AvtaleID;
+	private Date dato;
+	private Time startTid;
+	private Time sluttTid;
+	private String beskrivelse;
+	private String romnavn;
 
-    public SuperEvent(){
-        dato = null;
-        startTid = null;
-        sluttTid = null;
-        beskrivelse = null;
-        romnavn = null;
-    }
+	public SuperEvent(){
+		AvtaleID = 0;
+		dato = null;
+		startTid = null;
+		sluttTid = null;
+		beskrivelse = null;
+		romnavn = null;
+	}
 
-    public Date getDato() {
-        return dato;
-    }
+	public int getAvtaleID() {
+		return this.AvtaleID;
+	}
 
-    public void setDato(Date dato) {
-        this.dato = dato;
-    }
+	public void setAvtaleID(int aid) {
+		this.AvtaleID = aid;
+	}
 
-    public Time getStartTid() {
-        return startTid;
-    }
+	public Date getDato() {
+		return dato;
+	}
 
-    public void setStartTid(Time startTid) {
-        this.startTid = startTid;
-    }
+	public void setDato(Date dato) {
+		this.dato = dato;
+	}
 
-    public Time getSluttTid() {
-        return sluttTid;
-    }
+	public Time getStartTid() {
+		return startTid;
+	}
 
-    public void setSluttTid(Time sluttTid) {
-        this.sluttTid = sluttTid;
-    }
+	public void setStartTid(Time startTid) {
+		this.startTid = startTid;
+	}
 
-    public String getBeskrivelse() {
-        return beskrivelse;
-    }
+	public Time getSluttTid() {
+		return sluttTid;
+	}
 
-    public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
-    }
+	public void setSluttTid(Time sluttTid) {
+		this.sluttTid = sluttTid;
+	}
 
-    public String getRomnavn() {return romnavn;}
+	public String getBeskrivelse() {
+		return beskrivelse;
+	}
 
-    public void setRomnavn(String romnavn) {this.romnavn = romnavn;}
+	public void setBeskrivelse(String beskrivelse) {
+		this.beskrivelse = beskrivelse;
+	}
+
+	public String getRomnavn() {
+		return romnavn;
+	}
+
+	public void setRomnavn(String romnavn) {
+		this.romnavn = romnavn;
+	}
 }
