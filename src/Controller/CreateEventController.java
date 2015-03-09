@@ -180,8 +180,10 @@ public class CreateEventController implements Initializable {
     @FXML
     public boolean validateDescription(){
         if(createEventViewTextArea.getText().trim().length() == 0){
-            createEventViewTextArea.setStyle("-fx-text-fill: red");
             createEventViewTextArea.setText("There has to be a description of the event.");
+            return false;
+        }
+        else if(createEventViewTextArea.getText().equals("There has to be a description of the event.")){
             return false;
         }
         else {
@@ -233,25 +235,24 @@ public class CreateEventController implements Initializable {
         stage.show();
     }
     
-    ArrayList<User> userSearch(String sok, ArrayList<User> namesIn){
-		String søker = sok;
-		søker = søker.toLowerCase();
+    ArrayList<User> userSearch(String search, ArrayList<User> namesIn){
+		String searcher = search;
+		searcher = searcher.toLowerCase();
 		ArrayList<User> navnene = namesIn;
 		ArrayList<User> namesOut = new ArrayList<User>();
-		while(!søker.equals("")){
+		while(!searcher.equals("")){
 			for(User namn:navnene){
-				if((namn.getFirstname()+""+namn.getLastname()).toLowerCase().contains(søker)){
+				if((namn.getFirstname()+""+namn.getLastname()).toLowerCase().contains(searcher)){
 					if(!namesOut.contains(namn)){
 						namesOut.add(namn);
 					}
 				}
 			}
-			String [] con = søker.split("");
-			søker = "";
+			String [] con = searcher.split("");
+			searcher = "";
 			int ant = con.length - 1;
 			for (int i = 0; i < ant; i++){
-				if(!(søker.length() == ant) || søker.length() < 3)søker += con[i];
-				
+				if(!(searcher.length() == ant) || searcher.length() < 3)searcher += con[i];
 			}
 		}
 		return namesOut;
