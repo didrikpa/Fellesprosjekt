@@ -74,7 +74,22 @@ public class CalendarViewController implements Initializable{
 			updatelMonth();
 		}
 	}
-
+	
+	public void monthB() throws Exception {
+		if(!midViewEn.equals(null)){
+			maned -= 1;
+			midViewEn.setMonth(aar,maned);
+			updatelMonth();
+		}
+	}
+	public void monthF() throws Exception {
+		if(!midViewEn.equals(null)){
+			maned += 1;
+			midViewEn.setMonth(aar,maned);
+			updatelMonth();
+		}
+	}
+	
 	private void updatelMonth(){
 		int mid = maned;
 		int yid = aar;
