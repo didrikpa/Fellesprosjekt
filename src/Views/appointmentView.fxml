@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane fx:id="appointmentPopUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="changeAppointment" layoutX="317.0" layoutY="247.0" mnemonicParsing="false" onAction="#editAppointment" prefWidth="70.0" text="Edit" />
+      <Button fx:id="closeAppointment" layoutX="400.0" layoutY="247.0" mnemonicParsing="false" onAction="#cancelAppointment" prefHeight="25.0" prefWidth="70.0" text="Cancel" />
+      <Label layoutX="40.0" layoutY="49.0" text="Dato:" />
+      <Label layoutX="40.0" layoutY="83.0" text="Tid:" />
+      <Label layoutX="40.0" layoutY="116.0" text="Rom:" />
+      <Label layoutX="40.0" layoutY="150.0" text="Beskrivelse:" />
+      <Label fx:id="apDescription" layoutX="125.0" layoutY="150.0" text=" " />
+      <Label fx:id="apRoom" layoutX="125.0" layoutY="116.0" text=" " />
+      <Label fx:id="apTime" layoutX="125.0" layoutY="83.0" text=" " />
+      <Label fx:id="apDate" layoutX="125.0" layoutY="49.0" text=" " />
+   </children>
+</AnchorPane>
