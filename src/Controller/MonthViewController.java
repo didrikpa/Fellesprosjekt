@@ -1124,10 +1124,10 @@ public class MonthViewController{
 			GridPane gridPane = new GridPane();
 			gridPane.setHgap(10);
 			gridPane.setVgap(10);
-			if(ena.size() <= 3){
-				int i = 0;
-				for(PersonalAppointment enu:ena){
-					Label eni = new Label();
+			int i = 1;
+			for(PersonalAppointment enu:ena){
+				Label eni = new Label();
+				if(i <= 3){
 					String desc = enu.getBeskrivelse();
 					if(enu.getBeskrivelse().length() > 6){
 						desc = desc.substring(0, 6);
@@ -1137,8 +1137,8 @@ public class MonthViewController{
 					gridPane.add(eni, 0,i);
 					i+=1;
 				}
-				pane.getChildren().add(gridPane);
 			}
+			pane.getChildren().add(gridPane);
 		}
 	}
 }
