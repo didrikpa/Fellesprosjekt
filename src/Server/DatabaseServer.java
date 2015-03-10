@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Group;
 import Model.PersonalAppointment;
 import Model.User;
 
@@ -201,19 +202,39 @@ public class DatabaseServer {
         return romnavn;
     }
 
-	public List getGroups() throws Exception{
-        List<String> groupNames = new ArrayList<String>();
+	public ArrayList<Group> getGroups() throws Exception{
+        ArrayList<Group> group = new ArrayList<Group>();
         String sql = "SELECT Gruppenavn FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "';";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()){
-            groupNames.add(rs.getString("Gruppenavn"));
+        	Group en = new Group();
+        	en.setGroupID(Integer.parseInt(rs.getString("GruppeID")));
+            en.setGroupName(rs.getString("Gruppenavn"));
+            en.setUsers(getUserGroup(en.getGroupID()));
         }
-        return groupNames;
+        return group;
     }
+	
+	private ArrayList<User> getUserGroup(Integer gpid) throws Exception {
+		ArrayList<User>users = new ArrayList<User>();
+		String sql = "SELECT * FROM Bruker, Gruppe, Gruppemedlem WHERE Bruker.Brukernavn = Gruppemedlem.Brukernavn AND Gruppemedlem.GruppeID = Gruppe.GruppeID AND Gruppe.GruppeID = '" + gpid + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			User user = new User();
+			user.setUsername(rs.getString("Brukernavn"));
+			user.setPassword(rs.getString("Passord"));
+			user.setFirstname(rs.getString("Fornavn"));
+			user.setLastname(rs.getString("Etternavn"));
+			user.setEmail(rs.getString("E-post"));
+			user.setPhone(rs.getString("Telefon"));
+			users.add(user);
+		}
+		return users;
+	}
 
     public List getGroupMembers(String groupName) throws Exception{
         List<String> groupMembers = new ArrayList<String>();
-        String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeNavn = '" + groupName + "';";
+        String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + groupName + "';";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()){
             groupMembers.add(rs.getString("Fornavn"));
