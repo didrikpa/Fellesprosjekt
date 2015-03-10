@@ -1,48 +1,56 @@
 package Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-
+import javafx.scene.control.ListView;
 import Server.*;
 import Model.*;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by masoom on 09.03.15.
- */
 public class MyGroupController implements Initializable {
-    @FXML
-    Label myGroups1;
-    @FXML
-    Label myGroups2;
-    List<String> myGroups;
+	@FXML
+	ListView<Group> listviewGroups;
+	ArrayList<Group> myGroups;
+	DatabaseServer databaseServer = new DatabaseServer();
+	Group group;
+	CalendarViewController parent;
 
-    DatabaseServer databaseServer = new DatabaseServer();
-    Group group;
-    public MyGroupController(DatabaseServer databaseServer){
-        this.databaseServer = databaseServer;
-    }
+	public MyGroupController(DatabaseServer databaseServer, CalendarViewController par) throws Exception {
+		this.databaseServer = databaseServer;
+		this.parent = par;
+		listviewGroups = new ListView<Group>();
+		
+	}
 
-    @FXML
-    public void getGroupNames(){
-        try {
-            myGroups = databaseServer.getGroups();
-            myGroups1.setText(myGroups.get(0)  + "\n Members:" + databaseServer.getGroupMembers(myGroups.get(0)));
-            myGroups2.setText(myGroups.get(1) + "\n Members:" + databaseServer.getGroupMembers(myGroups.get(1)));
-        }
-        catch (Exception e) { System.out.println(e);}
-    }
-
-    public void initialize(URL url, ResourceBundle resourceBundle){
-        try{
-
-            getGroupNames();
-        }
-        catch (Exception e) { System.out.println(e); }
-    }
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		ArrayList<Group> pas = null;
+		try {
+			pas = databaseServer.getGroups();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		listviewGroups.setItems(FXCollections.observableArrayList(pas));
+		listviewGroups.getSelectionModel().selectedItemProperty()
+		.addListener(new ChangeListener<Group>() {
+			@Override
+			public void changed(
+					ObservableValue<? extends Group> observable,
+					Group oldValue, Group newValue) {
+					if(!parent.midViewEn.equals(null)){
+						try {
+							parent.midViewEn.setMonthGroup(parent.aar, parent.maned, newValue);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			}
+		});
+	}
 }
