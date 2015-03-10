@@ -2,6 +2,8 @@ package Controller;
 
 import Model.PersonalAppointment;
 import Server.DatabaseServer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
