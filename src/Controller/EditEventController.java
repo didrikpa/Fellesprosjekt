@@ -28,24 +28,15 @@ import java.util.ResourceBundle;
 import Server.*;
 import Model.*;
 public class EditEventController implements Initializable {
-	@FXML
-    AnchorPane createEventViewMainPane;
-    @FXML
-    DatePicker createEventViewDatePicker;
-    @FXML
-    ComboBox<Integer> createEventViewStartHours;
-    @FXML
-    ComboBox<Integer> createEventViewStartMinutes;
-    @FXML
-    ComboBox<Integer> createEventViewEndHours;
-    @FXML
-    ComboBox<Integer> createEventViewEndMinutes;
-    @FXML
-    ComboBox<String> createEventViewRoom;
-    @FXML 
-    TextField createEventViewSearch;
-    @FXML 
-    TextArea createEventViewTextArea;
+    @FXML AnchorPane createEventViewMainPane;
+    @FXML DatePicker createEventViewDatePicker;
+    @FXML ComboBox<Integer> createEventViewStartHours;
+    @FXML ComboBox<Integer> createEventViewStartMinutes;
+    @FXML ComboBox<Integer> createEventViewEndHours;
+    @FXML ComboBox<Integer> createEventViewEndMinutes;
+    @FXML ComboBox<String> createEventViewRoom;
+    @FXML TextField createEventViewSearch;
+    @FXML TextArea createEventViewTextArea;
     
     @FXML private Label roomError;
     @FXML private Label startError;
