@@ -68,6 +68,6 @@ public class Group {
     		mid += user.firstname + " " + user.lastname + ", " ;
     	}
     	mid = mid.substring(0, mid.length()-2);
-    	return groupName + mid;
+    	return groupName + " - " + mid;
     }
 }
