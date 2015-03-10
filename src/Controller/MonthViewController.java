@@ -548,7 +548,7 @@ public class MonthViewController{
 	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
-	public int[] settMonth(int ayear, int amonth){
+	private int[] settMonth(int ayear, int amonth){
 		int year = ayear;
 		int month = amonth;
 		int gang = 0;
