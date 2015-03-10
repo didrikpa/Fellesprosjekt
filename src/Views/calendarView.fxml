@@ -25,7 +25,7 @@
             </Group>
             <Pane layoutX="900.0" layoutY="8.0" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: LIGHTGREY; -fx-border-radius: 50px;" />
             <Button fx:id="monthViewPaneLogOut" layoutX="524.0" layoutY="3.0" mnemonicParsing="false" onAction="#logOut" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Log out" />
-            <Button fx:id="monthViewPaneMyCalendar" layoutX="322.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
+            <Button fx:id="monthViewPaneMyCalendar" layoutX="322.0" layoutY="3.0" mnemonicParsing="false" onAction="#accessMyCalendar" style="-fx-background-color: none; -fx-text-fill: blue;" text="My Calendar" />
             <Button fx:id="monthViewPaneMyGroups" layoutX="236.0" layoutY="3.0" mnemonicParsing="false" onAction="#accessMyGroups" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="My groups" />
             <Button fx:id="monthViewPaneEditProfile" layoutX="147.0" layoutY="2.0" mnemonicParsing="false" onAction="#editUser" style="-fx-background-color: NONE; -fx-text-fill: BLUE;" text="Edit profile" />
             <Button fx:id="createEventCalendarView" layoutX="421.0" layoutY="3.0" mnemonicParsing="false" onAction="#createEvent" style="-fx-background-color: none; -fx-text-fill: blue;" text="Create Event" />
