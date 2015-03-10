@@ -47,7 +47,7 @@ public class AppointmentController implements Initializable{
 	
 	@FXML
 	public void editAppointment(ActionEvent event) throws IOException{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/EditEventController.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/editEventView.fxml"));
 		fxmlLoader.setController(new EditEventController(dbserver, pa, cvc));
 		stage = new Stage();
 		stage.setTitle("Appointment - ID." + pa.getAvtaleID());
