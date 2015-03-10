@@ -237,7 +237,7 @@ public class CalendarViewController implements Initializable{
     @FXML
     public void accessMyGroups(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/myGroupsPopUpView.fxml"));
-        loader.setController(new MyGroupController(server));
+        loader.setController(new MyGroupController(server,this));
         stage = new Stage();
         Parent root = loader.load();
         stage.setTitle("My Groups");
