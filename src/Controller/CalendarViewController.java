@@ -161,10 +161,10 @@ public class CalendarViewController implements Initializable{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
 		midViewEn = new MonthViewController(server);
 		loader.setController(midViewEn);
-		midViewEn.setMonth(aar, maned);
-		updatelMonth();
 		midViewTo = null;
 		mainViewMid.getChildren().add((Parent) loader.load());
+		midViewEn.setMonth(aar, maned);
+		updatelMonth();
 	}
 
 	// LeftBar code 
