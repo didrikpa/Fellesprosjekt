@@ -137,6 +137,24 @@ public class DatabaseServer {
 		return appointments;
 	}
 	
+	//Henter avtaler fra andre brukere
+	public ArrayList<PersonalAppointment> getAppointment(Date date, User user) throws Exception{
+		String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + user.getUsername() + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn;";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			appointment.setDato(Date.valueOf(rs.getString("Dato")));
+			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointments.add(appointment);
+		}
+		return appointments;
+	}
+	
 	//Henter n-antall nærmeste avtaler
 	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
 		if(n > 0){
