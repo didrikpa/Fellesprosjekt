@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import Model.Group;
 import Model.PersonalAppointment;
 import Server.DatabaseServer;
 import javafx.event.EventHandler;
@@ -358,48 +359,143 @@ public class MonthViewController{
 	//får settMonth til å fylle array, og legger deretter hver verdi til hver dag
 	public void setMonth(int ayear,int amonth) throws Exception{
 		dagar = settMonth(ayear, amonth);
-		showEvents(sane00,innehald[0]);
-		showEvents(sane10,innehald[1]);
-		showEvents(sane20,innehald[2]);
-		showEvents(sane30,innehald[3]);
-		showEvents(sane40,innehald[4]);
-		showEvents(sane50,innehald[5]);
-		showEvents(sane60,innehald[6]);
-		showEvents(sane01,innehald[7]);
-		showEvents(sane11,innehald[8]);
-		showEvents(sane21,innehald[9]);
-		showEvents(sane31,innehald[10]);
-		showEvents(sane41,innehald[11]);
-		showEvents(sane51,innehald[12]);
-		showEvents(sane61,innehald[13]);
-		showEvents(sane02,innehald[14]);
-		showEvents(sane12,innehald[15]);
-		showEvents(sane22,innehald[16]);
-		showEvents(sane32,innehald[17]);
-		showEvents(sane42,innehald[18]);
-		showEvents(sane52,innehald[19]);
-		showEvents(sane62,innehald[20]);
-		showEvents(sane03,innehald[21]);
-		showEvents(sane13,innehald[22]);
-		showEvents(sane23,innehald[23]);
-		showEvents(sane33,innehald[24]);
-		showEvents(sane43,innehald[25]);
-		showEvents(sane53,innehald[26]);
-		showEvents(sane63,innehald[27]);
-		showEvents(sane04,innehald[28]);
-		showEvents(sane14,innehald[29]);
-		showEvents(sane24,innehald[30]);
-		showEvents(sane34,innehald[31]);
-		showEvents(sane44,innehald[32]);
-		showEvents(sane54,innehald[33]);
-		showEvents(sane64,innehald[34]);
-		showEvents(sane05,innehald[35]);
-		showEvents(sane15,innehald[36]);
-		showEvents(sane25,innehald[37]);
-		showEvents(sane35,innehald[38]);
-		showEvents(sane45,innehald[39]);
-		showEvents(sane55,innehald[40]);
-		showEvents(sane65,innehald[41]);
+		showEvents(sane00,innehald[0],null);
+		showEvents(sane10,innehald[1],null);
+		showEvents(sane20,innehald[2],null);
+		showEvents(sane30,innehald[3],null);
+		showEvents(sane40,innehald[4],null);
+		showEvents(sane50,innehald[5],null);
+		showEvents(sane60,innehald[6],null);
+		showEvents(sane01,innehald[7],null);
+		showEvents(sane11,innehald[8],null);
+		showEvents(sane21,innehald[9],null);
+		showEvents(sane31,innehald[10],null);
+		showEvents(sane41,innehald[11],null);
+		showEvents(sane51,innehald[12],null);
+		showEvents(sane61,innehald[13],null);
+		showEvents(sane02,innehald[14],null);
+		showEvents(sane12,innehald[15],null);
+		showEvents(sane22,innehald[16],null);
+		showEvents(sane32,innehald[17],null);
+		showEvents(sane42,innehald[18],null);
+		showEvents(sane52,innehald[19],null);
+		showEvents(sane62,innehald[20],null);
+		showEvents(sane03,innehald[21],null);
+		showEvents(sane13,innehald[22],null);
+		showEvents(sane23,innehald[23],null);
+		showEvents(sane33,innehald[24],null);
+		showEvents(sane43,innehald[25],null);
+		showEvents(sane53,innehald[26],null);
+		showEvents(sane63,innehald[27],null);
+		showEvents(sane04,innehald[28],null);
+		showEvents(sane14,innehald[29],null);
+		showEvents(sane24,innehald[30],null);
+		showEvents(sane34,innehald[31],null);
+		showEvents(sane44,innehald[32],null);
+		showEvents(sane54,innehald[33],null);
+		showEvents(sane64,innehald[34],null);
+		showEvents(sane05,innehald[35],null);
+		showEvents(sane15,innehald[36],null);
+		showEvents(sane25,innehald[37],null);
+		showEvents(sane35,innehald[38],null);
+		showEvents(sane45,innehald[39],null);
+		showEvents(sane55,innehald[40],null);
+		showEvents(sane65,innehald[41],null);
+		
+		date00.setText(dagar[0]+"");
+		date10.setText(dagar[1]+"");
+		date20.setText(dagar[2]+"");
+		date30.setText(dagar[3]+"");
+		date40.setText(dagar[4]+"");
+		date50.setText(dagar[5]+"");
+		date60.setText(dagar[6]+"");
+
+		date01.setText(dagar[7]+"");
+		date11.setText(dagar[8]+"");
+		date21.setText(dagar[9]+"");
+		date31.setText(dagar[10]+"");
+		date41.setText(dagar[11]+"");
+		date51.setText(dagar[12]+"");
+		date61.setText(dagar[13]+"");
+
+		date02.setText(dagar[14]+"");
+		date12.setText(dagar[15]+"");
+		date22.setText(dagar[16]+"");
+		date32.setText(dagar[17]+"");
+		date42.setText(dagar[18]+"");
+		date52.setText(dagar[19]+"");
+		date62.setText(dagar[20]+"");
+
+		date03.setText(dagar[21]+"");
+		date13.setText(dagar[22]+"");
+		date23.setText(dagar[23]+"");
+		date33.setText(dagar[24]+"");
+		date43.setText(dagar[25]+"");
+		date53.setText(dagar[26]+"");
+		date63.setText(dagar[27]+"");
+
+		date04.setText(dagar[28]+"");
+		date14.setText(dagar[29]+"");
+		date24.setText(dagar[30]+"");
+		date34.setText(dagar[31]+"");
+		date44.setText(dagar[32]+"");
+		date54.setText(dagar[33]+"");
+		date64.setText(dagar[34]+"");
+
+		date05.setText(dagar[35]+"");
+		date15.setText(dagar[36]+"");
+		date25.setText(dagar[37]+"");
+		date35.setText(dagar[38]+"");
+		date45.setText(dagar[39]+"");
+		date55.setText(dagar[40]+"");
+		date65.setText(dagar[41]+"");
+		
+	}
+	
+	public void setMonthGroup(int ayear,int amonth, Group group) throws Exception{
+		dagar = settMonth(ayear, amonth);
+		showEvents(sane00,innehald[0],group);
+		showEvents(sane10,innehald[1],group);
+		showEvents(sane20,innehald[2],group);
+		showEvents(sane30,innehald[3],group);
+		showEvents(sane40,innehald[4],group);
+		showEvents(sane50,innehald[5],group);
+		showEvents(sane60,innehald[6],group);
+		showEvents(sane01,innehald[7],group);
+		showEvents(sane11,innehald[8],group);
+		showEvents(sane21,innehald[9],group);
+		showEvents(sane31,innehald[10],group);
+		showEvents(sane41,innehald[11],group);
+		showEvents(sane51,innehald[12],group);
+		showEvents(sane61,innehald[13],group);
+		showEvents(sane02,innehald[14],group);
+		showEvents(sane12,innehald[15],group);
+		showEvents(sane22,innehald[16],group);
+		showEvents(sane32,innehald[17],group);
+		showEvents(sane42,innehald[18],group);
+		showEvents(sane52,innehald[19],group);
+		showEvents(sane62,innehald[20],group);
+		showEvents(sane03,innehald[21],group);
+		showEvents(sane13,innehald[22],group);
+		showEvents(sane23,innehald[23],group);
+		showEvents(sane33,innehald[24],group);
+		showEvents(sane43,innehald[25],group);
+		showEvents(sane53,innehald[26],group);
+		showEvents(sane63,innehald[27],group);
+		showEvents(sane04,innehald[28],group);
+		showEvents(sane14,innehald[29],group);
+		showEvents(sane24,innehald[30],group);
+		showEvents(sane34,innehald[31],group);
+		showEvents(sane44,innehald[32],group);
+		showEvents(sane54,innehald[33],group);
+		showEvents(sane64,innehald[34],group);
+		showEvents(sane05,innehald[35],group);
+		showEvents(sane15,innehald[36],group);
+		showEvents(sane25,innehald[37],group);
+		showEvents(sane35,innehald[38],group);
+		showEvents(sane45,innehald[39],group);
+		showEvents(sane55,innehald[40],group);
+		showEvents(sane65,innehald[41],group);
 		
 		date00.setText(dagar[0]+"");
 		date10.setText(dagar[1]+"");
@@ -1117,9 +1213,15 @@ public class MonthViewController{
 			}
 		});
 	}
-	private void showEvents(Pane pane, Date date) throws Exception {
+	private void showEvents(Pane pane, Date date, Group group) throws Exception {
 		pane.getChildren().clear();
-		ArrayList<PersonalAppointment> ena = server.getAppointment(date);
+		ArrayList<PersonalAppointment> ena;
+		if(group == null){
+			ena = server.getAppointment(date);
+		}
+		else{
+		 ena = server.getAppointment(date,group);
+		}
 		if(!ena.isEmpty() || !ena.equals(null)){
 			GridPane gridPane = new GridPane();
 			gridPane.setHgap(10);
