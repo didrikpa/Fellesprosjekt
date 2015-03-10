@@ -32,10 +32,10 @@ public class MyGroupController implements Initializable {
     public void getGroupNames(){
         try {
             myGroups = databaseServer.getGroups();
+            myGroups1.setText(myGroups.get(0)  + "\n Members:" + databaseServer.getGroupMembers(myGroups.get(0)));
+            myGroups2.setText(myGroups.get(1) + "\n Members:" + databaseServer.getGroupMembers(myGroups.get(1)));
         }
         catch (Exception e) { System.out.println(e);}
-        myGroups1.setText(myGroups.get(0));
-        myGroups2.setText(myGroups.get(1));
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle){
