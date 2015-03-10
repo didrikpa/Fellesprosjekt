@@ -47,7 +47,7 @@ public class CalendarViewController implements Initializable{
 	public void openAppointment(PersonalAppointment pa){
 		try{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/appointmentView.fxml"));
-			fxmlLoader.setController(new appointmentController(server, pa));
+			fxmlLoader.setController(new AppointmentController(server,pa, this));
 			stage = new Stage();
 			stage.setTitle("Appointment - ID." + pa.getAvtaleID());
 			stage.setScene(new Scene((Parent) fxmlLoader.load()));
