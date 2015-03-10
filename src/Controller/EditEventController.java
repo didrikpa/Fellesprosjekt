@@ -1,5 +1,4 @@
 package Controller;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,32 +12,23 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
 import java.net.URL;
+import java.sql.Date;
 import java.sql.Time;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import Server.*;
 import Model.*;
-
 public class EditEventController implements Initializable {
-
-    PersonalAppointment personalAppointment = new PersonalAppointment();
-    DatabaseServer databaseServer = new DatabaseServer();
-    CalendarViewController parent;
-    Stage stage;
-
-    public EditEventController(DatabaseServer server, PersonalAppointment pa, CalendarViewController pt){
-        databaseServer = server;
-        personalAppointment = pa;
-        parent = pt;
-        
-    }
-
-    @FXML
+	@FXML
     AnchorPane createEventViewMainPane;
     @FXML
     DatePicker createEventViewDatePicker;
@@ -52,16 +42,41 @@ public class EditEventController implements Initializable {
     ComboBox<Integer> createEventViewEndMinutes;
     @FXML
     ComboBox<String> createEventViewRoom;
-    @FXML
+    @FXML 
     TextField createEventViewSearch;
-    @FXML
+    @FXML 
     TextArea createEventViewTextArea;
+    
     @FXML private Label roomError;
     @FXML private Label startError;
     @FXML private Label endError;
     @FXML private Label dateError;
     @FXML ListView<String> userList;
 
+    PersonalAppointment personalAppointment = new PersonalAppointment();
+    DatabaseServer databaseServer = new DatabaseServer();
+    CalendarViewController parent;
+    Stage stage;
+
+    public EditEventController(DatabaseServer server, PersonalAppointment pa, CalendarViewController pt){
+        databaseServer = server;
+        personalAppointment = pa;
+        parent = pt;
+        init();
+        initialize(null, null);
+    }
+ 
+    void init(){
+    	createEventViewMainPane = new AnchorPane();
+    	createEventViewDatePicker = new DatePicker();
+    	createEventViewStartMinutes = new ComboBox<Integer>();
+    	createEventViewEndMinutes = new ComboBox<Integer>();
+    	createEventViewStartHours = new ComboBox<Integer>();
+    	createEventViewEndHours = new ComboBox<Integer>();
+    	createEventViewRoom = new ComboBox<String>();
+    	createEventViewTextArea = new TextArea();
+    }
+    
     @FXML
     public void inviteUser() {
     	
@@ -80,7 +95,6 @@ public class EditEventController implements Initializable {
     
     @FXML
     public static void setDatePicker(final DatePicker calender) {
-        calender.setValue(LocalDate.now());
         final Callback<DatePicker, DateCell> dayCellFactory =
                 new Callback<DatePicker, DateCell>() {
                     @Override
@@ -254,11 +268,21 @@ public class EditEventController implements Initializable {
 	}
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setDatePicker(createEventViewDatePicker);
+    	java.util.Date fire = new java.util.Date(personalAppointment.getDato().getTime());
+        LocalDate date = fire.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        createEventViewDatePicker.setValue(date);
+    	setDatePicker(createEventViewDatePicker);
+    	createEventViewStartMinutes.setValue(personalAppointment.getStartTid().getMinutes());
+    	createEventViewStartHours.setValue(personalAppointment.getStartTid().getHours());
+    	createEventViewEndMinutes.setValue(personalAppointment.getSluttTid().getMinutes());
+    	createEventViewEndHours.setValue(personalAppointment.getSluttTid().getHours());
         setHourFrom();
         setMinuteFrom();
         setHourToo();
         setMinuteToo();
+        createEventViewRoom.setValue(personalAppointment.getRomnavn());
         setRoom();
+        createEventViewTextArea.setText(personalAppointment.getBeskrivelse());
+        
     }
 }
