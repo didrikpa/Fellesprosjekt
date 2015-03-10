@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Group;
 import Model.PersonalAppointment;
 import Server.DatabaseServer;
 import javafx.beans.value.ChangeListener;
@@ -36,6 +37,7 @@ public class CalendarViewController implements Initializable{
 	MonthViewController midViewEn;
 	WeekViewController midViewTo;
 	DatabaseServer server;
+	Group groupCal;
 	Stage stage;
 	int maned = 0;
 	int aar = 0;
@@ -45,7 +47,7 @@ public class CalendarViewController implements Initializable{
 		init();
 		initialize(null, null);
 	}
-	
+
 	public void openAppointment(PersonalAppointment pa){
 		try{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/appointmentView.fxml"));
@@ -57,7 +59,7 @@ public class CalendarViewController implements Initializable{
 		}
 		catch (Exception e) { System.out.println(e);}
 	}
-	
+
 	@FXML
 	public void openNotification(){
 		try{
@@ -70,40 +72,68 @@ public class CalendarViewController implements Initializable{
 		}
 		catch (Exception e) { System.out.println(e);}
 	}
-	
+
 	// TopPane code
 	@FXML
 	public void manedBak(ActionEvent event) throws Exception {
 		if(!midViewEn.equals(null)){
-			maned -= 1;
-			midViewEn.setMonth(aar,maned);
-			updatelMonth();
+			if(groupCal == null){
+				maned -= 1;
+				midViewEn.setMonth(aar,maned);
+				updatelMonth();
+			}
+			else{
+				maned -= 1;
+				midViewEn.setMonthGroup(aar,maned,groupCal);
+				updatelMonth();
+			}
 		}
 	}
 	@FXML
 	public void manedFrem(ActionEvent event) throws Exception {
 		if(!midViewEn.equals(null)){
-			maned += 1;
-			midViewEn.setMonth(aar,maned);
-			updatelMonth();
+			if(groupCal == null){
+				maned += 1;
+				midViewEn.setMonth(aar,maned);
+				updatelMonth();
+			}
+			else{
+				maned += 1;
+				midViewEn.setMonthGroup(aar,maned,groupCal);
+				updatelMonth();
+			}
 		}
 	}
-	
+
 	public void monthB() throws Exception {
 		if(!midViewEn.equals(null)){
-			maned -= 1;
-			midViewEn.setMonth(aar,maned);
-			updatelMonth();
+			if(groupCal == null){
+				maned -= 1;
+				midViewEn.setMonth(aar,maned);
+				updatelMonth();
+			}
+			else{
+				maned -= 1;
+				midViewEn.setMonthGroup(aar,maned,groupCal);
+				updatelMonth();
+			}
 		}
 	}
 	public void monthF() throws Exception {
 		if(!midViewEn.equals(null)){
-			maned += 1;
-			midViewEn.setMonth(aar,maned);
-			updatelMonth();
+			if(groupCal == null){
+				maned += 1;
+				midViewEn.setMonth(aar,maned);
+				updatelMonth();
+			}
+			else{
+				maned += 1;
+				midViewEn.setMonthGroup(aar,maned,groupCal);
+				updatelMonth();
+			}
 		}
 	}
-	
+
 	private void updatelMonth(){
 		int mid = maned;
 		int yid = aar;
@@ -156,7 +186,7 @@ public class CalendarViewController implements Initializable{
 		toggleButtonMonth.setSelected(false);
 		labelMonth.setText("Week");
 	}
-	
+
 	@FXML
 	public void switchToMonth(ActionEvent event) throws Exception {
 		mainViewMid.getChildren().clear();
@@ -187,15 +217,15 @@ public class CalendarViewController implements Initializable{
 			searchList.setVisible(true);
 			searchList.setItems(FXCollections.observableArrayList(nas));
 			searchList.getSelectionModel().selectedItemProperty()
-	        .addListener(new ChangeListener<PersonalAppointment>() {
-			@Override
-			public void changed(
-					ObservableValue<? extends PersonalAppointment> observable,
-					PersonalAppointment oldValue, PersonalAppointment newValue) {
+			.addListener(new ChangeListener<PersonalAppointment>() {
+				@Override
+				public void changed(
+						ObservableValue<? extends PersonalAppointment> observable,
+						PersonalAppointment oldValue, PersonalAppointment newValue) {
 					searchList.setVisible(false);
 					openAppointment(newValue);
-			}
-	        });
+				}
+			});
 		}
 		else{
 			searchList.setVisible(false);
@@ -227,24 +257,32 @@ public class CalendarViewController implements Initializable{
 	public void createEvent(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
 		loader.setController(new CreateEventController(server, this ));
-        stage = new Stage();
+		stage = new Stage();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Create event");
 		stage.show();
 	}
 
-    @FXML
-    public void accessMyGroups(ActionEvent event) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/myGroupsPopUpView.fxml"));
-        loader.setController(new MyGroupController(server,this));
-        stage = new Stage();
-        Parent root = loader.load();
-        stage.setTitle("My Groups");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
+	@FXML
+	private void accessMyCalendar() throws Exception {
+		groupCal = null;
+		if(!midViewEn.equals(null)){
+			midViewEn.setMonth(aar, maned);
+		}
+	}
 	
+	@FXML
+	public void accessMyGroups(ActionEvent event) throws Exception{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/myGroupsPopUpView.fxml"));
+		loader.setController(new MyGroupController(server,this));
+		stage = new Stage();
+		Parent root = loader.load();
+		stage.setTitle("My Groups");
+		stage.setScene(new Scene(root));
+		stage.show();
+	}
+
 	@SuppressWarnings("static-access")
 	void init(){
 		mainViewMid = new Pane();
@@ -253,6 +291,7 @@ public class CalendarViewController implements Initializable{
 		GregorianCalendar cg = new GregorianCalendar();
 		aar = cg.get(cg.YEAR);
 		maned = cg.get(cg.MONTH);
+		groupCal = null;
 	}
 
 	@SuppressWarnings("static-access")
@@ -269,13 +308,13 @@ public class CalendarViewController implements Initializable{
 		}
 		labelMonth.setText("Month");
 		GregorianCalendar en = new GregorianCalendar();
-        try {
-            midViewEn.setMonth(en.get(en.YEAR), en.get(en.MONTH));
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-            updatelMonth();
+		try {
+			midViewEn.setMonth(en.get(en.YEAR), en.get(en.MONTH));
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		updatelMonth();
 
 	}
 }
