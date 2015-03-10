@@ -44,9 +44,9 @@ public class MyGroupController implements Initializable {
 					Group oldValue, Group newValue) {
 					if(!parent.midViewEn.equals(null)){
 						try {
+							parent.groupCal = newValue;
 							parent.midViewEn.setMonthGroup(parent.aar, parent.maned, newValue);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
