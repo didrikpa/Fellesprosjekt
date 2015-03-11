@@ -53,7 +53,7 @@
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="createEventViewDeleteParticipant1" layoutX="377.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" />
+            <Button fx:id="createEventViewDeleteParticipant1" layoutX="377.0" layoutY="34.0" mnemonicParsing="false" onAction="#deleteInvitedUser" prefHeight="25.0" prefWidth="30.0" />
             <ImageView fitHeight="17.0" fitWidth="12.0" layoutX="386.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../pictures/krysscopy.png" />
@@ -86,7 +86,7 @@
        <ComboBox fx:id="createEventViewStartHours" layoutX="182.0" layoutY="100.0" onAction="#setHourToo" prefWidth="73.0" promptText="HH" />
       <ComboBox fx:id="createEventViewRoom" layoutX="182.0" layoutY="162.0" prefWidth="150.0" promptText="Meeting room" />
       <ComboBox fx:id="createEventViewStartMinutes" layoutX="257.0" layoutY="100.0" prefWidth="73.0" promptText="MM" />
-      <Button fx:id="createEventViewCreate" layoutX="1019.0" layoutY="384.0" mnemonicParsing="false" onAction="#createEvent" text="Update" />
+      <Button fx:id="createEventViewCreate" layoutX="1019.0" layoutY="384.0" mnemonicParsing="false" onAction="#createEvent" text="Create" />
       <ComboBox fx:id="createEventViewEndHours" layoutX="182.0" layoutY="131.0" prefWidth="73.0" promptText="HH" />
       <ComboBox fx:id="createEventViewEndMinutes" layoutX="257.0" layoutY="131.0" prefWidth="73.0" promptText="MM" />
       <Label alignment="CENTER_RIGHT" layoutX="626.0" layoutY="22.0" prefHeight="46.0" prefWidth="127.0" text="Description:">

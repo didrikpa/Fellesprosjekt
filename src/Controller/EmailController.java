@@ -18,7 +18,6 @@ import java.util.Properties;
 public class EmailController {
 
     DatabaseServer databaseServer = new DatabaseServer();
-    CreateEventController event;
 
     @FXML
     AnchorPane resetPasswordView;
@@ -97,9 +96,5 @@ public class EmailController {
         }
     }
 
-    public void sendInvitationEmail(){
-        System.out.println(event);
-
-    }
 
 }
