@@ -8,11 +8,15 @@ import Model.PersonalAppointment;
 import Server.DatabaseServer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 public class MonthViewController{
 	@FXML Pane pane00;
 	@FXML Pane pane10;
@@ -149,9 +153,10 @@ public class MonthViewController{
 	int [] dagar;
 	//Holder dato for hver pane
 	Date [] innehald;
-
+	CalendarViewController parent;
 	DatabaseServer server;
-	public MonthViewController(DatabaseServer loginServer){
+	public MonthViewController(DatabaseServer loginServer, CalendarViewController par){
+		parent = par;
 		server = loginServer;
 		innehald = new Date[42];
 		init();
@@ -546,6 +551,19 @@ public class MonthViewController{
 		date65.setText(dagar[41]+"");
 		
 	}
+	
+	private void eventToday(Date date){
+		try{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/todaysEventsView.fxml"));
+			fxmlLoader.setController(new TodaysEventsController(server,date, parent));
+			Stage stage = new Stage();
+			stage.setTitle("Todays events");
+			stage.setScene(new Scene((Parent) fxmlLoader.load()));
+			stage.show();
+		}
+		catch (Exception e) { System.out.println(e);}
+
+	}
 
 	@SuppressWarnings({ "deprecation", "static-access" })
 	private int[] settMonth(int ayear, int amonth){
@@ -647,569 +665,220 @@ public class MonthViewController{
 	public void clickGrid(MouseEvent e) {
 		pane00.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				try{
-					ArrayList<PersonalAppointment> ena = server.getAppointment(innehald[0]);
-					GridPane gridPane = new GridPane();
-					gridPane.setHgap(10);
-					gridPane.setVgap(10);
-					if(ena.size() <= 3){
-						int i = 0;
-						for(PersonalAppointment enu:ena){
-							Label eni = new Label();
-							String desc = enu.getBeskrivelse();
-							if(enu.getBeskrivelse().length() > 6){
-								desc = desc.substring(0, 6);
-								desc += "..";
-							}
-							eni.setText(enu.getStartTid().getHours() + ":" + enu.getStartTid().getMinutes() + "-" + enu.getSluttTid().getHours() + ":" + enu.getSluttTid().getMinutes() + " " + desc);
-							gridPane.add(eni, 0,i);
-							i+=1;
-						}
-						pane00.getChildren().add(gridPane);
-					}
-				}
-				catch(Exception e1){
-					System.out.println(e1);
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[0]);
 			}
 		});
-
+		
 		pane10.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 10 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[1])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[1]);
 			}
 		});
 		pane20.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 20 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[2])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[2]);
 			}
 		});
 		pane30.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 30 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[3])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[3]);
 			}
 		});
 		pane40.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 40 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[4])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[4]);
 			}
 		});
 		pane50.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 50 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[5])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[5]);
 			}
 		});
 		pane60.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 60 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[6])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[6]);
 			}
 		});
 		pane01.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 01 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[7])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[7]);
 			}
 		});
 
 		pane11.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 11 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[8])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[8]);
 			}
 		});
 		pane21.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 21 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[9])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[9]);
 			}
 		});
 		pane31.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 31");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[10])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[10]);
 			}
 		});
 		pane41.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 41 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[11])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[11]);
 			}
 		});
 		pane51.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 51 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[12])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[12]);
 			}
 		});
 		pane61.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 61 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[13])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[13]);
 			}
 		});
 		pane02.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 02 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[14])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[14]);
 			}
 		});
 
 		pane12.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 12 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[15])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[15]);
 			}
 		});
 		pane22.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 22 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[16])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[16]);
 			}
 		});
 		pane32.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 32 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[17])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[17]);
 			}
 		});
 		pane42.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 42 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[18])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[18]);
 			}
 		});
 		pane52.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 52 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[19])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[19]);
 			}
 		});
 		pane62.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 62 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[20])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[20]);
 			}
 		});
 
 		pane03.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 03 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[21])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[21]);
 			}
 		});
 		pane13.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 13 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[22])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[22]);
 			}
 		});
 		pane23.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 23 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[23])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[23]);
 			}
 		});
 		pane33.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 33 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[24])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[24]);
 			}
 		});
 		pane43.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 43 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[25])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[25]);
 			}
 		});
 		pane53.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 53 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[26])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[26]);
 			}
 		});
+		
 		pane63.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 63 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[27])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[27]);
 			}
 		});
+		
 		pane04.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 04 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[28])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[28]);
 			}
 		});
 
 		pane14.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 14 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[29])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[29]);
 			}
 		});
 		pane24.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 24 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[30])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[30]);
 			}
 		});
 		pane34.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 34 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[31])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[31]);
 			}
 		});
 		pane44.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 44 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[32])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[32]);
 			}
 		});
 		pane54.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 54 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[33])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[33]);
 			}
 		});
 		pane64.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 64 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[34])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[34]);
 			}
 		});
 		pane05.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 05 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[35])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[35]);
 			}
 		});
 
 		pane15.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 15 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[36])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[36]);
 			}
 		});
 		pane25.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 25 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[37])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[37]);
 			}
 		});
 		pane35.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 35 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[38])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[38]);
 			}
 		});
 		pane45.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(e.getClickCount() == 2)
-					System.out.print("Pane 45 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[39])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[39]);
 			}
 		});
 		pane55.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 55 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[40])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[40]);
 			}
 		});
 		pane65.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (e.getClickCount() == 2)
-					System.out.print("Pane 65 ");
-				try {
-					for(PersonalAppointment en : server.getAppointment(innehald[41])){
-						System.out.println(en.getBeskrivelse());
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				if(e.getClickCount() == 2) eventToday(innehald[41]);
 			}
 		});
 	}
