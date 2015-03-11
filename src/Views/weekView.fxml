@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="1013.0" style="-fx-focus-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ScrollPane layoutX="236.0" layoutY="126.0" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
          <content>
@@ -208,37 +208,37 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="monday.9." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="mondayDateLabel" text="monday.9." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="tuesday.10." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="tuesdayDateLabel" text="tuesday.10." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="wedensday.11." GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="wedensdayDateLabel" text="wedensday.11." GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="thursday.12." GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="thursdayDateLabel" text="thursday.12." GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="friday.13." GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="fridayDateLabel" text="friday.13." GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="saturday.14." GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="saturdayDateLabel" text="saturday.14." GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
             </Label>
-            <Label text="sunday.15." GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <Label fx:id="sundayDateLabel" text="sunday.15." GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="Helvetica Neue Thin" size="17.0" />
                </font>
