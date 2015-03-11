@@ -121,7 +121,7 @@ public class DatabaseServer {
 	}
 
 	public ArrayList<PersonalAppointment> getAppointment(Date date) throws Exception{
-		String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + Username + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn;";
+		String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + Username + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn ORDER BY Starttid;";
 		ResultSet rs = stmt.executeQuery(sql);
 		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 		while(rs.next()){
@@ -141,7 +141,7 @@ public class DatabaseServer {
 		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 		for(User user:group.getUsers()){
 			if(!user.getUsername().equals(Username)){
-				String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + user.getUsername() + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn;";
+				String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + user.getUsername() + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn ORDER BY Starttid;";
 				ResultSet rs = stmt.executeQuery(sql);
 				while(rs.next()){
 					PersonalAppointment appointment = new PersonalAppointment();
