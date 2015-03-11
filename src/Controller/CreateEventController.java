@@ -1,25 +1,20 @@
 package Controller;
 
-import Model.PersonalAppointment;
-import Model.User;
-import Server.DatabaseServer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.net.URL;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -29,6 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import Server.*;
+import Model.*;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class CreateEventController implements Initializable {
     @FXML
@@ -49,42 +53,35 @@ public class CreateEventController implements Initializable {
     TextField createEventViewSearch;
     @FXML
     TextArea createEventViewTextArea;
+    @FXML CheckBox allDayCheck;
     @FXML
     ComboBox createEventViewGroup;
-    @FXML
-    private Label roomError;
-    @FXML
-    private Label startError;
-    @FXML
-    private Label endError;
-    @FXML
-    private Label dateError;
+    @FXML private Label roomError;
+    @FXML private Label startError;
+    @FXML private Label endError;
+    @FXML private Label dateError;
 
-    @FXML
-    RadioButton personalRadio;
-    @FXML
-    RadioButton meetingRadio;
-    @FXML
-    Label roomLabel;
-    @FXML
-    Label groupLabel;
+    @FXML RadioButton personalRadio;
+    @FXML RadioButton meetingRadio;
+    @FXML Label roomLabel;
+    @FXML Label groupLabel;
+    @FXML TextField notifyInt;
+    @FXML ComboBox notifyCombo;
 
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();
     CalendarViewController parent;
     Stage stage;
-    @FXML
-    ListView<User> userList;
-    @FXML
-    ListView<User> participantList;
+    @FXML ListView<User> userList;
+    @FXML ListView<User> participantList;
     ArrayList<User> selectedUsers = new ArrayList<User>();
 
 
-    public CreateEventController(DatabaseServer server, CalendarViewController pt) {
+
+    public CreateEventController(DatabaseServer server, CalendarViewController pt){
         databaseServer = server;
         parent = pt;
     }
-
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDatePicker(createEventViewDatePicker);
@@ -94,18 +91,20 @@ public class CreateEventController implements Initializable {
         setMinuteToo();
         setRoom();
         appType();
+        setNotifyComboValues();
     }
 
     //is true if it is a personal appointment and false it it is a meeting
     @FXML
-    public boolean appType() {
-        if (personalRadio.isSelected()) {
+    public boolean appType(){
+        if(personalRadio.isSelected()){
             createEventViewRoom.setVisible(false);
             roomLabel.setVisible(false);
             createEventViewGroup.setVisible(false);
             groupLabel.setVisible(false);
             return true;
-        } else {
+        }
+        else {
             createEventViewRoom.setVisible(true);
             roomLabel.setVisible(true);
             createEventViewGroup.setVisible(true);
@@ -113,60 +112,59 @@ public class CreateEventController implements Initializable {
             return false;
         }
     }
-
     @FXML
-    public void searchUser() throws Exception {
-        userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        ArrayList<User> users = new ArrayList<User>();
-        users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
-        userList.setItems(FXCollections.observableArrayList(users));
-    }
+	public void searchUser() throws Exception {
+		userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		ArrayList<User> users = new ArrayList<User>();
+		users = userSearch(createEventViewSearch.getText(),databaseServer.getUsers());
+		userList.setItems(FXCollections.observableArrayList(users));
+	}
 
-    @FXML
-    public void inviteUser(ActionEvent event) throws Exception {
-        participantList.getSelectionModel().setSelectionMode(
-                SelectionMode.MULTIPLE);
-        ObservableList<User> users = userList.getSelectionModel().getSelectedItems();
-        // Iterates through selected items and adds them to the selected user
-        // list if not already there.
-        for (int i = 0; i < users.size(); i++) {
-            if (!selectedUsers.contains(users.get(i))) {
-                selectedUsers.add(users.get(i));
-            }
-        }
-        // Adds all the participants in the selected user list to the invited
-        // user pan.
-        participantList.setItems(FXCollections
-                .observableArrayList(selectedUsers));
-    }
+	@FXML
+	public void inviteUser(ActionEvent event) throws Exception {
+		participantList.getSelectionModel().setSelectionMode(
+				SelectionMode.MULTIPLE);
+		ObservableList<User> users = userList.getSelectionModel().getSelectedItems();
+		// Iterates through selected items and adds them to the selected user
+		// list if not already there.
+		for (int i = 0; i < users.size(); i++) {
+			if (!selectedUsers.contains(users.get(i))) {
+				selectedUsers.add(users.get(i));
+			}
+		}
+		// Adds all the participants in the selected user list to the invited
+		// user pan.
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
 
-    @FXML
-    public void deleteInvitedUser(ActionEvent event) throws Exception {
-        ObservableList<User> participants = participantList
-                .getSelectionModel().getSelectedItems();
-        selectedUsers.removeAll(participants);
-        participantList.setItems(FXCollections
-                .observableArrayList(selectedUsers));
-    }
+	@FXML
+	public void deleteInvitedUser(ActionEvent event) throws Exception {
+		ObservableList<User> participants = participantList
+				.getSelectionModel().getSelectedItems();
+		selectedUsers.removeAll(participants);
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
 
-    ArrayList<User> userSearch(String search, ArrayList<User> namesIn) {
+    ArrayList<User> userSearch(String search, ArrayList<User> namesIn){
         String searcher = search;
         searcher = searcher.toLowerCase();
         ArrayList<User> navnene = namesIn;
         ArrayList<User> namesOut = new ArrayList<User>();
-        while (!searcher.equals("")) {
-            for (User namn : navnene) {
-                if ((namn.getFirstname() + "" + namn.getLastname()).toLowerCase().contains(searcher)) {
-                    if (!namesOut.contains(namn)) {
+        while(!searcher.equals("")){
+            for(User namn:navnene){
+                if((namn.getFirstname()+""+namn.getLastname()).toLowerCase().contains(searcher)){
+                    if(!namesOut.contains(namn)){
                         namesOut.add(namn);
                     }
                 }
             }
-            String[] con = searcher.split("");
+            String [] con = searcher.split("");
             searcher = "";
             int ant = con.length - 1;
-            for (int i = 0; i < ant; i++) {
-                if (!(searcher.length() == ant) || searcher.length() < 3) searcher += con[i];
+            for (int i = 0; i < ant; i++){
+                if(!(searcher.length() == ant) || searcher.length() < 3)searcher += con[i];
             }
         }
         return namesOut;
@@ -201,13 +199,13 @@ public class CreateEventController implements Initializable {
         for (int i = 0; i < 24; i++) someVariableName.add(i);
         ObservableList<Integer> hours = FXCollections.observableArrayList(someVariableName);
         createEventViewStartHours.setItems(hours);
-        createEventViewStartHours.setValue(LocalTime.now().getHour());
+        createEventViewStartHours.setValue(LocalTime.now().getHour() - 1);
     }
 
     @FXML
     public void setMinuteFrom() {
         List<Integer> someVariableName = new ArrayList();
-        for (int i = 0; i < 60; i += 5) someVariableName.add(i);
+        for (int i=0; i<60; i+=5) someVariableName.add(i);
         ObservableList<Integer> minutes = FXCollections.observableArrayList(someVariableName);
         createEventViewStartMinutes.setItems(minutes);
         createEventViewStartMinutes.setValue(5 * (Math.round((LocalTime.now().getMinute() + 5) / 5)));
@@ -215,11 +213,21 @@ public class CreateEventController implements Initializable {
     }
 
     @FXML
-    public void setHourToo() {
+    public void setNotifyComboValues(){
+        List<String> list = new ArrayList<String>();
+        list.add("minutes");
+        list.add("hours");
+        ObservableList<String> choices = FXCollections.observableArrayList(list);
+        notifyCombo.setItems(choices);
+        notifyCombo.setValue(choices.get(0));
+    }
+
+    @FXML
+    public void setHourToo(){
         DecimalFormat formatter = new DecimalFormat("00");
         int n = createEventViewStartHours.getValue();
         List<Integer> hours = new ArrayList();
-        for (int i = n; i < 24; i++) hours.add(i);
+        for (int i=n; i<24; i++) hours.add(i);
         ObservableList<Integer> availableHours = FXCollections.observableArrayList(hours);
         createEventViewEndHours.setItems(availableHours);
         createEventViewEndHours.setValue(n + 1);
@@ -229,30 +237,29 @@ public class CreateEventController implements Initializable {
     public void setMinuteToo() {
         int j = createEventViewStartMinutes.getValue();
         List<Integer> someVariable = new ArrayList();
-        for (int i = 0; i < 60; i += 5) someVariable.add(i);
+        for (int i=0; i<60; i+=5) someVariable.add(i);
         ObservableList<Integer> availableMinutes = FXCollections.observableArrayList(someVariable);
         createEventViewEndMinutes.setItems(availableMinutes);
         createEventViewEndMinutes.setValue(j);
     }
 
     @FXML
-    public void setRoom() {
-        try {
+    public void setRoom(){
+        try{
             ObservableList<String> roomlist = FXCollections.observableArrayList(databaseServer.getRoomName());
             roomlist.remove("PersonalRoom");
             createEventViewRoom.setItems(roomlist);
-        } catch (Exception e) {
-            System.out.println(e);
         }
+        catch (Exception e) {System.out.println(e);}
     }
 
     @FXML
-    public void setDate() {
+    public void setDate(){
         personalAppointment.setDato(java.sql.Date.valueOf(createEventViewDatePicker.getValue()));
     }
 
     @FXML
-    public boolean validateTime() {
+    public boolean validateTime(){
         if (createEventViewEndHours.getValue() == createEventViewStartHours.getValue() && createEventViewEndMinutes.getValue() < createEventViewStartMinutes.getValue()) {
             createEventViewEndMinutes.setStyle("-fx-background-color: red");
             endError.setStyle("-fx-text-fill: red");
@@ -279,36 +286,82 @@ public class CreateEventController implements Initializable {
     }
 
     @FXML
-    public boolean validateDescription() {
-        if (createEventViewTextArea.getText().trim().length() == 0) {
+    public void lastsAllDay(){
+        if(allDayCheck.isSelected()){
+            createEventViewStartHours.setValue(0);
+            createEventViewStartMinutes.setValue(0);
+            createEventViewEndHours.setValue(23);
+            createEventViewEndMinutes.setValue(59);
+            createEventViewEndMinutes.setDisable(true);
+            createEventViewEndHours.setDisable(true);
+            createEventViewStartMinutes.setDisable(true);
+            createEventViewStartHours.setDisable(true);
+        }
+        else{
+            createEventViewEndMinutes.setDisable(false);
+            createEventViewEndHours.setDisable(false);
+            createEventViewStartMinutes.setDisable(false);
+            createEventViewStartHours.setDisable(false);
+        }
+    }
+
+    @FXML
+    public void validateNotification(){
+        notifyInt.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if(notifyInt.getText().isEmpty())
+                  notifyInt.setText("15");
+                try{
+                    if(Integer.parseInt(notifyInt.getText()) >= 0) {
+                        notifyInt.setText(notifyInt.getText());
+                    }
+                    else
+                        notifyInt.setText("15");
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        });
+    }
+
+    @FXML
+    public boolean validateDescription(){
+        if(createEventViewTextArea.getText().trim().length() == 0){
             createEventViewTextArea.setText("There has to be a description of the event.");
             return false;
-        } else if (createEventViewTextArea.getText().equals("There has to be a description of the event.")) {
+        }
+        else if(createEventViewTextArea.getText().equals("There has to be a description of the event.")){
             return false;
-        } else {
+        }
+        else {
             personalAppointment.setBeskrivelse(createEventViewTextArea.getText());
             return true;
         }
     }
 
     @FXML
-    public boolean validateRoom() {
-        if (createEventViewRoom.getValue() == null) {
+    public boolean validateRoom(){
+        if (createEventViewRoom.getValue() == null){
             roomError.setStyle("-fx-text-fill: red");
             roomError.setText("There has to be a room to the event.");
             roomError.setVisible(true);
             return false;
-        } else {
+        }
+        else {
             roomError.setVisible(false);
-            if (!appType())
+            if(!appType())
                 personalAppointment.setRomnavn(createEventViewRoom.getValue());
             return true;
         }
     }
 
     @FXML
-    public void createEvent(ActionEvent event) {
-        if (!appType()) {
+    public void createEvent(ActionEvent event){
+        if(!appType()) {
             if (validateTime() && validateRoom() && validateDescription()) {
                 try {
                     databaseServer.addAppointment(personalAppointment);
@@ -320,7 +373,8 @@ public class CreateEventController implements Initializable {
                     System.out.println(e);
                 }
             }
-        } else if (appType()) {
+        }
+        else if(appType()){
             if (validateTime() && validateDescription()) {
                 personalAppointment.setRomnavn("PersonalRoom");
                 try {
@@ -382,10 +436,10 @@ public class CreateEventController implements Initializable {
                     mex.printStackTrace();
                 }
             }
-    } catch (Exception e){
+        } catch (Exception e){
             System.out.println(e);
         }
-}
+    }
 
 
 
