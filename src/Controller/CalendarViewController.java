@@ -76,7 +76,7 @@ public class CalendarViewController implements Initializable{
 	// TopPane code
 	@FXML
 	public void manedBak(ActionEvent event) throws Exception {
-		if(!midViewEn.equals(null)){
+		if(midViewEn != null){
 			if(groupCal == null){
 				maned -= 1;
 				midViewEn.setMonth(aar,maned);
@@ -88,11 +88,17 @@ public class CalendarViewController implements Initializable{
 				updatelMonth();
 			}
 		}
+		else{
+			midViewTo.weekBackward();
+			labelMonth.setText(midViewTo.displayMonthName());
+		}
 	}
+	
 	@FXML
 	public void manedFrem(ActionEvent event) throws Exception {
-		if(!midViewEn.equals(null)){
+		if(midViewEn != null){
 			if(groupCal == null){
+				
 				maned += 1;
 				midViewEn.setMonth(aar,maned);
 				updatelMonth();
@@ -103,7 +109,12 @@ public class CalendarViewController implements Initializable{
 				updatelMonth();
 			}
 		}
+		else{
+			midViewTo.weekForward();
+			labelMonth.setText(midViewTo.displayMonthName());
+		}
 	}
+
 
 	public void monthB() throws Exception {
 		if(!midViewEn.equals(null)){
