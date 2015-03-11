@@ -25,18 +25,6 @@ import Server.*;
 import Model.*;
 
 public class CreateEventController implements Initializable {
-
-    PersonalAppointment personalAppointment = new PersonalAppointment();
-    DatabaseServer databaseServer = new DatabaseServer();
-    Stage stage;
-    ArrayList<String> selectedUsers = new ArrayList<String>();//users added to the event
-    CalendarViewController parent;
-
-    public CreateEventController(DatabaseServer server, CalendarViewController pt){
-        databaseServer = server;
-        parent = pt;
-    }
-
     @FXML
     AnchorPane createEventViewMainPane;
     @FXML
@@ -61,12 +49,28 @@ public class CreateEventController implements Initializable {
     @FXML private Label startError;
     @FXML private Label endError;
     @FXML private Label dateError;
-    @FXML ListView<String> userList;
-    @FXML ListView<String> participantList;
+   
     @FXML RadioButton personalRadio;
     @FXML RadioButton meetingRadio;
     @FXML Label roomLabel;
     @FXML Label groupLabel;
+
+    PersonalAppointment personalAppointment = new PersonalAppointment();
+    DatabaseServer databaseServer = new DatabaseServer();
+    CalendarViewController parent;
+    Stage stage;
+    @FXML ListView<User> userList;
+    @FXML ListView<User> participantList;
+    ArrayList<User> selectedUsers = new ArrayList<User>();
+    
+   
+
+    public CreateEventController(DatabaseServer server, CalendarViewController pt){
+        databaseServer = server;
+        parent = pt;
+    }
+
+    
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setDatePicker(createEventViewDatePicker);
@@ -97,37 +101,39 @@ public class CreateEventController implements Initializable {
         }
     }
     @FXML
-    public void searchUser() throws Exception {
-    	userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    	ArrayList<User> users = new ArrayList<User>();
-		users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
-		ArrayList<String> nas = new ArrayList<String>();
-		for(User user :  users){
-			nas.add(user.getFirstname() + " " + user.getLastname());
-		}
-		userList.setItems(FXCollections.observableArrayList(nas));
+	public void searchUser() throws Exception {
+		userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		ArrayList<User> users = new ArrayList<User>();
+		users = userSearch(createEventViewSearch.getText(),databaseServer.getUsers());
+		userList.setItems(FXCollections.observableArrayList(users));
 	}
 
 	@FXML
-    public void inviteUser(ActionEvent event)throws Exception {
-        participantList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        ObservableList<String> users = userList.getSelectionModel().getSelectedItems();
-        //Iterates through selected items and adds them to the selected user list if not already there.
-        for (int i = 0; i <users.size(); i++) {
-            if(!selectedUsers.contains(users.get(i))){
-                selectedUsers.add(users.get(i));
-            }
-        }
-        //Adds all the participants in the selected user list to the invited user pan.
-        participantList.setItems(FXCollections.observableArrayList(selectedUsers));
-    }
+	public void inviteUser(ActionEvent event) throws Exception {
+		participantList.getSelectionModel().setSelectionMode(
+				SelectionMode.MULTIPLE);
+		ObservableList<User> users = userList.getSelectionModel().getSelectedItems();
+		// Iterates through selected items and adds them to the selected user
+		// list if not already there.
+		for (int i = 0; i < users.size(); i++) {
+			if (!selectedUsers.contains(users.get(i))) {
+				selectedUsers.add(users.get(i));
+			}
+		}
+		// Adds all the participants in the selected user list to the invited
+		// user pan.
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
 
-    @FXML
-    public void deleteInvitedUser(ActionEvent event) throws Exception{
-        ObservableList<String> participants = participantList.getSelectionModel().getSelectedItems();
-        selectedUsers.removeAll(participants);
-        participantList.setItems(FXCollections.observableArrayList(selectedUsers));
-    }
+	@FXML
+	public void deleteInvitedUser(ActionEvent event) throws Exception {
+		ObservableList<User> participants = participantList
+				.getSelectionModel().getSelectedItems();
+		selectedUsers.removeAll(participants);
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
 
     ArrayList<User> userSearch(String search, ArrayList<User> namesIn){
         String searcher = search;
