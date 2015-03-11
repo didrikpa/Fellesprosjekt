@@ -8,7 +8,7 @@
 
 <Pane fx:id="myGroupsPopUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="mygroupsPopUpSelect" layoutX="389.0" layoutY="260.0" mnemonicParsing="false" text="Select group" />
+      <Button fx:id="mygroupsPopUpSelect" onAction="#closeWindow" layoutX="389.0" layoutY="260.0" mnemonicParsing="false" text="Cancel" />
       <Label layoutX="175.0" layoutY="15.0" text="My groups">
          <font>
             <Font size="25.0" />
