@@ -220,7 +220,7 @@ public class CalendarViewController implements Initializable{
 		if(!searchList.isVisible()){
 			EventSearchController evs = new EventSearchController(server);
 			ArrayList<PersonalAppointment> pas = new ArrayList<PersonalAppointment>();
-			pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(10));
+			pas = evs.eventSearch(searchBar.getText(), true, server.comingUp(1000));
 			ArrayList<PersonalAppointment> nas = new ArrayList<PersonalAppointment>();
 			for(PersonalAppointment pa :  pas){
 				nas.add(pa);
