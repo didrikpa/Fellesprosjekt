@@ -1,18 +1,19 @@
 package Controller;
 
+import Model.PersonalAppointment;
+import Model.User;
+import Server.DatabaseServer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
 import java.net.URL;
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -21,8 +22,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import Server.*;
-import Model.*;
 
 public class CreateEventController implements Initializable {
 
@@ -31,6 +30,7 @@ public class CreateEventController implements Initializable {
     Stage stage;
     ArrayList<String> selectedUsers = new ArrayList<String>();//users added to the event
     CalendarViewController parent;
+    EmailController email;
   
     public CreateEventController(DatabaseServer server, CalendarViewController pt){
         databaseServer = server;
@@ -61,10 +61,6 @@ public class CreateEventController implements Initializable {
     @FXML private Label dateError;
     @FXML ListView<String> userList;
     @FXML ListView<String> participantList;
-    @FXML
-    public void inviteUser() {
-    	
-    }
     
     @FXML
     public void searchUser() throws Exception {
@@ -240,6 +236,7 @@ public class CreateEventController implements Initializable {
                 parent.monthB();
                 parent.monthF();
                 ((Node)(event.getSource())).getScene().getWindow().hide();
+                email.sendInvitationEmail();
             }
             catch (Exception e) { System.out.println(e);}
         }

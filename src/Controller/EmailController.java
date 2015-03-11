@@ -1,26 +1,24 @@
 package Controller;
 
+import Server.DatabaseServer;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
-
-import java.util.Properties;
-
-import Server.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class EmailController {
 
     DatabaseServer databaseServer = new DatabaseServer();
+    CreateEventController event;
 
     @FXML
     AnchorPane resetPasswordView;
@@ -97,6 +95,11 @@ public class EmailController {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public void sendInvitationEmail(){
+        System.out.println(event.);
+
     }
 
 }

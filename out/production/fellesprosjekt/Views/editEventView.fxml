@@ -6,15 +6,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="createEventViewMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="createEventViewMainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="124.0" layoutY="63.0" prefHeight="135.0" prefWidth="125.0">
+      <GridPane layoutX="35.0" layoutY="58.0" prefHeight="135.0" prefWidth="125.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -23,21 +24,27 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="142.0" text="Time:" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="142.0" text="Start:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="180.0" text="Room:" GridPane.rowIndex="2">
+            <Label alignment="CENTER_RIGHT" prefHeight="67.0" prefWidth="180.0" text="Room:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="123.0" prefWidth="298.0" text="End:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <Pane layoutX="624.0" layoutY="289.0" prefHeight="250.0" prefWidth="335.0" style="-fx-border-color: Black;">
+      <Pane layoutX="689.0" layoutY="420.0" prefHeight="250.0" prefWidth="421.0" style="-fx-border-color: Black;">
          <children>
-            <Pane prefHeight="30.0" prefWidth="335.0" style="-fx-border-color: BLACK;">
+            <ListView fx:id="participantList" layoutX="1.0" layoutY="60.0" prefHeight="190.0" prefWidth="421.0" />
+            <Pane prefHeight="30.0" prefWidth="421.0" style="-fx-border-color: BLACK;">
                <children>
                   <Label layoutX="123.0" layoutY="3.0" text="Participants">
                      <font>
@@ -46,40 +53,17 @@
                   </Label>
                </children>
             </Pane>
-            <ScrollPane fx:id="creteEventViewAddedParticipants" layoutX="3.0" layoutY="30.0" prefHeight="217.0" prefWidth="330.0">
-               <content>
-                  <GridPane fx:id="creteEventViewGridPaneParticipants" prefHeight="40.0" prefWidth="328.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.2423095703125" minWidth="10.0" prefWidth="278.5469970703125" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.82879638671875" minWidth="10.0" prefWidth="49.4530029296875" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="creteEventViewDeleteParticipant1" layoutX="6.0" layoutY="7.0" mnemonicParsing="false">
-                                 <graphic>
-                                    <ImageView fitHeight="17.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../pictures/krysscopy.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </Pane>
-                        <Label fx:id="creteEventViewParticipant1" text="User" />
-                     </children>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <Button fx:id="createEventViewDeleteParticipant1" layoutX="377.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" />
+            <ImageView fitHeight="17.0" fitWidth="12.0" layoutX="386.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../pictures/krysscopy.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="1.0" layoutY="289.0" prefHeight="250.0" prefWidth="625.0" style="-fx-border-color: BLACK;">
+      <Pane layoutY="420.0" prefHeight="250.0" prefWidth="691.0" style="-fx-border-color: BLACK;">
          <children>
-            <Pane prefHeight="30.0" prefWidth="625.0" style="-fx-border-color: BLACK;">
+            <Pane prefHeight="30.0" prefWidth="691.0" style="-fx-border-color: BLACK;">
                <children>
                   <Label layoutX="239.0" layoutY="4.0" text="Search results">
                      <font>
@@ -88,39 +72,46 @@
                   </Label>
                </children>
             </Pane>
-            <ScrollPane fx:id="creteEventViewSearchResultsPane" layoutX="1.0" layoutY="30.0" prefHeight="217.0" prefWidth="621.0">
-               <content>
-                  <GridPane fx:id="creteEventViewGridPaneSearch" prefHeight="40.0" prefWidth="618.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="503.70587158203125" minWidth="10.0" prefWidth="467.3801574707031" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.1878662109375" minWidth="10.0" prefWidth="150.61984252929688" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                           <children>
-                              <Button fx:id="creteEventViewAddUser1" layoutX="46.0" layoutY="7.0" mnemonicParsing="false" text="Invite" />
-                           </children>
-                        </Pane>
-                        <Label fx:id="creteEventViewSearchUser1" text="User" />
-                     </children>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <ListView fx:id="userList" layoutY="60.0" prefHeight="190.0" prefWidth="691.0" />
+            <Button layoutX="622.0" layoutY="33.0" mnemonicParsing="false" onAction="#inviteUser" text="Invite" />
          </children>
       </Pane>
-      <Label layoutX="134.0" layoutY="250.0" text="Search users:">
+      <Label layoutX="14.0" layoutY="386.0" text="Search users:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="creteEventViewSearch" layoutX="325.0" layoutY="250.0" prefWidth="150.0" promptText="Search" />
-      <DatePicker fx:id="createEventViewDatePicker" layoutX="325.0" layoutY="75.0" prefWidth="150.0" promptText="Date" />
-      <ComboBox fx:id="creteEventViewHours" layoutX="325.0" layoutY="120.0" prefWidth="73.0" promptText="HH" />
-      <ComboBox fx:id="creteEventViewRoom" layoutX="325.0" layoutY="165.0" prefWidth="150.0" promptText="Meeting room" />
-      <ComboBox fx:id="creteEventViewMinutes" layoutX="401.0" layoutY="120.0" prefWidth="73.0" promptText="MM" />
-      <Button layoutX="884.0" layoutY="250.0" mnemonicParsing="false" text="Update" />
+      <TextField fx:id="createEventViewSearch" layoutX="144.0" layoutY="384.0" onAction="#searchUser" onInputMethodTextChanged="#searchUser" onKeyTyped="#searchUser" prefWidth="150.0" promptText="Search" />
+      <DatePicker fx:id="createEventViewDatePicker" layoutX="182.0" layoutY="68.0" onAction="#setDate" prefWidth="150.0" promptText="Date" />
+       <ComboBox fx:id="createEventViewStartHours" layoutX="182.0" layoutY="100.0" onAction="#setHourToo" prefWidth="73.0" promptText="HH" />
+      <ComboBox fx:id="createEventViewRoom" layoutX="182.0" layoutY="162.0" prefWidth="150.0" promptText="Meeting room" />
+      <ComboBox fx:id="createEventViewStartMinutes" layoutX="257.0" layoutY="100.0" prefWidth="73.0" promptText="MM" />
+      <Button fx:id="createEventViewCreate" layoutX="1019.0" layoutY="384.0" mnemonicParsing="false" onAction="#createEvent" text="Update" />
+      <ComboBox fx:id="createEventViewEndHours" layoutX="182.0" layoutY="131.0" prefWidth="73.0" promptText="HH" />
+      <ComboBox fx:id="createEventViewEndMinutes" layoutX="257.0" layoutY="131.0" prefWidth="73.0" promptText="MM" />
+      <Label alignment="CENTER_RIGHT" layoutX="626.0" layoutY="22.0" prefHeight="46.0" prefWidth="127.0" text="Description:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="createEventViewTextArea" layoutX="635.0" layoutY="58.0" prefHeight="157.0" prefWidth="396.0" />
+      <GridPane layoutX="340.0" layoutY="65.0" prefHeight="122.0" prefWidth="313.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="dateError" />
+            <Label fx:id="startError" GridPane.rowIndex="1" />
+            <Label fx:id="endError" GridPane.rowIndex="2" />
+            <Label fx:id="roomError" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button fx:id="createEventViewCancel" layoutX="943.0" layoutY="384.0" mnemonicParsing="false" onAction="#cancelEvent" text="Cancel" />
    </children>
-</Pane>
+</AnchorPane>
