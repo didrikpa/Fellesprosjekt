@@ -3,9 +3,12 @@ package Controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 import Server.*;
 import Model.*;
 
@@ -14,8 +17,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MyGroupController implements Initializable {
-	@FXML
-	ListView<Group> listviewGroups;
+	@FXML ListView<Group> listviewGroups;
 	ArrayList<Group> myGroups;
 	DatabaseServer databaseServer = new DatabaseServer();
 	Group group;
@@ -27,7 +29,11 @@ public class MyGroupController implements Initializable {
 		listviewGroups = new ListView<Group>();
 		
 	}
-
+	@FXML
+	public void closeWindow(ActionEvent e) throws Exception{
+        ((Node)(e.getSource())).getScene().getWindow().hide();
+    }
+	
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		ArrayList<Group> pas = null;
 		try {
