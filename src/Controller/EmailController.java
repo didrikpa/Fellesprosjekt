@@ -98,7 +98,7 @@ public class EmailController {
     }
 
     public void sendInvitationEmail(){
-        System.out.println(event.);
+        System.out.println(event);
 
     }
 
