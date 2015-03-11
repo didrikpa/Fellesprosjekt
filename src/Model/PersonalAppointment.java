@@ -57,6 +57,6 @@ public class PersonalAppointment extends SuperEvent{
 
 	@Override
 	public String toString() {
-		return getBeskrivelse();
+		return getStartTid().getHours() +":"+ getStartTid().getMinutes()+"-"+getSluttTid().getHours()+":" + getSluttTid().getMinutes() + "  " + getBeskrivelse();
 	}
 }
