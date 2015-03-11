@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,8 +43,10 @@ public class EditEventController implements Initializable {
     @FXML private Label startError;
     @FXML private Label endError;
     @FXML private Label dateError;
-    @FXML ListView<String> userList;
-
+    @FXML ListView<User> userList;
+	@FXML ListView<User> participantList;
+	ArrayList<User> selectedUsers = new ArrayList<User>();
+	
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();
     CalendarViewController parent;
@@ -69,20 +72,40 @@ public class EditEventController implements Initializable {
     }
     
     @FXML
-    public void inviteUser() {
-    	
-    }
-    
-    @FXML
-    public void searchUser() throws Exception {
-    	ArrayList<User> users = new ArrayList<User>();
-		users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
-		ArrayList<String> nas = new ArrayList<String>();
-		for(User user :  users){
-			nas.add(user.getFirstname() + " " + user.getLastname());
-		}
-		userList.setItems(FXCollections.observableArrayList(nas));
+	public void searchUser() throws Exception {
+		userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		ArrayList<User> users = new ArrayList<User>();
+		users = userSearch(createEventViewSearch.getText(),databaseServer.getUsers());
+		userList.setItems(FXCollections.observableArrayList(users));
 	}
+
+	@FXML
+	public void inviteUser(ActionEvent event) throws Exception {
+		participantList.getSelectionModel().setSelectionMode(
+				SelectionMode.MULTIPLE);
+		ObservableList<User> users = userList.getSelectionModel().getSelectedItems();
+		// Iterates through selected items and adds them to the selected user
+		// list if not already there.
+		for (int i = 0; i < users.size(); i++) {
+			if (!selectedUsers.contains(users.get(i))) {
+				selectedUsers.add(users.get(i));
+			}
+		}
+		// Adds all the participants in the selected user list to the invited
+		// user pan.
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
+
+	@FXML
+	public void deleteInvitedUser(ActionEvent event) throws Exception {
+		ObservableList<User> participants = participantList
+				.getSelectionModel().getSelectedItems();
+		selectedUsers.removeAll(participants);
+		participantList.setItems(FXCollections
+				.observableArrayList(selectedUsers));
+	}
+   
     
     @FXML
     public static void setDatePicker(final DatePicker calender) {
@@ -111,8 +134,10 @@ public class EditEventController implements Initializable {
         List<Integer> someVariableName = new ArrayList();
         for (int i = 0; i < 24; i++) someVariableName.add(i);
         ObservableList<Integer> hours = FXCollections.observableArrayList(someVariableName);
-        createEventViewStartHours.setItems(hours);
-        createEventViewStartHours.setValue(LocalTime.now().getHour());
+        if(today(personalAppointment)){
+        	createEventViewStartHours.setItems(hours);
+        	createEventViewStartHours.setValue(LocalTime.now().getHour());
+        }
     }
 
     @FXML
@@ -121,19 +146,31 @@ public class EditEventController implements Initializable {
         for (int i=0; i<60; i+=5) someVariableName.add(i);
         ObservableList<Integer> minutes = FXCollections.observableArrayList(someVariableName);
         createEventViewStartMinutes.setItems(minutes);
-        createEventViewStartMinutes.setValue(5 * (Math.round((LocalTime.now().getMinute() + 5) / 5)));
-        createEventViewStartHours.setValue(LocalTime.now().getHour() + 1);
+        if(today(personalAppointment)){
+        	createEventViewStartMinutes.setValue(5 * (Math.round((LocalTime.now().getMinute() + 5) / 5)));
+        	createEventViewStartHours.setValue(LocalTime.now().getHour() + 1);
+        }
     }
 
-    @FXML
+    private boolean today(PersonalAppointment pA) {
+    	Calendar calendar = Calendar.getInstance();
+    	java.util.Date currentDate = calendar.getTime();
+    	java.sql.Date date = new java.sql.Date(currentDate.getTime());
+    	if(pA.getDato().equals(date))return true;
+    	return false;
+	}
+
+	@FXML
     public void setHourToo(){
         DecimalFormat formatter = new DecimalFormat("00");
         int n = createEventViewStartHours.getValue();
         List<Integer> hours = new ArrayList();
         for (int i=n; i<24; i++) hours.add(i);
         ObservableList<Integer> availableHours = FXCollections.observableArrayList(hours);
-        createEventViewEndHours.setItems(availableHours);
-        createEventViewEndHours.setValue(n + 1);
+        if(today(personalAppointment)){
+        	createEventViewEndHours.setItems(availableHours);
+        	createEventViewEndHours.setValue(n + 1);
+        }
     }
 
     @FXML
@@ -142,8 +179,10 @@ public class EditEventController implements Initializable {
         List<Integer> someVariable = new ArrayList();
         for (int i=0; i<60; i+=5) someVariable.add(i);
         ObservableList<Integer> availableMinutes = FXCollections.observableArrayList(someVariable);
-        createEventViewEndMinutes.setItems(availableMinutes);
-        createEventViewEndMinutes.setValue(j);
+        if(today(personalAppointment)){
+        	createEventViewEndMinutes.setItems(availableMinutes);
+        	createEventViewEndMinutes.setValue(j);
+        }
     }
 
     @FXML
