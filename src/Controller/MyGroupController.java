@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MyGroupController implements Initializable {
+	@FXML Pane myGroupsPopUp;
 	@FXML ListView<Group> listviewGroups;
 	ArrayList<Group> myGroups;
 	DatabaseServer databaseServer = new DatabaseServer();
@@ -52,6 +53,7 @@ public class MyGroupController implements Initializable {
 						try {
 							parent.groupCal = newValue;
 							parent.midViewEn.setMonthGroup(parent.aar, parent.maned, newValue);
+							myGroupsPopUp.getScene().getWindow().hide();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
