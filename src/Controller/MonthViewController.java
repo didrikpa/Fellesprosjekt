@@ -20,7 +20,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MonthViewController {
-	//Deklarering av FXML-felter og variabler skjer i bunnen av klassen
+	//Deklarering av FXML-panes og labels skjer i bunnen av klassen
+	@FXML
+	AnchorPane monthViewPaneMain;
+	@FXML
+	GridPane gridPane;
 	
 	// Holder dag for hver label
 	int[] daysLabel;
@@ -943,8 +947,4 @@ public class MonthViewController {
 	Label date55;
 	@FXML
 	Label date65;
-	@FXML
-	AnchorPane monthViewPaneMain;
-	@FXML
-	GridPane gridPane;
 }
