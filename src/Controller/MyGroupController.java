@@ -52,7 +52,7 @@ public class MyGroupController implements Initializable {
 					if(!parent.midViewEn.equals(null)){
 						try {
 							parent.groupCal = newValue;
-							parent.midViewEn.setMonthGroup(parent.aar, parent.maned, newValue);
+							parent.midViewEn.setMonth(parent.aar, parent.maned, newValue);
 							myGroupsPopUp.getScene().getWindow().hide();
 						} catch (Exception e) {
 							e.printStackTrace();
