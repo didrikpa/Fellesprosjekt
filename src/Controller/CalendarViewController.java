@@ -193,6 +193,7 @@ public class CalendarViewController implements Initializable{
 		midViewTo = new WeekViewController();
 		loader.setController(midViewTo);
 		midViewEn = null;
+		groupCal = null;
 		mainViewMid.getChildren().add((Parent) loader.load());
 		toggleButtonMonth.setSelected(false);
 		labelMonth.setText("Week");
@@ -202,7 +203,7 @@ public class CalendarViewController implements Initializable{
 	public void switchToMonth(ActionEvent event) throws Exception {
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
-		midViewEn = new MonthViewController(server);
+		midViewEn = new MonthViewController(server,this);
 		loader.setController(midViewEn);
 		midViewTo = null;
 		mainViewMid.getChildren().add((Parent) loader.load());
@@ -310,7 +311,7 @@ public class CalendarViewController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
-		midViewEn = new MonthViewController(server);
+		midViewEn = new MonthViewController(server,this);
 		loader.setController(midViewEn);
 		try {
 			mainViewMid.getChildren().add((Parent) loader.load());
