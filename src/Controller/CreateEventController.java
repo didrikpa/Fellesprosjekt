@@ -67,7 +67,6 @@ public class CreateEventController implements Initializable {
     @FXML Label groupLabel;
     @FXML TextField notifyInt;
     @FXML ComboBox notifyCombo;
-
     PersonalAppointment personalAppointment = new PersonalAppointment();
     DatabaseServer databaseServer = new DatabaseServer();
     CalendarViewController parent;
@@ -364,7 +363,7 @@ public class CreateEventController implements Initializable {
         if(!appType()) {
             if (validateTime() && validateRoom() && validateDescription()) {
                 try {
-                    databaseServer.addAppointment(personalAppointment);
+                    databaseServer.addAppointment(personalAppointment, selectedUsers);
                     parent.monthB();
                     parent.monthF();
                     ((Node) (event.getSource())).getScene().getWindow().hide();
@@ -378,7 +377,7 @@ public class CreateEventController implements Initializable {
             if (validateTime() && validateDescription()) {
                 personalAppointment.setRomnavn("PersonalRoom");
                 try {
-                    databaseServer.addAppointment(personalAppointment);
+                    databaseServer.addAppointment(personalAppointment, selectedUsers);
                     parent.monthB();
                     parent.monthF();
                     ((Node) (event.getSource())).getScene().getWindow().hide();
