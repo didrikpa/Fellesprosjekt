@@ -165,7 +165,7 @@ public class DatabaseServer {
 	//Henter n-antall nærmeste avtaler
 	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
 		if(n > 0){
-			String sql = "SELECT * FROM Avtale WHERE Dato >= CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC, Starttid LIMIT " + n + ";";
+			String sql = "SELECT * FROM Avtale WHERE Dato >= NOW() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC, Starttid LIMIT " + n + ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 			while(rs.next()){
@@ -331,7 +331,7 @@ public class DatabaseServer {
 	
 	public ArrayList<Alarm> getAlarm() throws Exception {
 		ArrayList<Alarm> alarmer = new ArrayList<Alarm>();
-		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "';";
+		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "' AND Tidspunkt < NOW() ;";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
 			 Alarm alarm = new Alarm(this);
