@@ -404,4 +404,26 @@ public class DatabaseServer {
 		String sql = "DELETE FROM Alarm WHERE Brukernavn = '" + alarm.getBrukernavn() + "' AND AvtaleID = " + alarm.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
 	}
+	public boolean roomIsTaken(PersonalAppointment pa) throws Exception{
+		String sql = "SELECT * FROM Avtale WHERE Dato ='" + pa.getDato() + "' AND Romnavn ='" + pa.getRomnavn() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			appointment.setDato(Date.valueOf(rs.getString("Dato")));
+			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointment.setOpprettetAv(rs.getString("Brukernavn"));
+			appointments.add(appointment);
+		}
+		for(PersonalAppointment pap : appointments){
+			if(pap.getStartTid().before(pa.getSluttTid()) && pa.getStartTid().before(pap.getSluttTid())){
+				return true;
+			}
+		}
+		return false;
+	}
 }
