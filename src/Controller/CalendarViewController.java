@@ -74,7 +74,7 @@ public class CalendarViewController implements Initializable {
 	public void openNotification() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/notificationsPopUpView.fxml"));
-			fxmlLoader.setController(new NotificationController(server, this));
+			fxmlLoader.setController(new NotificationController(server,this));
 			stage = new Stage();
 			stage.setTitle("Notifications");
 			stage.setScene(new Scene((Parent) fxmlLoader.load()));
