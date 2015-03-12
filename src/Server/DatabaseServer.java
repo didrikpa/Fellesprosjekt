@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Group;
+import Model.Invite;
 import Model.PersonalAppointment;
 import Model.User;
 
@@ -179,11 +180,21 @@ public class DatabaseServer {
 		return null;
 	}
 
-
-
-	public void addAppointment(PersonalAppointment appointment) throws Exception {
+	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
+		if(!invitedUsers.isEmpty()){
+			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' LIMIT 1;";
+			ResultSet rs = stmt.executeQuery(sql);
+			PersonalAppointment pa = new PersonalAppointment();
+			while(rs.next()){
+				pa.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			}
+			for(User user:invitedUsers){
+				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
+				stmt.executeUpdate(sql);
+			}
+		}
 	}
 
 	public boolean emailExist(String email) throws SQLException{
@@ -295,5 +306,34 @@ public class DatabaseServer {
 			e.printStackTrace();
 		}
 		System.out.println(generatedPassword);
+	}
+
+	public ArrayList<Invite> getInvites() throws Exception {
+		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
+		String sql = "SELECT * FROM Invitasjon WHERE Brukernavn ='" + Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			Invite invite = new Invite();
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invitasjoner.add(invite);
+		}
+		return invitasjoner;
+	}
+	
+	 public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
+		PersonalAppointment pa = new PersonalAppointment();
+		String sql = "SELECT * FROM Avtale WHERE AvtaleID ='" + avtaleid + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			pa.setAvtaleID(avtaleid);
+			pa.setBeskrivelse(rs.getString("Beskrivelse"));
+			pa.setDato(rs.getDate("Dato"));
+			pa.setRomnavn(rs.getString("Romnavn"));
+			pa.setStartTid(rs.getTime("Starttid"));
+			pa.setSluttTid(rs.getTime("Slutttid"));
+		}
+		return pa;
 	}
 }
