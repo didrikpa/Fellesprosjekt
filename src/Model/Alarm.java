@@ -1,24 +1,17 @@
 package Model;
 
+import java.sql.Timestamp;
+
 import Server.DatabaseServer;
 
-public class Invite implements Påminnelse {
-	int InvitasjonsID;
-	String Brukernavn;
-	int AvtaleID;
-	boolean Godtatt;
+public class Alarm implements Påminnelse {
 	DatabaseServer server;
+	int AvtaleID;
+	Timestamp Tidspunkt;
+	String Brukernavn;
 
-	public Invite(DatabaseServer dbserver) {
+	public Alarm(DatabaseServer dbserver) {
 		server = dbserver;
-	}
-
-	public int getInvitasjonsID() {
-		return InvitasjonsID;
-	}
-
-	public void setInvitasjonsID(int invitasjonsID) {
-		InvitasjonsID = invitasjonsID;
 	}
 
 	public String getBrukernavn() {
@@ -37,12 +30,12 @@ public class Invite implements Påminnelse {
 		AvtaleID = avtaleID;
 	}
 
-	public boolean isGodtatt() {
-		return Godtatt;
+	public Timestamp getTidspunkt() {
+		return Tidspunkt;
 	}
 
-	public void setGodtatt(boolean godtatt) {
-		Godtatt = godtatt;
+	public void setTidspunkt(Timestamp tidspunkt) {
+		Tidspunkt = tidspunkt;
 	}
 
 	@Override
@@ -53,8 +46,7 @@ public class Invite implements Påminnelse {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "Invitasjon: " + AvtaleID + " - \" " + pa.getBeskrivelse()
-				+ "\" invitert av " + pa.getOpprettetAv();
+		return "Påminnelse: " + pa.getStartTid() + "-" + pa.getSluttTid() + " "
+		+ pa.getBeskrivelse();
 	}
-
 }

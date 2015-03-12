@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Alarm;
 import Model.Group;
 import Model.Invite;
 import Model.PersonalAppointment;
@@ -164,7 +165,7 @@ public class DatabaseServer {
 	//Henter n-antall nærmeste avtaler
 	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
 		if(n > 0){
-			String sql = "SELECT * FROM Avtale WHERE Dato >= CURDATE() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC, Starttid LIMIT " + n + ";";
+			String sql = "SELECT * FROM Avtale WHERE Dato >= NOW() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC, Starttid LIMIT " + n + ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
 			while(rs.next()){
@@ -227,6 +228,7 @@ public class DatabaseServer {
 		return password;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getRoomName() throws Exception {
 		List<String> romnavn = new ArrayList<String>();
 		String sql = "SELECT Romnavn FROM Møterom;";
@@ -266,6 +268,7 @@ public class DatabaseServer {
 		return group;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getGroupMembers(String groupName) throws Exception{
 		List<String> groupMembers = new ArrayList<String>();
 		String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + groupName + "';";
@@ -327,6 +330,21 @@ public class DatabaseServer {
 		}
 		return invitasjoner;
 	}
+	
+	public ArrayList<Alarm> getAlarm() throws Exception {
+		ArrayList<Alarm> alarmer = new ArrayList<Alarm>();
+		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "' AND Tidspunkt < NOW() ;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			 Alarm alarm = new Alarm(this);
+			alarm.setBrukernavn(rs.getString("Brukernavn"));
+			alarm.setAvtaleID(rs.getInt("AvtaleID"));
+			alarm.setTidspunkt(rs.getTimestamp("Tidspunkt"));
+			alarmer.add(alarm);
+		}
+		return alarmer;
+	}
+	
 
 	public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
 		PersonalAppointment pa = new PersonalAppointment();
@@ -377,5 +395,13 @@ public class DatabaseServer {
 			stmt.executeUpdate(sql);
 		}
 	}
-
+	
+	public void setAlarm(Alarm alarm) throws Exception {
+		String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
+		stmt.executeUpdate(sql);
+	}
+	public void removeAlarm(Alarm alarm) throws SQLException{
+		String sql = "DELETE FROM Alarm WHERE Brukernavn = '" + alarm.getBrukernavn() + "' AND AvtaleID = " + alarm.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+	}
 }
