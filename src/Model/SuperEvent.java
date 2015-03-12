@@ -10,6 +10,7 @@ public abstract class SuperEvent {
 	private Time sluttTid;
 	private String beskrivelse;
 	private String romnavn;
+	private String opprettetAv;
 
 	public SuperEvent(){
 		AvtaleID = 0;
@@ -18,6 +19,15 @@ public abstract class SuperEvent {
 		sluttTid = null;
 		beskrivelse = null;
 		romnavn = null;
+		opprettetAv = null;
+	}
+
+	public String getOpprettetAv() {
+		return opprettetAv;
+	}
+
+	public void setOpprettetAv(String opprettetAv) {
+		this.opprettetAv = opprettetAv;
 	}
 
 	public int getAvtaleID() {
