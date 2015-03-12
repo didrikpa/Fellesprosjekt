@@ -11,8 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -51,6 +53,16 @@ public class CreateEventController implements Initializable {
     TextArea createEventViewTextArea;
     @FXML
     ComboBox createEventViewGroup;
+    @FXML
+    Label searchUsersLabel;
+    @FXML
+    Pane participantsPane;
+    @FXML
+    Pane usersPane;
+    @FXML
+    Button createEventViewCreate;
+    @FXML
+    Button cancelEvent;
     @FXML
     private Label roomError;
     @FXML
@@ -104,12 +116,22 @@ public class CreateEventController implements Initializable {
             roomLabel.setVisible(false);
             createEventViewGroup.setVisible(false);
             groupLabel.setVisible(false);
+            createEventViewSearch.setVisible(false);
+            searchUsersLabel.setVisible(false);
+            participantsPane.setVisible(false);
+            usersPane.setVisible(false);
+
+
             return true;
         } else {
             createEventViewRoom.setVisible(true);
             roomLabel.setVisible(true);
             createEventViewGroup.setVisible(true);
             groupLabel.setVisible(true);
+            createEventViewSearch.setVisible(true);
+            searchUsersLabel.setVisible(true);
+            participantsPane.setVisible(true);
+            usersPane.setVisible(true);
             return false;
         }
     }
