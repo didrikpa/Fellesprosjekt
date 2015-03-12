@@ -16,7 +16,7 @@ public class DatabaseServer {
 	static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/simonssl_fpgp_fp";
 	static final String USER = "simonssl_fpgp";
 	static final String PASS = "Vierbest";
-	private String Username;
+	public String Username;
 	private String Password;
 	Connection conn;
 	Statement stmt;
@@ -183,7 +183,7 @@ public class DatabaseServer {
 	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
-		if(!invitedUsers.isEmpty()){
+		if(invitedUsers != null){
 			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' LIMIT 1;";
 			ResultSet rs = stmt.executeQuery(sql);
 			PersonalAppointment pa = new PersonalAppointment();
@@ -313,22 +313,26 @@ public class DatabaseServer {
 		String sql = "SELECT * FROM Invitasjon WHERE Brukernavn ='" + Username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
-			Invite invite = new Invite();
+			Invite invite = new Invite(this);
 			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
 			invite.setBrukernavn(rs.getString("Brukernavn"));
 			invite.setAvtaleID(rs.getInt("AvtaleID"));
-			invitasjoner.add(invite);
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+			if(rs.wasNull()){
+				invitasjoner.add(invite);
+			}
 		}
 		return invitasjoner;
 	}
-	
-	 public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
+
+	public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
 		PersonalAppointment pa = new PersonalAppointment();
 		String sql = "SELECT * FROM Avtale WHERE AvtaleID ='" + avtaleid + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
 			pa.setAvtaleID(avtaleid);
 			pa.setBeskrivelse(rs.getString("Beskrivelse"));
+			pa.setOpprettetAv(rs.getString("Brukernavn"));
 			pa.setDato(rs.getDate("Dato"));
 			pa.setRomnavn(rs.getString("Romnavn"));
 			pa.setStartTid(rs.getTime("Starttid"));
@@ -336,4 +340,39 @@ public class DatabaseServer {
 		}
 		return pa;
 	}
+
+	public PersonalAppointment getLastAppointment() throws Exception{
+		String sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + this.Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
+		PersonalAppointment pa = new PersonalAppointment();
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			pa.setAvtaleID(rs.getInt("AvtaleID"));
+			pa.setBeskrivelse(rs.getString("Beskrivelse"));
+			pa.setOpprettetAv(rs.getString("Brukernavn"));
+			pa.setDato(rs.getDate("Dato"));
+			pa.setRomnavn(rs.getString("Romnavn"));
+			pa.setStartTid(rs.getTime("Starttid"));
+			pa.setSluttTid(rs.getTime("Slutttid"));
+		}
+		return pa;
+	}
+	
+	public void respond(Invite invite, boolean answer) throws Exception{
+		if(answer){
+			String sql = "UPDATE Invitasjon SET Godtatt ='1' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+			stmt.executeUpdate(sql);
+			PersonalAppointment pa = this.specificAppointment(invite.getAvtaleID());
+			pa.setAvtaleID(0);
+			this.addAppointment(pa, null);
+			pa = this.getLastAppointment();
+			sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
+			stmt.executeUpdate(sql);
+
+		}
+		else{
+			String sql = "UPDATE Invitasjon SET Godtatt ='0' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+			stmt.executeUpdate(sql);
+		}
+	}
+
 }
