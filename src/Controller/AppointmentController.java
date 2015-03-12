@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.mysql.fabric.Server;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,7 +63,7 @@ public class AppointmentController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(cvc.groupCal != null){
+		if(cvc.groupCal != null || !pa.getOpprettetAv().equalsIgnoreCase(dbserver.Username)){
 			changeAppointment.setVisible(false);
 		}
 		apDate.setText(pa.getDato() + "");
