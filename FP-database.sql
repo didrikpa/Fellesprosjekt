@@ -27,20 +27,18 @@ CREATE  TABLE `Møterom` (
 -- -----------------------------------------------------
 
 CREATE  TABLE `Gruppe` (
-  `GruppeID` INT NOT NULL ,
-  `Tillegsgruppe` VARCHAR(45) NULL ,
-  `Brukernavn` VARCHAR(20) NULL,
+  `GruppeID` INT NOT NULL,
+  `Brukernavn` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`GruppeID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
-  ON UPDATE CASCADE
-);
+  ON UPDATE CASCADE);
    
 -- -----------------------------------------------------
 -- Table`Gruppemedlem`
 -- -----------------------------------------------------
 
 CREATE TABLE `Gruppemedlem` (
-  `GruppeID` INT NOT NULL ,
+  `GruppeID` INT NOT NULL,
   `Brukernavn` varchar(20) NOT NULL,
   PRIMARY KEY (`Brukernavn`,`GruppeID`),
   FOREIGN KEY (`Brukernavn`) REFERENCES Bruker(`Brukernavn`)
