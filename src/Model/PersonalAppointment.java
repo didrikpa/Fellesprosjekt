@@ -6,7 +6,15 @@ import java.sql.Time;
 public class PersonalAppointment extends SuperEvent{
 
 	public PersonalAppointment(){}
+	
+	public String getOpprettetAv() {
+		return super.getOpprettetAv();
+	}
 
+	public void setOpprettetAv(String opprettetAv) {
+		super.setOpprettetAv(opprettetAv);
+	}
+	
 	public int getAvtaleID() {
 		return super.getAvtaleID();
 	}
