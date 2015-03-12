@@ -59,7 +59,7 @@
             </Label>
          </children>
       </GridPane>
-      <Pane fx:id="participantsPane" layoutX="689.0" layoutY="420.0" prefHeight="250.0" prefWidth="421.0" style="-fx-border-color: Black;">
+      <Pane layoutX="689.0" layoutY="420.0" prefHeight="250.0" prefWidth="421.0" style="-fx-border-color: Black;">
          <children>
             <ListView fx:id="participantList" layoutX="1.0" layoutY="60.0" prefHeight="190.0" prefWidth="421.0" />
             <Pane prefHeight="30.0" prefWidth="421.0" style="-fx-border-color: BLACK;">
@@ -79,7 +79,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="usersPane" layoutY="420.0" prefHeight="250.0" prefWidth="691.0" style="-fx-border-color: BLACK;">
+      <Pane layoutY="420.0" prefHeight="250.0" prefWidth="691.0" style="-fx-border-color: BLACK;">
          <children>
             <Pane prefHeight="30.0" prefWidth="691.0" style="-fx-border-color: BLACK;">
                <children>
@@ -94,7 +94,7 @@
             <Button layoutX="622.0" layoutY="33.0" mnemonicParsing="false" onAction="#inviteUser" text="Invite" />
          </children>
       </Pane>
-      <Label fx:id="searchUsersLabel" layoutX="14.0" layoutY="386.0" text="Search users:">
+      <Label layoutX="14.0" layoutY="386.0" text="Search users:">
          <font>
             <Font size="18.0" />
          </font>
@@ -134,22 +134,15 @@
          </children>
       </GridPane>
       <Button fx:id="createEventViewCancel" layoutX="943.0" layoutY="384.0" mnemonicParsing="false" onAction="#cancelEvent" text="Cancel" />
-<<<<<<< HEAD
-      <ComboBox fx:id="createEventViewGroup" layoutX="183.0" layoutY="252.0" prefWidth="150.0" promptText="My groups" />
-=======
       <ComboBox fx:id="createEventViewGroup" layoutX="176.0" layoutY="310.0" prefWidth="150.0" promptText="My groups" />
->>>>>>> c4b5b581ce8e49ad8d6e098c827f9a5a52507b23
       <RadioButton fx:id="personalRadio" layoutX="92.0" layoutY="41.0" mnemonicParsing="false" onAction="#appType" selected="true" text="Personal appointment">
          <toggleGroup>
             <ToggleGroup fx:id="appointmentType" />
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="meetingRadio" layoutX="92.0" layoutY="71.0" mnemonicParsing="false" onAction="#appType" text="Meeting" toggleGroup="$appointmentType" />
-<<<<<<< HEAD
-=======
       <CheckBox fx:id="allDayCheck" layoutX="174.0" layoutY="220.0" mnemonicParsing="false" onAction="#lastsAllDay" />
       <TextField fx:id="notifyInt" layoutX="175.0" layoutY="248.0" prefHeight="25.0" prefWidth="37.0" onAction="#validateNotification"/>
       <ComboBox fx:id="notifyCombo" layoutX="219.0" layoutY="248.0" prefHeight="25.0" prefWidth="107.0" />
->>>>>>> c4b5b581ce8e49ad8d6e098c827f9a5a52507b23
    </children>
 </AnchorPane>
