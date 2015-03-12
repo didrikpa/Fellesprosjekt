@@ -228,6 +228,7 @@ public class DatabaseServer {
 		return password;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getRoomName() throws Exception {
 		List<String> romnavn = new ArrayList<String>();
 		String sql = "SELECT Romnavn FROM Møterom;";
@@ -267,6 +268,7 @@ public class DatabaseServer {
 		return group;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getGroupMembers(String groupName) throws Exception{
 		List<String> groupMembers = new ArrayList<String>();
 		String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + groupName + "';";
