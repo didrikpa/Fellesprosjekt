@@ -260,7 +260,7 @@ public class EditEventController implements Initializable {
     public void createEvent(ActionEvent event){
         if(validateTime() && validateRoom() && validateDescription()){
             try {
-                databaseServer.addAppointment(personalAppointment);
+                databaseServer.addAppointment(personalAppointment, selectedUsers);
                 parent.monthB();
                 parent.monthF();
                 ((Node)(event.getSource())).getScene().getWindow().hide();
