@@ -399,7 +399,7 @@ public class CreateEventController implements Initializable {
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
-//					sendInvitationEmail();
+					sendInvitationEmail();
 				} catch (Exception e) {
 					System.out.println(e);
 				}
@@ -408,7 +408,8 @@ public class CreateEventController implements Initializable {
 			if (validateTime() && validateDescription()) {
 				personalAppointment.setRomnavn("PersonalRoom");
 				try {
-					databaseServer.addAppointment(personalAppointment, selectedUsers);
+					databaseServer.addAppointment(personalAppointment,
+							selectedUsers);
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
