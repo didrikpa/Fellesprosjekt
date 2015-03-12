@@ -394,13 +394,25 @@ public class CreateEventController implements Initializable {
 	}
 
 	@FXML
-	public boolean validateRoom() {
+	public boolean validateRoom() throws Exception {
 		if (createEventViewRoom.getValue() == null) {
 			roomError.setStyle("-fx-text-fill: red");
 			roomError.setText("There has to be a room to the event.");
 			roomError.setVisible(true);
 			return false;
-		} else {
+		} 
+		if(!validateTime()){
+			roomError.setStyle("-fx-text-fill: red");
+			roomError.setText("Room can not be set before time.");
+			roomError.setVisible(true);
+			return false;
+		}
+		if(databaseServer.roomIsTaken(personalAppointment)){
+			roomError.setStyle("-fx-text-fill: red");
+			roomError.setText("The room is taken on the given time.");
+			roomError.setVisible(true);
+			return false;
+		}else {
 			roomError.setVisible(false);
 			if (!appType())
 				personalAppointment.setRomnavn(createEventViewRoom.getValue());
@@ -409,14 +421,13 @@ public class CreateEventController implements Initializable {
 	}
 
 	@FXML
-	public void createEvent(ActionEvent event) {
+	public void createEvent(ActionEvent event) throws Exception {
 		if (!appType()) {
 			if (validateTime() && validateRoom() && validateDescription() && validateNotification()) {
 				try {
 					databaseServer.addAppointment(personalAppointment, selectedUsers);
 					alarm.setBrukernavn(databaseServer.Username);
 					alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
-					System.out.println(alarm.getTidspunkt());
 					databaseServer.setAlarm(alarm);
 					parent.monthB();
 					parent.monthF();
