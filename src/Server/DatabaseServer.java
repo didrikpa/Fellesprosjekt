@@ -133,6 +133,7 @@ public class DatabaseServer {
 			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
 			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointment.setOpprettetAv(rs.getString("Brukernavn"));
 			appointments.add(appointment);
 		}
 		return appointments;
@@ -152,6 +153,7 @@ public class DatabaseServer {
 					appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
 					appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 					appointment.setRomnavn(rs.getString("Romnavn"));
+					appointment.setOpprettetAv(rs.getString("Brukernavn"));
 					appointments.add(appointment);
 				}
 			}
@@ -173,6 +175,7 @@ public class DatabaseServer {
 				appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
 				appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 				appointment.setRomnavn(rs.getString("Romnavn"));
+				appointment.setOpprettetAv(rs.getString("Brukernavn"));
 				appointments.add(appointment);
 			}
 			return appointments;
