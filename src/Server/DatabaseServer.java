@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Alarm;
 import Model.Group;
 import Model.Invite;
 import Model.PersonalAppointment;
@@ -327,6 +328,21 @@ public class DatabaseServer {
 		}
 		return invitasjoner;
 	}
+	
+	public ArrayList<Alarm> getAlarm() throws Exception {
+		ArrayList<Alarm> alarmer = new ArrayList<Alarm>();
+		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			 Alarm alarm = new Alarm(this);
+			alarm.setBrukernavn(rs.getString("Brukernavn"));
+			alarm.setAvtaleID(rs.getInt("AvtaleID"));
+			alarm.setTidspunkt(rs.getTimestamp("Tidspunkt"));
+			alarmer.add(alarm);
+		}
+		return alarmer;
+	}
+	
 
 	public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
 		PersonalAppointment pa = new PersonalAppointment();
@@ -377,5 +393,13 @@ public class DatabaseServer {
 			stmt.executeUpdate(sql);
 		}
 	}
-
+	
+	public void setAlarm(Alarm alarm) throws Exception {
+		String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
+		stmt.executeUpdate(sql);
+	}
+	public void removeAlarm(Alarm alarm) throws SQLException{
+		String sql = "DELETE FROM Alarm WHERE Brukernavn = '" + alarm.getBrukernavn() + "' AND AvtaleID = " + alarm.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+	}
 }
