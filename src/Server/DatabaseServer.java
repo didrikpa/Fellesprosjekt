@@ -187,7 +187,7 @@ public class DatabaseServer {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
 		if(invitedUsers != null){
-			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' LIMIT 1;";
+			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
 			ResultSet rs = stmt.executeQuery(sql);
 			PersonalAppointment pa = new PersonalAppointment();
 			while(rs.next()){
