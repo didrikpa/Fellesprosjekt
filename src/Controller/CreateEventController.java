@@ -15,15 +15,19 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
 import java.net.URL;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
 import Server.*;
 import Model.*;
 
@@ -65,7 +69,9 @@ public class CreateEventController implements Initializable {
 	private Label endError;
 	@FXML
 	private Label dateError;
-
+	
+	@FXML
+	Button inviteUserButton;
 	@FXML
 	RadioButton personalRadio;
 	@FXML
@@ -80,6 +86,7 @@ public class CreateEventController implements Initializable {
 	ComboBox notifyCombo;
 	PersonalAppointment personalAppointment = new PersonalAppointment();
 	DatabaseServer databaseServer = new DatabaseServer();
+	Alarm alarm;
 	CalendarViewController parent;
 	Stage stage;
 	@FXML
@@ -89,8 +96,9 @@ public class CreateEventController implements Initializable {
 	ArrayList<User> selectedUsers = new ArrayList<User>();
 
 	public CreateEventController(DatabaseServer server,
-			CalendarViewController pt) {
+		CalendarViewController pt) {
 		databaseServer = server;
+		alarm = new Alarm(databaseServer);
 		parent = pt;
 	}
 
@@ -113,12 +121,14 @@ public class CreateEventController implements Initializable {
 			roomLabel.setVisible(false);
 			createEventViewGroup.setVisible(false);
 			groupLabel.setVisible(false);
+			createEventViewSearch.setDisable(true);
 			return true;
 		} else {
 			createEventViewRoom.setVisible(true);
 			roomLabel.setVisible(true);
 			createEventViewGroup.setVisible(true);
 			groupLabel.setVisible(true);
+			createEventViewSearch.setDisable(false);
 			return false;
 		}
 	}
@@ -236,6 +246,7 @@ public class CreateEventController implements Initializable {
 		List<String> list = new ArrayList<String>();
 		list.add("minutes");
 		list.add("hours");
+		list.add("days");
 		ObservableList<String> choices = FXCollections
 				.observableArrayList(list);
 		notifyCombo.setItems(choices);
@@ -319,7 +330,7 @@ public class CreateEventController implements Initializable {
 			return true;
 		}
 	}
-
+	
 	@FXML
 	public void lastsAllDay() {
 		if (allDayCheck.isSelected()) {
@@ -339,24 +350,31 @@ public class CreateEventController implements Initializable {
 		}
 	}
 
-	@FXML
-	public void validateNotification() {
-		notifyInt.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0,
-					Boolean oldPropertyValue, Boolean newPropertyValue) {
-				if (notifyInt.getText().isEmpty())
-					notifyInt.setText("15");
-				try {
-					if (Integer.parseInt(notifyInt.getText()) >= 0) {
-						notifyInt.setText(notifyInt.getText());
-					} else
-						notifyInt.setText("15");
-				} catch (Exception e) {
-					System.out.println(e);
-				}
+	public boolean validateNotification() {
+		Calendar calendar = Calendar.getInstance();
+		java.sql.Timestamp ts = new java.sql.Timestamp(calendar.getTime().getTime());
+		try {
+			int not = Integer.parseInt(notifyInt.getText());
+			if(((String)notifyCombo.getValue()).equalsIgnoreCase("minutes")){
+				ts.setMinutes(ts.getMinutes()+not);
+				alarm.setTidspunkt(ts);
+				return true;
 			}
-		});
+			if(((String)notifyCombo.getValue()).equalsIgnoreCase("hours")){
+				ts.setHours(ts.getHours()+not);
+				alarm.setTidspunkt(ts);
+				return true;
+			}
+			if(((String)notifyCombo.getValue()).equalsIgnoreCase("days")){
+				ts.setDate(ts.getDay()+not);
+				alarm.setTidspunkt(ts);
+				return true;
+			}
+		} catch (Exception e) {
+			alarm.setTidspunkt(ts);
+			return true;
+		}
+		return false;
 	}
 
 	@FXML
@@ -393,9 +411,13 @@ public class CreateEventController implements Initializable {
 	@FXML
 	public void createEvent(ActionEvent event) {
 		if (!appType()) {
-			if (validateTime() && validateRoom() && validateDescription()) {
+			if (validateTime() && validateRoom() && validateDescription() && validateNotification()) {
 				try {
 					databaseServer.addAppointment(personalAppointment, selectedUsers);
+					alarm.setBrukernavn(databaseServer.Username);
+					alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
+					System.out.println(alarm.getTidspunkt());
+					databaseServer.setAlarm(alarm);
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
@@ -405,11 +427,13 @@ public class CreateEventController implements Initializable {
 				}
 			}
 		} else if (appType()) {
-			if (validateTime() && validateDescription()) {
+			if (validateTime() && validateDescription() && validateNotification()) {
 				personalAppointment.setRomnavn("PersonalRoom");
 				try {
-					databaseServer.addAppointment(personalAppointment,
-							selectedUsers);
+					databaseServer.addAppointment(personalAppointment, selectedUsers);
+					alarm.setBrukernavn(databaseServer.Username);
+					alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
+					databaseServer.setAlarm(alarm);
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
