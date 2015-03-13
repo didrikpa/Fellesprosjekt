@@ -42,7 +42,7 @@ public class Alarm implements Påminnelse {
 	public String toString() {
 		PersonalAppointment pa = null;
 		try {
-			pa = server.specificAppointment(getAvtaleID());
+			pa = server.getSpecificAppointment(getAvtaleID());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
