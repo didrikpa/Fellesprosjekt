@@ -3,7 +3,6 @@ package Controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import Model.Alarm;
 import Model.Invite;
 import Model.Påminnelse;
@@ -21,11 +20,12 @@ import javafx.stage.Stage;
 public class NotificationController implements Initializable{
 	Stage stage;
 	@FXML ListView<Påminnelse> notificationList;
-	ArrayList<Påminnelse> pas;
 	@FXML Button notificationsAccept;
 	@FXML Button notifictionsDecline;
+	ArrayList<Påminnelse> pas;
 	CalendarViewController parent;
 	DatabaseServer server;
+	
 	public NotificationController(DatabaseServer dbserver, CalendarViewController par){
 		parent = par;
 		server = dbserver;
@@ -43,7 +43,7 @@ public class NotificationController implements Initializable{
 		ObservableList<Påminnelse> invitasjoner = notificationList.getSelectionModel().getSelectedItems();
 		if(invitasjoner.get(0) instanceof Invite){
 			Invite inv = (Invite)invitasjoner.get(0);
-			server.respond(inv,true);
+			server.respondOnInvite(inv,true);
 			loadList();
 			notificationList.setItems(FXCollections.observableArrayList(pas));
 			parent.monthB();
@@ -62,7 +62,7 @@ public class NotificationController implements Initializable{
 		ObservableList<Påminnelse> invitasjoner = notificationList.getSelectionModel().getSelectedItems();
 		if(invitasjoner.get(0) instanceof Invite){
 			Invite inv = (Invite)invitasjoner.get(0);
-			server.respond(inv,false);
+			server.respondOnInvite(inv,false);
 			loadList();
 			notificationList.setItems(FXCollections.observableArrayList(pas));
 			parent.monthB();
@@ -76,15 +76,17 @@ public class NotificationController implements Initializable{
 		}
 
 	}
+	
 	private void loadList() throws Exception {
 		pas.clear();
-		for(Invite ene : server.getInvites()){
+		for(Invite ene : server.getMyInvites()){
 			pas.add(ene);
 		}
 		for(Alarm tone : server.getAlarm()){
 			pas.add(tone);
 		}
 	}
+	
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		try {
 			loadList();
