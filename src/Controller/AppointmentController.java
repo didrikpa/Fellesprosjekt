@@ -93,6 +93,7 @@ public class AppointmentController implements Initializable{
 		stage.show();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
+	
 	@FXML
 	public void createAlarm(ActionEvent event) {
 		Alarm alarm = new Alarm(dbserver);
@@ -130,14 +131,14 @@ public class AppointmentController implements Initializable{
 	
 	@FXML
 	public void deleteAppointment(ActionEvent event) throws Exception {
-		dbserver.respond(dbserver.getInvite(dbserver.getParentEvent(pa)), false);
+		dbserver.respondOnInvite(dbserver.getInvite(dbserver.getParentEvent(pa)), false);
 		dbserver.removeAppointment(pa);
 		cvc.monthB();
 		cvc.monthF();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
-	private void setNotifyComboValues() {
+	private void setAlarmComboValues() {
 		List<String> list = new ArrayList<String>();
 		list.add("minutes");
 		list.add("hours");
@@ -150,12 +151,12 @@ public class AppointmentController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		setNotifyComboValues();
+		setAlarmComboValues();
 		toogleGoing.setVisible(false);
 		toogleNotGoing.setVisible(false);
 		ArrayList<String>status = new ArrayList<String>();
 		try {
-			for(Invite inv:dbserver.getInvited(dbserver.getParentEvent(pa))){
+			for(Invite inv:dbserver.invitesSent(dbserver.getParentEvent(pa))){
 				status.add(inv.getBrukernavn() + " - " + inv.isGodtatt());
 			}
 			invitedList.setItems(FXCollections.observableArrayList(status));
