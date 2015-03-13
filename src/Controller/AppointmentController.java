@@ -133,8 +133,8 @@ public class AppointmentController implements Initializable{
 		dbserver.removeAppointment(pa);
 		cvc.monthB();
 		cvc.monthF();
+		dbserver.respond(dbserver.getInvite(dbserver.getParentEvent(pa)), false);
 		((Node)(event.getSource())).getScene().getWindow().hide();
-		dbserver.respond(dbserver.getInvite(pa), false);
 	}
 	
 	private void setNotifyComboValues() {
@@ -151,6 +151,8 @@ public class AppointmentController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setNotifyComboValues();
+		toogleGoing.setVisible(false);
+		toogleNotGoing.setVisible(false);
 		ArrayList<String>status = new ArrayList<String>();
 		try {
 			System.out.println(pa.getAvtaleID());
@@ -161,14 +163,6 @@ public class AppointmentController implements Initializable{
 			invitedList.setItems(FXCollections.observableArrayList(status));
 		} catch (Exception e2) {
 			e2.printStackTrace();
-		}
-		try {
-			if(!dbserver.isChildEvent(pa)){
-				toogleGoing.setVisible(false);
-				toogleNotGoing.setVisible(false);
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
 		}
 		try {
 			if(cvc.groupCal != null || !pa.getOpprettetAv().equalsIgnoreCase(dbserver.Username) || dbserver.isChildEvent(pa)){
