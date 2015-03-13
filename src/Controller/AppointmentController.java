@@ -19,10 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import Model.Alarm;
+import Model.Invite;
 import Model.PersonalAppointment;
 import Server.DatabaseServer;
 
@@ -34,6 +36,8 @@ public class AppointmentController implements Initializable{
 	@FXML Label apRoom;
 	@FXML Label apTime;
 	@FXML Label apDescription;
+	@FXML Label invitedLabel;
+	@FXML ListView<String> invitedList;
 	@FXML TextField alarmIn;
 	@FXML ComboBox<String> alarmChoice;
 	@FXML ToggleButton toogleGoing;
@@ -61,6 +65,7 @@ public class AppointmentController implements Initializable{
 		stage = null;
 		toogleGoing = new ToggleButton();
 		toogleNotGoing = new ToggleButton();
+		invitedList = new ListView<String>();
 	}
 	
 	@FXML 
@@ -126,6 +131,10 @@ public class AppointmentController implements Initializable{
 	@FXML
 	public void deleteAppointment(ActionEvent event) throws Exception {
 		dbserver.removeAppointment(pa);
+		cvc.monthB();
+		cvc.monthF();
+		((Node)(event.getSource())).getScene().getWindow().hide();
+		dbserver.respond(dbserver.getInvite(pa), false);
 	}
 	
 	private void setNotifyComboValues() {
@@ -142,6 +151,17 @@ public class AppointmentController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setNotifyComboValues();
+		ArrayList<String>status = new ArrayList<String>();
+		try {
+			System.out.println(pa.getAvtaleID());
+			System.out.println(dbserver.getParentEvent(pa).getAvtaleID());
+			for(Invite inv:dbserver.getInvited(dbserver.getParentEvent(pa))){
+				status.add(inv.getBrukernavn() + " - " + inv.isGodtatt());
+			}
+			invitedList.setItems(FXCollections.observableArrayList(status));
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
 		try {
 			if(!dbserver.isChildEvent(pa)){
 				toogleGoing.setVisible(false);
