@@ -437,4 +437,32 @@ public class DatabaseServer {
 		if(ant==0)return false;
 		return true;
 	}
+	
+	public ArrayList<PersonalAppointment> appointmentChilds(PersonalAppointment pa) throws Exception{
+		ArrayList<PersonalAppointment> avtaler = new ArrayList<PersonalAppointment>();
+		String sql = "SELECT * FROM Underavtale WHERE OpphavsavtaleID ='" + pa.getAvtaleID() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			PersonalAppointment mid = new PersonalAppointment();
+			mid.setAvtaleID(rs.getInt("UnderavtaleID"));
+		}
+		return avtaler;
+	}
+	
+	public void removeAppointment(PersonalAppointment pa) throws Exception{
+		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
+		String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		for(PersonalAppointment pas:childs){
+			removeAppointment(pas);
+		}
+	}
 }
