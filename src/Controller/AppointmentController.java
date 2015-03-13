@@ -130,10 +130,10 @@ public class AppointmentController implements Initializable{
 	
 	@FXML
 	public void deleteAppointment(ActionEvent event) throws Exception {
+		dbserver.respond(dbserver.getInvite(dbserver.getParentEvent(pa)), false);
 		dbserver.removeAppointment(pa);
 		cvc.monthB();
 		cvc.monthF();
-		dbserver.respond(dbserver.getInvite(dbserver.getParentEvent(pa)), false);
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
