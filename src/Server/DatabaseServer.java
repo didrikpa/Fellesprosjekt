@@ -465,4 +465,48 @@ public class DatabaseServer {
 			removeAppointment(pas);
 		}
 	}
+	
+	public Invite getInvite(PersonalAppointment pap) throws Exception{
+		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap) + "' AND Brukernavn = '" + Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		Invite invite = new Invite(this);
+		while(rs.next()){
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+		}
+		return invite;
+	}
+	
+	public ArrayList<Invite> getInvited(PersonalAppointment pas) throws Exception {
+		PersonalAppointment pa = pas;
+		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
+		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + pa.getAvtaleID() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			Invite invite = new Invite(this);
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+			invitasjoner.add(invite);
+		}
+		return invitasjoner;
+	}
+	
+	public PersonalAppointment getParentEvent(PersonalAppointment pa) throws Exception{
+		if(isChildEvent(pa)){
+			String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
+			ResultSet rs = stmt.executeQuery(sql);
+			int avtid = 0;
+			while(rs.next()){
+				avtid = rs.getInt("OpphavsavtaleID");
+			}
+			return getParentEvent(specificAppointment(avtid));
+		}
+		else{
+			return pa;
+		}
+	}
 }
