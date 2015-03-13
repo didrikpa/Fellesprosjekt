@@ -187,7 +187,7 @@ public class DatabaseServer {
 	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
-		if(invitedUsers != null){
+		if(invitedUsers != null ){
 			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
 			ResultSet rs = stmt.executeQuery(sql);
 			PersonalAppointment pa = new PersonalAppointment();
@@ -478,7 +478,7 @@ public class DatabaseServer {
 	}
 	
 	public Invite getInvite(PersonalAppointment pap) throws Exception{
-		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap) + "' AND Brukernavn = '" + Username + "';";
+		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap).getAvtaleID() + "' AND Brukernavn = '" + Username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		Invite invite = new Invite(this);
 		while(rs.next()){
