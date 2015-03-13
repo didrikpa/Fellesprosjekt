@@ -355,6 +355,10 @@ public class CreateEventController implements Initializable {
 		java.sql.Timestamp ts = new java.sql.Timestamp(calendar.getTime().getTime());
 		try {
 			int not = Integer.parseInt(notifyInt.getText());
+			if(not == 0){
+				alarm.setTidspunkt(null);
+				return true;
+			}
 			if(((String)notifyCombo.getValue()).equalsIgnoreCase("minutes")){
 				ts.setMinutes(ts.getMinutes()+not);
 				alarm.setTidspunkt(ts);
@@ -371,7 +375,7 @@ public class CreateEventController implements Initializable {
 				return true;
 			}
 		} catch (Exception e) {
-			alarm.setTidspunkt(ts);
+			alarm.setTidspunkt(null);
 			return true;
 		}
 		return false;
@@ -395,12 +399,13 @@ public class CreateEventController implements Initializable {
 
 	@FXML
 	public boolean validateRoom() throws Exception {
-		if (createEventViewRoom.getValue() == null) {
+		if(createEventViewRoom.getValue() == null) {
 			roomError.setStyle("-fx-text-fill: red");
 			roomError.setText("There has to be a room to the event.");
 			roomError.setVisible(true);
 			return false;
-		} 
+		}
+		personalAppointment.setRomnavn(createEventViewRoom.getValue());
 		if(!validateTime()){
 			roomError.setStyle("-fx-text-fill: red");
 			roomError.setText("Room can not be set before time.");
@@ -413,6 +418,7 @@ public class CreateEventController implements Initializable {
 			roomError.setVisible(true);
 			return false;
 		}else {
+			System.out.println("Funker ikke");
 			roomError.setVisible(false);
 			if (!appType())
 				personalAppointment.setRomnavn(createEventViewRoom.getValue());
@@ -428,7 +434,7 @@ public class CreateEventController implements Initializable {
 					databaseServer.addAppointment(personalAppointment, selectedUsers);
 					alarm.setBrukernavn(databaseServer.Username);
 					alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
-					databaseServer.setAlarm(alarm);
+					if(alarm.getTidspunkt() != null)databaseServer.setAlarm(alarm);
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
@@ -444,7 +450,7 @@ public class CreateEventController implements Initializable {
 					databaseServer.addAppointment(personalAppointment, selectedUsers);
 					alarm.setBrukernavn(databaseServer.Username);
 					alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
-					databaseServer.setAlarm(alarm);
+					if(alarm.getTidspunkt() != null)databaseServer.setAlarm(alarm);
 					parent.monthB();
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
