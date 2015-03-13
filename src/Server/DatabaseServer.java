@@ -445,25 +445,36 @@ public class DatabaseServer {
 		while(rs.next()){
 			PersonalAppointment mid = new PersonalAppointment();
 			mid.setAvtaleID(rs.getInt("UnderavtaleID"));
+			avtaler.add(mid);
 		}
 		return avtaler;
 	}
 	
 	public void removeAppointment(PersonalAppointment pa) throws Exception{
 		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
+		for(PersonalAppointment pas:childs){
+			String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Alarm WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Avtale WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+		}
 		String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
 		sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
 		sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
 		sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
-		for(PersonalAppointment pas:childs){
-			removeAppointment(pas);
-		}
+		sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		
 	}
 	
 	public Invite getInvite(PersonalAppointment pap) throws Exception{
