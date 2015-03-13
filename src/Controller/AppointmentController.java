@@ -63,8 +63,12 @@ public class AppointmentController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(cvc.groupCal != null || !pa.getOpprettetAv().equalsIgnoreCase(dbserver.Username)){
-			changeAppointment.setVisible(false);
+		try {
+			if(cvc.groupCal != null || !pa.getOpprettetAv().equalsIgnoreCase(dbserver.Username) || dbserver.isChildEvent(pa)){
+				changeAppointment.setVisible(false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		apDate.setText(pa.getDato() + "");
 		apRoom.setText(pa.getRomnavn() + "");
