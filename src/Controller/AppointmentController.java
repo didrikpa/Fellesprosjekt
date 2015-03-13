@@ -155,8 +155,6 @@ public class AppointmentController implements Initializable{
 		toogleNotGoing.setVisible(false);
 		ArrayList<String>status = new ArrayList<String>();
 		try {
-			System.out.println(pa.getAvtaleID());
-			System.out.println(dbserver.getParentEvent(pa).getAvtaleID());
 			for(Invite inv:dbserver.getInvited(dbserver.getParentEvent(pa))){
 				status.add(inv.getBrukernavn() + " - " + inv.isGodtatt());
 			}
