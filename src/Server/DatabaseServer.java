@@ -426,4 +426,15 @@ public class DatabaseServer {
 		}
 		return false;
 	}
+	
+	public boolean isChildEvent(PersonalAppointment pa) throws Exception{
+		String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		int ant = 0;
+		while(rs.next()){
+			ant += 1;
+		}
+		if(ant==0)return false;
+		return true;
+	}
 }
