@@ -122,6 +122,49 @@ public class DatabaseServer {
 		}
 	}
 
+	public boolean emailExist(String email) throws SQLException{
+		String values = "";
+		String sql = "SELECT `E-post` FROM Bruker WHERE `E-post` = '" + email + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			values += (rs.getString("E-post"));
+		}
+		values.replaceAll(" ", "");
+		if(values.equals("")){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
+	public String getPassword(String email) throws Exception {
+		String password;
+		password = this.Password;
+		String sql = "SELECT Passord FROM Bruker WHERE `E-post` = '" + email + "' ;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			password = rs.getString("Passord");
+		}
+		return password;
+	}
+
+	public PersonalAppointment getSpecificAppointment(int avtaleid) throws Exception{
+		PersonalAppointment pa = new PersonalAppointment();
+		String sql = "SELECT * FROM Avtale WHERE AvtaleID ='" + avtaleid + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			pa.setAvtaleID(avtaleid);
+			pa.setBeskrivelse(rs.getString("Beskrivelse"));
+			pa.setOpprettetAv(rs.getString("Brukernavn"));
+			pa.setDato(rs.getDate("Dato"));
+			pa.setRomnavn(rs.getString("Romnavn"));
+			pa.setStartTid(rs.getTime("Starttid"));
+			pa.setSluttTid(rs.getTime("Slutttid"));
+		}
+		return pa;
+	}
+
 	public ArrayList<PersonalAppointment> getAppointment(Date date) throws Exception{
 		String sql = "SELECT * FROM Avtale, Bruker WHERE Bruker.Brukernavn = '" + Username + "' AND Avtale.Dato ='" + date.toString() + "' AND Bruker.Brukernavn = Avtale.Brukernavn ORDER BY Starttid;";
 		ResultSet rs = stmt.executeQuery(sql);
@@ -162,7 +205,6 @@ public class DatabaseServer {
 		return appointments;
 	}
 
-	//Henter n-antall nærmeste avtaler
 	public ArrayList<PersonalAppointment> comingUp(int n) throws Exception{
 		if(n > 0){
 			String sql = "SELECT * FROM Avtale WHERE Dato >= NOW() AND Brukernavn = '" + Username + "' ORDER BY Dato ASC, Starttid LIMIT " + n + ";";
@@ -184,6 +226,22 @@ public class DatabaseServer {
 		return null;
 	}
 
+	public PersonalAppointment getLastAppointment() throws Exception{
+		String sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + this.Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
+		PersonalAppointment pa = new PersonalAppointment();
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			pa.setAvtaleID(rs.getInt("AvtaleID"));
+			pa.setBeskrivelse(rs.getString("Beskrivelse"));
+			pa.setOpprettetAv(rs.getString("Brukernavn"));
+			pa.setDato(rs.getDate("Dato"));
+			pa.setRomnavn(rs.getString("Romnavn"));
+			pa.setStartTid(rs.getTime("Starttid"));
+			pa.setSluttTid(rs.getTime("Slutttid"));
+		}
+		return pa;
+	}
+
 	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
@@ -201,31 +259,115 @@ public class DatabaseServer {
 		}
 	}
 
-	public boolean emailExist(String email) throws SQLException{
-		String values = "";
-		String sql = "SELECT `E-post` FROM Bruker WHERE `E-post` = '" + email + "';";
+	public void removeAppointment(PersonalAppointment pa) throws Exception{
+		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
+		for(PersonalAppointment pas:childs){
+			String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Alarm WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+			sql = "DELETE FROM Avtale WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+			stmt.executeUpdate(sql);
+		}
+		String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+
+	}
+
+	public ArrayList<PersonalAppointment> appointmentChilds(PersonalAppointment pa) throws Exception{
+		ArrayList<PersonalAppointment> avtaler = new ArrayList<PersonalAppointment>();
+		String sql = "SELECT * FROM Underavtale WHERE OpphavsavtaleID ='" + pa.getAvtaleID() + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
-			values += (rs.getString("E-post"));
+			PersonalAppointment mid = new PersonalAppointment();
+			mid.setAvtaleID(rs.getInt("UnderavtaleID"));
+			avtaler.add(mid);
 		}
-		values.replaceAll(" ", "");
-		if(values.equals("")){
-			return false;
+		return avtaler;
+	}
+
+	public boolean isChildEvent(PersonalAppointment pa) throws Exception{
+		String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		int ant = 0;
+		while(rs.next()){
+			ant += 1;
+		}
+		if(ant==0)return false;
+		return true;
+	}
+
+	public PersonalAppointment getParentEvent(PersonalAppointment pa) throws Exception{
+		if(isChildEvent(pa)){
+			String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
+			ResultSet rs = stmt.executeQuery(sql);
+			int avtid = 0;
+			while(rs.next()){
+				avtid = rs.getInt("OpphavsavtaleID");
+			}
+			return getParentEvent(getSpecificAppointment(avtid));
 		}
 		else{
-			return true;
+			return pa;
 		}
 	}
 
-	public String getPassword(String email) throws Exception {
-		String password;
-		password = this.Password;
-		String sql = "SELECT Passord FROM Bruker WHERE `E-post` = '" + email + "' ;";
+	public Invite getInvite(PersonalAppointment pap) throws Exception{
+		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap).getAvtaleID() + "' AND Brukernavn = '" + Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		Invite invite = new Invite(this);
+		while(rs.next()){
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+		}
+		return invite;
+	}
+
+	public ArrayList<Invite> getMyInvites() throws Exception {
+		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
+		String sql = "SELECT * FROM Invitasjon WHERE Brukernavn ='" + Username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()){
-			password = rs.getString("Passord");
+			Invite invite = new Invite(this);
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+			if(rs.wasNull()){
+				invitasjoner.add(invite);
+			}
 		}
-		return password;
+		return invitasjoner;
+	}
+
+	public ArrayList<Invite> invitesSent(PersonalAppointment pas) throws Exception {
+		PersonalAppointment pa = pas;
+		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
+		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + pa.getAvtaleID() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			Invite invite = new Invite(this);
+			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
+			invite.setBrukernavn(rs.getString("Brukernavn"));
+			invite.setAvtaleID(rs.getInt("AvtaleID"));
+			invite.setGodtatt(rs.getBoolean("Godtatt"));
+			invitasjoner.add(invite);
+		}
+		return invitasjoner;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -237,6 +379,29 @@ public class DatabaseServer {
 			romnavn.add(rs.getString("Romnavn"));
 		}
 		return romnavn;
+	}
+
+	public boolean roomIsTaken(PersonalAppointment pa) throws Exception{
+		String sql = "SELECT * FROM Avtale WHERE Dato ='" + pa.getDato() + "' AND Romnavn ='" + pa.getRomnavn() + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			appointment.setDato(Date.valueOf(rs.getString("Dato")));
+			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointment.setOpprettetAv(rs.getString("Brukernavn"));
+			appointments.add(appointment);
+		}
+		for(PersonalAppointment pap : appointments){
+			if(pap.getStartTid().before(pa.getSluttTid()) && pa.getStartTid().before(pap.getSluttTid())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public ArrayList<Group> getGroups() throws Exception{
@@ -280,14 +445,49 @@ public class DatabaseServer {
 		return groupMembers;
 	}
 
+	public void respondOnInvite(Invite invite, boolean answer) throws Exception{
+		if(answer){
+			String sql = "UPDATE Invitasjon SET Godtatt ='1' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+			stmt.executeUpdate(sql);
+			PersonalAppointment pa = this.getSpecificAppointment(invite.getAvtaleID());
+			pa.setAvtaleID(0);
+			this.addAppointment(pa, null);
+			pa = this.getLastAppointment();
+			sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
+			stmt.executeUpdate(sql);
 
-	public void quit() throws SQLException{
-		conn.close();
-		stmt.close();
+		}
+		else{
+			String sql = "UPDATE Invitasjon SET Godtatt ='0' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+			stmt.executeUpdate(sql);
+		}
 	}
 
-	public void hashPassword(String Password)
-	{
+	public void setAlarm(Alarm alarm) throws Exception {
+		String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
+		stmt.executeUpdate(sql);
+	}
+
+	public ArrayList<Alarm> getAlarm() throws Exception {
+		ArrayList<Alarm> alarmer = new ArrayList<Alarm>();
+		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "' AND Tidspunkt < NOW() ;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			Alarm alarm = new Alarm(this);
+			alarm.setBrukernavn(rs.getString("Brukernavn"));
+			alarm.setAvtaleID(rs.getInt("AvtaleID"));
+			alarm.setTidspunkt(rs.getTimestamp("Tidspunkt"));
+			alarmer.add(alarm);
+		}
+		return alarmer;
+	}
+
+	public void removeAlarm(Alarm alarm) throws SQLException{
+		String sql = "DELETE FROM Alarm WHERE Brukernavn = '" + alarm.getBrukernavn() + "' AND AvtaleID = " + alarm.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+	}
+
+	public void hashPassword(String Password){
 		String passwordToHash = Password;
 		String generatedPassword = null;
 		try {
@@ -314,210 +514,8 @@ public class DatabaseServer {
 		System.out.println(generatedPassword);
 	}
 
-	public ArrayList<Invite> getInvites() throws Exception {
-		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
-		String sql = "SELECT * FROM Invitasjon WHERE Brukernavn ='" + Username + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			Invite invite = new Invite(this);
-			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
-			invite.setBrukernavn(rs.getString("Brukernavn"));
-			invite.setAvtaleID(rs.getInt("AvtaleID"));
-			invite.setGodtatt(rs.getBoolean("Godtatt"));
-			if(rs.wasNull()){
-				invitasjoner.add(invite);
-			}
-		}
-		return invitasjoner;
-	}
-	
-	public ArrayList<Alarm> getAlarm() throws Exception {
-		ArrayList<Alarm> alarmer = new ArrayList<Alarm>();
-		String sql = "SELECT * FROM Alarm WHERE Brukernavn ='" + Username + "' AND Tidspunkt < NOW() ;";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			 Alarm alarm = new Alarm(this);
-			alarm.setBrukernavn(rs.getString("Brukernavn"));
-			alarm.setAvtaleID(rs.getInt("AvtaleID"));
-			alarm.setTidspunkt(rs.getTimestamp("Tidspunkt"));
-			alarmer.add(alarm);
-		}
-		return alarmer;
-	}
-	
-
-	public PersonalAppointment specificAppointment(int avtaleid) throws Exception{
-		PersonalAppointment pa = new PersonalAppointment();
-		String sql = "SELECT * FROM Avtale WHERE AvtaleID ='" + avtaleid + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			pa.setAvtaleID(avtaleid);
-			pa.setBeskrivelse(rs.getString("Beskrivelse"));
-			pa.setOpprettetAv(rs.getString("Brukernavn"));
-			pa.setDato(rs.getDate("Dato"));
-			pa.setRomnavn(rs.getString("Romnavn"));
-			pa.setStartTid(rs.getTime("Starttid"));
-			pa.setSluttTid(rs.getTime("Slutttid"));
-		}
-		return pa;
-	}
-
-	public PersonalAppointment getLastAppointment() throws Exception{
-		String sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + this.Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
-		PersonalAppointment pa = new PersonalAppointment();
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			pa.setAvtaleID(rs.getInt("AvtaleID"));
-			pa.setBeskrivelse(rs.getString("Beskrivelse"));
-			pa.setOpprettetAv(rs.getString("Brukernavn"));
-			pa.setDato(rs.getDate("Dato"));
-			pa.setRomnavn(rs.getString("Romnavn"));
-			pa.setStartTid(rs.getTime("Starttid"));
-			pa.setSluttTid(rs.getTime("Slutttid"));
-		}
-		return pa;
-	}
-	
-	public void respond(Invite invite, boolean answer) throws Exception{
-		if(answer){
-			String sql = "UPDATE Invitasjon SET Godtatt ='1' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
-			stmt.executeUpdate(sql);
-			PersonalAppointment pa = this.specificAppointment(invite.getAvtaleID());
-			pa.setAvtaleID(0);
-			this.addAppointment(pa, null);
-			pa = this.getLastAppointment();
-			sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
-			stmt.executeUpdate(sql);
-
-		}
-		else{
-			String sql = "UPDATE Invitasjon SET Godtatt ='0' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
-			stmt.executeUpdate(sql);
-		}
-	}
-	
-	public void setAlarm(Alarm alarm) throws Exception {
-		String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
-		stmt.executeUpdate(sql);
-	}
-	public void removeAlarm(Alarm alarm) throws SQLException{
-		String sql = "DELETE FROM Alarm WHERE Brukernavn = '" + alarm.getBrukernavn() + "' AND AvtaleID = " + alarm.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-	}
-	public boolean roomIsTaken(PersonalAppointment pa) throws Exception{
-		String sql = "SELECT * FROM Avtale WHERE Dato ='" + pa.getDato() + "' AND Romnavn ='" + pa.getRomnavn() + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
-		while(rs.next()){
-			PersonalAppointment appointment = new PersonalAppointment();
-			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
-			appointment.setDato(Date.valueOf(rs.getString("Dato")));
-			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
-			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
-			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
-			appointment.setRomnavn(rs.getString("Romnavn"));
-			appointment.setOpprettetAv(rs.getString("Brukernavn"));
-			appointments.add(appointment);
-		}
-		for(PersonalAppointment pap : appointments){
-			if(pap.getStartTid().before(pa.getSluttTid()) && pa.getStartTid().before(pap.getSluttTid())){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean isChildEvent(PersonalAppointment pa) throws Exception{
-		String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		int ant = 0;
-		while(rs.next()){
-			ant += 1;
-		}
-		if(ant==0)return false;
-		return true;
-	}
-	
-	public ArrayList<PersonalAppointment> appointmentChilds(PersonalAppointment pa) throws Exception{
-		ArrayList<PersonalAppointment> avtaler = new ArrayList<PersonalAppointment>();
-		String sql = "SELECT * FROM Underavtale WHERE OpphavsavtaleID ='" + pa.getAvtaleID() + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			PersonalAppointment mid = new PersonalAppointment();
-			mid.setAvtaleID(rs.getInt("UnderavtaleID"));
-			avtaler.add(mid);
-		}
-		return avtaler;
-	}
-	
-	public void removeAppointment(PersonalAppointment pa) throws Exception{
-		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
-		for(PersonalAppointment pas:childs){
-			String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pas.getAvtaleID() + ";";
-			stmt.executeUpdate(sql);
-			sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pas.getAvtaleID() + ";";
-			stmt.executeUpdate(sql);
-			sql = "DELETE FROM Alarm WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-			stmt.executeUpdate(sql);
-			sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-			stmt.executeUpdate(sql);
-			sql = "DELETE FROM Avtale WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-			stmt.executeUpdate(sql);
-		}
-		String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-		stmt.executeUpdate(sql);
-		
-	}
-	
-	public Invite getInvite(PersonalAppointment pap) throws Exception{
-		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap).getAvtaleID() + "' AND Brukernavn = '" + Username + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		Invite invite = new Invite(this);
-		while(rs.next()){
-			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
-			invite.setBrukernavn(rs.getString("Brukernavn"));
-			invite.setAvtaleID(rs.getInt("AvtaleID"));
-			invite.setGodtatt(rs.getBoolean("Godtatt"));
-		}
-		return invite;
-	}
-	
-	public ArrayList<Invite> getInvited(PersonalAppointment pas) throws Exception {
-		PersonalAppointment pa = pas;
-		ArrayList<Invite> invitasjoner = new ArrayList<Invite>();
-		String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + pa.getAvtaleID() + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		while(rs.next()){
-			Invite invite = new Invite(this);
-			invite.setInvitasjonsID(rs.getInt("InvitasjonID"));
-			invite.setBrukernavn(rs.getString("Brukernavn"));
-			invite.setAvtaleID(rs.getInt("AvtaleID"));
-			invite.setGodtatt(rs.getBoolean("Godtatt"));
-			invitasjoner.add(invite);
-		}
-		return invitasjoner;
-	}
-	
-	public PersonalAppointment getParentEvent(PersonalAppointment pa) throws Exception{
-		if(isChildEvent(pa)){
-			String sql = "SELECT * FROM Underavtale WHERE UnderavtaleID ='" + pa.getAvtaleID() + "';";
-			ResultSet rs = stmt.executeQuery(sql);
-			int avtid = 0;
-			while(rs.next()){
-				avtid = rs.getInt("OpphavsavtaleID");
-			}
-			return getParentEvent(specificAppointment(avtid));
-		}
-		else{
-			return pa;
-		}
+	public void quit() throws SQLException{
+		conn.close();
+		stmt.close();
 	}
 }
