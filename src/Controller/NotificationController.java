@@ -36,7 +36,7 @@ public class NotificationController implements Initializable{
 	@FXML
 	public void exitNotifications(ActionEvent e) throws Exception{
 		try{
-            		notifications();
+            		parent.notifications();
         	}catch(Exception e){
             		System.out.println(e);
         	}
