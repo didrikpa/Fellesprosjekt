@@ -242,6 +242,11 @@ public class DatabaseServer {
 		return pa;
 	}
 
+    public void createGroup(String Groupname) throws Exception{
+        String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
+        stmt.executeQuery(sql);
+    }
+
 	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
 		stmt.executeUpdate(sql);
@@ -259,6 +264,16 @@ public class DatabaseServer {
 		}
 	}
 
+    public List getAllGroups() throws SQLException{
+        List groupNames = new ArrayList();
+        String sql = "SELECT Gruppenavn FROM Gruppe;";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            groupNames.add(rs.getString("Gruppenavn"));
+        }
+        return groupNames;
+
+    }
 	public void removeAppointment(PersonalAppointment pa) throws Exception{
 		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
 		for(PersonalAppointment pas:childs){
