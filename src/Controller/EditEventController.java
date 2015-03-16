@@ -479,9 +479,11 @@ public class EditEventController implements Initializable {
 				databaseServer.editAppointment(personalAppointment, selectedUsers);
 				parent.monthB();
 				parent.monthF();
+				parent.notifications();
 				((Node) (event.getSource())).getScene().getWindow().hide();
 			}
 			else{
+				parent.notifications();
 				((Node) (event.getSource())).getScene().getWindow().hide();
 			}
 		}
@@ -592,6 +594,7 @@ public class EditEventController implements Initializable {
 
 	@FXML
 	public void cancelEvent(ActionEvent event) throws Exception {
+		parent.notifications();
 		((Node) (event.getSource())).getScene().getWindow().hide();
 	}
 }
