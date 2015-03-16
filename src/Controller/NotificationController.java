@@ -34,13 +34,13 @@ public class NotificationController implements Initializable{
 		initialize(null, null);
 	}
 	@FXML
-	public void exitNotifications(ActionEvent e) throws Exception{
+	public void exitNotifications(ActionEvent event) throws Exception{
 		try{
             		parent.notifications();
         	}catch(Exception e){
             		System.out.println(e);
         	}
-		((Node)(e.getSource())).getScene().getWindow().hide();
+		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 
 	@FXML
