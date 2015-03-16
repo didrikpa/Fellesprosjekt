@@ -44,8 +44,8 @@ public class CalendarViewController implements Initializable {
 	Pane mainViewMid;
 	@FXML
     Circle notificationCircle;
-    	@FXML
-    	Label notificationLabel;
+    @FXML
+    Label notificationLabel;
 	
 	MonthViewController midViewEn;
 	int maned = 0;
@@ -54,15 +54,22 @@ public class CalendarViewController implements Initializable {
 	WeekViewController midViewTo;
 	DatabaseServer server;
 	Stage stage;
-
+	UpdateNotifications up;
 	public CalendarViewController(DatabaseServer loginServer) throws Exception {
 		server = loginServer;
+		notificationLabel = new Label();
+		notificationCircle = new Circle();
 		init();
 		initialize(null, null);
+		up = new UpdateNotifications(this);
+		up.setDaemon(true);
+		up.start();
 	}
-
+	
+	
 	public void openAppointment(PersonalAppointment pa) {
 		try {
+			notifications();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/appointmentView.fxml"));
 			fxmlLoader
 			.setController(new AppointmentController(server, pa, this));
@@ -97,6 +104,7 @@ public class CalendarViewController implements Initializable {
 	// TopPane code
 	@FXML
 	public void manedBak(ActionEvent event) throws Exception {
+		notifications();
 		if (midViewEn != null) {
 			if (groupCal == null) {
 				maned -= 1;
@@ -115,6 +123,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void manedFrem(ActionEvent event) throws Exception {
+		notifications();
 		if (midViewEn != null) {
 			if (groupCal == null) {
 
@@ -133,6 +142,7 @@ public class CalendarViewController implements Initializable {
 	}
 
 	public void monthB() throws Exception {
+		notifications();
 		if (!midViewEn.equals(null)) {
 			if (groupCal == null) {
 				maned -= 1;
@@ -147,6 +157,7 @@ public class CalendarViewController implements Initializable {
 	}
 
 	public void monthF() throws Exception {
+		notifications();
 		if (!midViewEn.equals(null)) {
 			if (groupCal == null) {
 				maned += 1;
@@ -160,7 +171,8 @@ public class CalendarViewController implements Initializable {
 		}
 	}
 
-	private void updatelMonth() {
+	private void updatelMonth() throws Exception {
+		notifications();
 		int mid = maned;
 		int yid = aar;
 		while (mid > 11) {
@@ -216,6 +228,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void switchToWeek(ActionEvent event) throws Exception {
+		notifications();
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
 		midViewTo = new WeekViewController();
@@ -229,6 +242,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void switchToMonth(ActionEvent event) throws Exception {
+		notifications();
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
 		midViewEn = new MonthViewController(server, this);
@@ -241,6 +255,7 @@ public class CalendarViewController implements Initializable {
 	
 	@FXML
 	public void searchEvent(ActionEvent event) throws Exception {
+		notifications();
 		if (!searchList.isVisible()) {
 			EventSearchController eventSearch = new EventSearchController(server);
 			ArrayList<PersonalAppointment> personalappointments = new ArrayList<PersonalAppointment>();
@@ -265,6 +280,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void logOut(ActionEvent event) throws Exception {
+		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/loginView.fxml"));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
@@ -275,6 +291,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void editUser(ActionEvent event) throws Exception {
+		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserView.fxml"));
 		loader.setController(new EditUserController(server));
 		stage = (Stage) mainMonthViewPane.getScene().getWindow();
@@ -286,6 +303,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
+		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
 		loader.setController(new CreateEventController(server, this));
 		stage = new Stage();
@@ -297,6 +315,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	private void accessMyCalendar() throws Exception {
+		notifications();
 		groupCal = null;
 		if (!midViewEn.equals(null)) {
 			midViewEn.setMonth(aar, maned, null);
@@ -305,6 +324,7 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void accessMyGroups(ActionEvent event) throws Exception {
+		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/myGroupsPopUpView.fxml"));
 		loader.setController(new MyGroupController(server, this));
 		stage = new Stage();
@@ -367,7 +387,11 @@ public class CalendarViewController implements Initializable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		updatelMonth();
+		try {
+			updatelMonth();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 }
