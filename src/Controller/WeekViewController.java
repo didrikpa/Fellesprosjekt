@@ -513,7 +513,7 @@ public class WeekViewController implements Initializable {
 		currentMonth = cal.get(Calendar.MONTH);
 		currentYear = cal.get(Calendar.YEAR);
 		
-		initWeekdayLabels();
+//		initWeekdayLabels();
 		
 		this.forwardOrBackwardByNumberOfDays = 0;
 		
