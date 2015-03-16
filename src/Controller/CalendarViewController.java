@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class CalendarViewController implements Initializable {
 	@FXML
 	Pane mainViewMid;
 	@FXML
-    	Circle notificationCircle;
+    Circle notificationCircle;
     	@FXML
     	Label notificationLabel;
 	
