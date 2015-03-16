@@ -72,6 +72,11 @@ public class CalendarViewController implements Initializable {
 
 	@FXML
 	public void openNotification() {
+		try{
+            		notifications();
+        	}catch(Exception e){
+            		System.out.println(e);
+        	}
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/notificationsPopUpView.fxml"));
 			fxmlLoader.setController(new NotificationController(server,this));
@@ -303,6 +308,24 @@ public class CalendarViewController implements Initializable {
 		stage.setScene(new Scene(root));
 		stage.show();
 	}
+	    @FXML
+	 public void notifications() throws Exception{
+        	int counter = 0;
+        	for (int i = 0; i < server.getMyInvites().size() ; i++) {
+            		counter+=1;
+        	}
+        	for (int i = 0; i < server.getAlarm().size() ; i++) {
+            		counter+=1;
+        	}
+        	if (counter >0) {
+            		notificationLabel.setText(counter + "");
+            		notificationLabel.setVisible(true);
+            		notificationCircle.setVisible(true);
+        	} else{
+            		notificationCircle.setVisible(false);
+            		notificationLabel.setVisible(false);
+        	}	
+    	}
 
 	@SuppressWarnings("static-access")
 	void init() {
@@ -322,6 +345,11 @@ public class CalendarViewController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/monthView.fxml"));
 		midViewEn = new MonthViewController(server, this);
 		loader.setController(midViewEn);
+		try{
+            		notifications();
+        	}catch(Exception e){
+            		System.out.println(e);
+        	}
 		try {
 			mainViewMid.getChildren().add((Parent) loader.load());
 		} catch (IOException e) {
