@@ -40,6 +40,7 @@ public class TodaysEventsController implements Initializable {
         if(pap.size()>0){
 		PersonalAppointment pa = pap.get(0);
 		parent.openAppointment(pa);
+		parent.notifications();
 		((Node)(e.getSource())).getScene().getWindow().hide();
         }
     }

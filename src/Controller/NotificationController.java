@@ -40,6 +40,7 @@ public class NotificationController implements Initializable{
         	}catch(Exception e){
             		System.out.println(e);
         	}
+		parent.notifications();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 
@@ -53,6 +54,7 @@ public class NotificationController implements Initializable{
 			notificationList.setItems(FXCollections.observableArrayList(pas));
 			parent.monthB();
 			parent.monthF();
+			parent.notifications();
 		}
 		if(invitasjoner.get(0) instanceof Alarm){
 			Alarm larm = (Alarm)invitasjoner.get(0);
@@ -72,6 +74,7 @@ public class NotificationController implements Initializable{
 			notificationList.setItems(FXCollections.observableArrayList(pas));
 			parent.monthB();
 			parent.monthF();
+			parent.notifications();
 		}
 		if(invitasjoner.get(0) instanceof Alarm){
 			Alarm larm = (Alarm)invitasjoner.get(0);
