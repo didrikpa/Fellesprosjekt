@@ -435,7 +435,7 @@ public class DatabaseServer {
 
     public List getGroupNames(String username) throws Exception{
         List<String> groupNames = new ArrayList<String>();
-        String sql = "SELECT Gruppenavn FROM Gruppe WHERE Brukernavn = '" + username + "';";
+        String sql = "SELECT Gruppenavn FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + username + "';";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()){
             groupNames.add(rs.getString("Gruppenavn"));
