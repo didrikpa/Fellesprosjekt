@@ -69,6 +69,21 @@ public class DatabaseServer {
 		}
 		return user;
 	}
+	
+	public User getUser(String usernamen) throws Exception {
+		User user = new User();
+		String sql = "SELECT * FROM Bruker WHERE Brukernavn = '" + usernamen + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			user.setUsername(rs.getString("Brukernavn"));
+			user.setPassword(rs.getString("Passord"));
+			user.setFirstname(rs.getString("Fornavn"));
+			user.setLastname(rs.getString("Etternavn"));
+			user.setEmail(rs.getString("E-post"));
+			user.setPhone(rs.getString("Telefon"));
+		}
+		return user;
+	}
 
 	public ArrayList<User> getUsers() throws Exception {
 		ArrayList<User> users= new ArrayList<User>();
@@ -367,6 +382,11 @@ public class DatabaseServer {
 			}
 		}
 		return invitasjoner;
+	}
+	
+	public void removeInvite(PersonalAppointment pa) throws SQLException{
+		String sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
 	}
 
 	public ArrayList<Invite> invitesSent(PersonalAppointment pas) throws Exception {
