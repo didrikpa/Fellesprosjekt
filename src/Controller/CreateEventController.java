@@ -110,17 +110,15 @@ public class CreateEventController implements Initializable {
         setMinuteToo();
         setRoom();
         appType();
-        setNotifyComboValues();
+//        setNotifyComboValues();
         setGroups();
     }
 
     @FXML
     public void setGroups(){
-        User user = new User();
         try {
-            ObservableList<String> roomlist = FXCollections.observableArrayList(databaseServer.getGroupNames(user.getUsername()));
-            roomlist.remove("PersonalRoom");
-            createEventViewRoom.setItems(roomlist);
+            ObservableList<String> groupList = FXCollections.observableArrayList(databaseServer.getGroupNames(databaseServer.Username));
+            createEventViewGroup.setItems(groupList);
         } catch (Exception e) {
             System.out.println(e);
         }
