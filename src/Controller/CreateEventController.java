@@ -111,6 +111,33 @@ public class CreateEventController implements Initializable {
         setRoom();
         appType();
         setNotifyComboValues();
+        setGroups();
+    }
+
+    @FXML
+    public void setGroups(){
+        User user = new User();
+        try {
+            ObservableList<String> roomlist = FXCollections.observableArrayList(databaseServer.getGroupNames(user.getUsername()));
+            roomlist.remove("PersonalRoom");
+            createEventViewRoom.setItems(roomlist);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createGroup(ActionEvent event){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
+            fxmlLoader.setController(new CreateGroupController());
+            stage = new Stage();
+            stage.setTitle("Create group");
+            stage.setScene(new Scene((Parent) fxmlLoader.load()));
+            stage.show();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     // is true if it is a personal appointment and false it it is a meeting
