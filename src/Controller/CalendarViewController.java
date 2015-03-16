@@ -41,6 +41,10 @@ public class CalendarViewController implements Initializable {
 	Pane mainMonthViewPane;
 	@FXML
 	Pane mainViewMid;
+	@FXML
+    	Circle notificationCircle;
+    	@FXML
+    	Label notificationLabel;
 	
 	MonthViewController midViewEn;
 	int maned = 0;
