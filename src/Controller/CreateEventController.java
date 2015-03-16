@@ -295,6 +295,11 @@ public class CreateEventController implements Initializable {
 		personalAppointment.setDato(java.sql.Date
 				.valueOf(createEventViewDatePicker.getValue()));
 	}
+	
+	private void setDato() {
+		personalAppointment.setDato(java.sql.Date
+				.valueOf(createEventViewDatePicker.getValue()));
+	}
 
 	@FXML
 	public boolean validateTime() {
@@ -428,6 +433,7 @@ public class CreateEventController implements Initializable {
 
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
+		setDato();
 		if (!appType()) {
 			if (validateTime() && validateRoom() && validateDescription() && validateNotification()) {
 				try {
