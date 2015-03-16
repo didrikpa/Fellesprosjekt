@@ -69,7 +69,8 @@ public class AppointmentController implements Initializable{
 	}
 	
 	@FXML 
-	 public void cancelAppointment(ActionEvent event){
+	 public void cancelAppointment(ActionEvent event) throws Exception{
+		cvc.notifications();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
@@ -84,13 +85,14 @@ public class AppointmentController implements Initializable{
 	}
 	
 	@FXML
-	public void editAppointment(ActionEvent event) throws IOException{
+	public void editAppointment(ActionEvent event) throws Exception{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/editEventView.fxml"));
 		fxmlLoader.setController(new EditEventController(dbserver, pa, cvc));
 		stage = new Stage();
 		stage.setTitle("Appointment - ID." + pa.getAvtaleID());
 		stage.setScene(new Scene((Parent) fxmlLoader.load()));
 		stage.show();
+		cvc.notifications();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
@@ -135,6 +137,7 @@ public class AppointmentController implements Initializable{
 		dbserver.removeAppointment(pa);
 		cvc.monthB();
 		cvc.monthF();
+		cvc.notifications();
 		((Node)(event.getSource())).getScene().getWindow().hide();
 	}
 	
