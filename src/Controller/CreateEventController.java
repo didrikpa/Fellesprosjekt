@@ -428,6 +428,16 @@ public class CreateEventController implements Initializable {
     }
 
     @FXML
+    public boolean validateGroupSelection(){
+        if(createEventViewGroup.getValue().equals("")){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    @FXML
     public boolean validateRoom() throws Exception {
         if(createEventViewRoom.getValue() == null) {
             roomError.setStyle("-fx-text-fill: red");
