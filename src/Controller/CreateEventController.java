@@ -127,7 +127,7 @@ public class CreateEventController implements Initializable {
     public void createGroup(ActionEvent event){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
-            fxmlLoader.setController(new CreateGroupController());
+            fxmlLoader.setController(new CreateGroupController(databaseServer));
             stage = new Stage();
             stage.setTitle("Create group");
             stage.setScene(new Scene((Parent) fxmlLoader.load()));
@@ -478,7 +478,7 @@ public class CreateEventController implements Initializable {
             if (validateTime() && validateDescription() && validateNotification()) {
                 personalAppointment.setRomnavn("PersonalRoom");
                 try {
-                    databaseServer.addAppointment(personalAppointment, selectedUsers);
+                    databaseServer.addAppointment(personalAppointment, null);
                     alarm.setBrukernavn(databaseServer.Username);
                     alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
                     if(alarm.getTidspunkt() != null)databaseServer.setAlarm(alarm);
