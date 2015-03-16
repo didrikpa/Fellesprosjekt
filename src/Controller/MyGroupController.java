@@ -32,6 +32,7 @@ public class MyGroupController implements Initializable {
 	}
 	@FXML
 	public void closeWindow(ActionEvent e) throws Exception{
+		parent.notifications();
         ((Node)(e.getSource())).getScene().getWindow().hide();
     }
 	
@@ -53,6 +54,7 @@ public class MyGroupController implements Initializable {
 						try {
 							parent.groupCal = newValue;
 							parent.midViewEn.setMonth(parent.aar, parent.maned, newValue);
+							parent.notifications();
 							myGroupsPopUp.getScene().getWindow().hide();
 						} catch (Exception e) {
 							e.printStackTrace();
