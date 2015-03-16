@@ -231,7 +231,7 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
-		midViewTo = new WeekViewController();
+		midViewTo = new WeekViewController(server);
 		loader.setController(midViewTo);
 		midViewEn = null;
 		groupCal = null;
