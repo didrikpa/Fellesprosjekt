@@ -537,3 +537,4 @@ public class CreateEventController implements Initializable {
         ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 }
+
