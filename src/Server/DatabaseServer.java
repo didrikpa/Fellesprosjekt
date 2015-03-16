@@ -256,11 +256,19 @@ public class DatabaseServer {
 		}
 		return pa;
 	}
+	
+	public void editAppointment(PersonalAppointment pa, ArrayList<User> invitedUsers) throws Exception {
+		String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
+		stmt.executeUpdate(sql);
+		if(invitedUsers != null ){
+			for(User user:invitedUsers){
+				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
+				stmt.executeUpdate(sql);
+			}
+		}
+		
+	}
 
-    public void createGroup(String Groupname) throws Exception{
-        String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
-        stmt.executeQuery(sql);
-    }
 
 	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
@@ -278,7 +286,13 @@ public class DatabaseServer {
 			}
 		}
 	}
+	
 
+    public void createGroup(String Groupname) throws Exception{
+        String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
+        stmt.executeQuery(sql);
+    }
+    
     public List getAllGroups() throws SQLException{
         List groupNames = new ArrayList();
         String sql = "SELECT Gruppenavn FROM Gruppe;";
