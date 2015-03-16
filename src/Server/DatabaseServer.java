@@ -433,6 +433,16 @@ public class DatabaseServer {
 		return group;
 	}
 
+    public List getGroupNames(String username) throws Exception{
+        List<String> groupNames = new ArrayList<String>();
+        String sql = "SELECT Gruppenavn FROM Gruppe WHERE Brukernavn = '" + username + "';";
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()){
+            groupNames.add(rs.getString("Gruppenavn"));
+        }
+        return groupNames;
+    }
+
 	@SuppressWarnings("rawtypes")
 	public List getGroupMembers(String groupName) throws Exception{
 		List<String> groupMembers = new ArrayList<String>();

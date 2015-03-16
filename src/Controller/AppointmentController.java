@@ -175,5 +175,5 @@ public class AppointmentController implements Initializable{
 		apTime.setText(pa.getStartTid() + "-" + pa.getSluttTid());
 		apDescription.setText(pa.getBeskrivelse());
 	}
-	
+
 }
