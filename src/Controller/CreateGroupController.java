@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class CreateGroupController {
+public class CreateGroupController{
 
     @FXML
     TextField groupNameField;
@@ -28,11 +28,19 @@ public class CreateGroupController {
     Label groupNameLabel;
     
     CreateEventController cec;
+    EditEventController eec;
     DatabaseServer server = new DatabaseServer();
     ArrayList<User>newGroup;
-    public CreateGroupController(DatabaseServer server, ArrayList<User>nG, CreateEventController ce){
+    public CreateGroupController(DatabaseServer server, ArrayList<User>nG, EventController ce){
         this.server = server;
-        cec = ce;
+        if(ce instanceof CreateEventController){
+        	cec = (CreateEventController) ce;
+        	eec = null;
+        }
+        else{
+        	eec = (EditEventController) ce;
+        	cec = null;
+        }
         newGroup = nG;
         groupNameLabel = new Label();
     }
