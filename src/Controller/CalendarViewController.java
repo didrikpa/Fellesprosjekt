@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -42,7 +43,7 @@ public class CalendarViewController implements Initializable {
 	@FXML
 	Pane mainMonthViewPane;
 	@FXML
-	AnchorPane mainViewMid;
+	StackPane mainViewMid;
 	@FXML
     Circle notificationCircle;
     @FXML
@@ -357,7 +358,7 @@ public class CalendarViewController implements Initializable {
 
 	@SuppressWarnings("static-access")
 	void init() {
-		mainViewMid = new AnchorPane();
+		mainViewMid = new StackPane();
 		labelMonth = new Label();
 		mainMonthViewPane = new Pane();
 		GregorianCalendar cg = new GregorianCalendar();
