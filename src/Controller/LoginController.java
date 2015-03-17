@@ -33,12 +33,14 @@ public class LoginController {
     	DatabaseServer en = new DatabaseServer();
     	if(en.login(loginPaneUsername.getText(), loginPanePassword.getText())){
             try {
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
                 loader.setController(new CalendarViewController(en));
                 Parent screen = loader.load();
                 stage = (Stage) loginPaneMain.getScene().getWindow();
                 stage.setScene(new Scene(screen));
                 stage.setTitle("Calendar");
+                stage.setMaximized(true);
                 stage.show();
                 userError.setVisible(false);
             }
@@ -90,6 +92,7 @@ public class LoginController {
                         loader.setController(new CalendarViewController(en));
                         Parent screen = loader.load();
                         stage = (Stage) loginPaneMain.getScene().getWindow();
+                        stage.setMaximized(true);
                         stage.setScene(new Scene(screen));
                         stage.setTitle("Calendar");
                         stage.show();
