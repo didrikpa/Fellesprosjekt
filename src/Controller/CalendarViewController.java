@@ -117,7 +117,7 @@ public class CalendarViewController implements Initializable {
 			}
 		} else {
 			midViewTo.weekBackward();
-			labelMonth.setText(midViewTo.displayMonthName());
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
 		}
 	}
 
@@ -137,7 +137,7 @@ public class CalendarViewController implements Initializable {
 			}
 		} else {
 			midViewTo.weekForward();
-			labelMonth.setText(midViewTo.displayMonthName());
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
 		}
 	}
 
@@ -231,13 +231,13 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
-		midViewTo = new WeekViewController();
+		midViewTo = new WeekViewController(server);
 		loader.setController(midViewTo);
 		midViewEn = null;
 		groupCal = null;
 		mainViewMid.getChildren().add((Parent) loader.load());
 		toggleButtonMonth.setSelected(false);
-		labelMonth.setText("Week");
+		labelMonth.setText(midViewTo.getMonth() + " " + midViewTo.getYear());
 	}
 
 	@FXML
