@@ -1,11 +1,16 @@
 package Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -19,6 +24,8 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -33,7 +40,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class EditEventController implements Initializable {
+public class EditEventController implements Initializable, EventController {
 	@FXML
 	AnchorPane createEventViewMainPane;
 	@FXML
@@ -55,7 +62,7 @@ public class EditEventController implements Initializable {
 	@FXML
 	CheckBox allDayCheck;
 	@FXML
-	ComboBox createEventViewGroup;
+	ComboBox<String> createEventViewGroup;
 	@FXML
 	private Label roomError;
 	@FXML
@@ -84,6 +91,7 @@ public class EditEventController implements Initializable {
 	@FXML
 	ListView<User> participantList;
 
+	int gruppeid;
 	PersonalAppointment personalAppointment;
 	PersonalAppointment opprinneligPa;
 	DatabaseServer databaseServer = new DatabaseServer();
@@ -98,6 +106,7 @@ public class EditEventController implements Initializable {
 		personalAppointment = pa;
 		opprinneligPa = fillIt(pa);
 		parent = pt;
+		gruppeid = 0;
 		init();
 		initialize(null, null);
 	}
@@ -152,17 +161,41 @@ public class EditEventController implements Initializable {
 		}
 		createEventViewTextArea.setText(personalAppointment.getBeskrivelse());
 		setNotifyComboValues();
-
+		setGroups();
 		try {
-			ArrayList<Invite> invites= databaseServer.invitesSent(personalAppointment);
-			ArrayList<User>invitedUsers = new ArrayList<User>();
-			for(Invite in:invites){
-				invitedUsers.add(databaseServer.getUser(in.getBrukernavn()));
-				selectedUsers.add(databaseServer.getUser(in.getBrukernavn()));
+			createEventViewGroup.setValue(databaseServer.getGroup(opprinneligPa.getGruppeID()).getGroupName());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		createEventViewGroup.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if((createEventViewGroup.getSelectionModel().getSelectedItem()).equalsIgnoreCase("Ny gruppe")){
+					gruppeid = 0;
+					createEventViewSearch.setDisable(false);
+					try {
+						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					try {
+						gruppeid = databaseServer.getGroupId((createEventViewGroup.getSelectionModel().getSelectedItem()));
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+					createEventViewSearch.setDisable(true);
+					try {
+						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+						participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(gruppeid)));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
 			}
-			participantList.setItems(FXCollections.observableArrayList(invitedUsers));
-		} 
-		catch (Exception e) {}
+		});
 	}
 
 
@@ -190,8 +223,31 @@ public class EditEventController implements Initializable {
 		}
 		// Adds all the participants in the selected user list to the invited
 		// user pan.
-		participantList.setItems(FXCollections
-				.observableArrayList(selectedUsers));
+	}
+
+	public void createGroup() throws Exception{
+		ArrayList<User> al = selectedUsers;
+		al.add(databaseServer.getUser());
+		HashSet hs = new HashSet();
+		hs.addAll(al);
+		al.clear();
+		al.addAll(hs);
+		if(!databaseServer.groupExists(al)){ 		
+			try{
+				FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
+				fxmlLoader.setController(new CreateGroupController(databaseServer, al, this));
+				stage = new Stage();
+				stage.setTitle("Create group");
+				stage.setScene(new Scene((Parent) fxmlLoader.load()));
+				stage.show();
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
+		}
+		else{
+			System.out.println("Group do exist");
+		}
 	}
 
 	@FXML
@@ -335,6 +391,21 @@ public class EditEventController implements Initializable {
 	}
 
 	@FXML
+	public void setGroups(){
+		try {
+			ArrayList<String>grup = databaseServer.getGroupNames(databaseServer.Username);
+			grup.add("Ny gruppe");
+			Collections.reverse(grup);
+			ObservableList<String> groupList = FXCollections.observableArrayList(grup);
+			createEventViewGroup.setItems(groupList);
+			createEventViewGroup.setValue(groupList.get(0));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+
+	@FXML
 	public boolean validateTime() {
 		if (createEventViewEndHours.getValue() == createEventViewStartHours
 				.getValue()
@@ -476,18 +547,17 @@ public class EditEventController implements Initializable {
 					databaseServer.removeAppointment(pa);
 				}
 				databaseServer.removeInvite(opprinneligPa);
-				databaseServer.editAppointment(personalAppointment, selectedUsers);
+				databaseServer.editAppointment(personalAppointment, databaseServer.getGroupId(createEventViewGroup.getValue()));
 				parent.monthB();
 				parent.monthF();
-				parent.notifications();
 				((Node) (event.getSource())).getScene().getWindow().hide();
 			}
 			else{
-				parent.notifications();
 				((Node) (event.getSource())).getScene().getWindow().hide();
 			}
 		}
 	}
+
 
 	private boolean isChanged() throws Exception{
 		if(!personalAppointment.getBeskrivelse().equalsIgnoreCase(opprinneligPa.getBeskrivelse())){
@@ -510,7 +580,7 @@ public class EditEventController implements Initializable {
 		}
 		return false;
 	}
-	
+
 	private boolean isChangedDNT() throws Exception{
 		if(!(personalAppointment.getDato().equals(opprinneligPa.getDato()))){
 			return true;
