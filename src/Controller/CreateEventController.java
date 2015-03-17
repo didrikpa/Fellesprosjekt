@@ -250,7 +250,7 @@ public class CreateEventController implements Initializable, EventController {
 			for (User namn : navnene) {
 				if ((namn.getFirstname() + "" + namn.getLastname())
 						.toLowerCase().contains(searcher)) {
-					if (!namesOut.contains(namn)) {
+					if (!namesOut.contains(namn) && !namn.getUsername().equalsIgnoreCase(databaseServer.Username)) {
 						namesOut.add(namn);
 					}
 				}
