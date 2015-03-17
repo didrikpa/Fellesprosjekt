@@ -110,7 +110,7 @@ public class CreateEventController implements Initializable {
         setMinuteToo();
         setRoom();
         appType();
-//        setNotifyComboValues();
+        setNotifyComboValues();
         setGroups();
     }
 
