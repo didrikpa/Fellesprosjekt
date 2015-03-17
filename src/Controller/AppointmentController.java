@@ -37,6 +37,7 @@ public class AppointmentController implements Initializable{
 	@FXML Label apTime;
 	@FXML Label apDescription;
 	@FXML Label invitedLabel;
+	@FXML Label opprettetAv;
 	@FXML ListView<String> invitedList;
 	@FXML TextField alarmIn;
 	@FXML ComboBox<String> alarmChoice;
@@ -61,6 +62,7 @@ public class AppointmentController implements Initializable{
 		apDate = new Label();
 		apRoom = new Label();
 		apTime = new Label();
+		opprettetAv = new Label();
 		apDescription = new Label();
 		stage = null;
 		toogleGoing = new ToggleButton();
@@ -177,6 +179,7 @@ public class AppointmentController implements Initializable{
 		apRoom.setText(pa.getRomnavn() + "");
 		apTime.setText(pa.getStartTid() + "-" + pa.getSluttTid());
 		apDescription.setText(pa.getBeskrivelse());
+		opprettetAv.setText(pa.getOpprettetAv());
 	}
 
 }
