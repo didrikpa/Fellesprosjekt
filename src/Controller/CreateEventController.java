@@ -321,7 +321,7 @@ public class CreateEventController implements Initializable, EventController {
 	@FXML
 	public void setMinuteFrom() {
 		List<Integer> someVariableName = new ArrayList();
-		for (int i = 0; i < 60; i += 5)
+		for (int i = 0; i < 56; i += 5)
 			someVariableName.add(i);
 		ObservableList<Integer> minutes = FXCollections
 				.observableArrayList(someVariableName);
@@ -360,7 +360,7 @@ public class CreateEventController implements Initializable, EventController {
 	public void setMinuteToo() {
 		int j = createEventViewStartMinutes.getValue();
 		List<Integer> someVariable = new ArrayList();
-		for (int i = 0; i < 60; i += 5)
+		for (int i = 0; i < 56; i += 5)
 			someVariable.add(i);
 		ObservableList<Integer> availableMinutes = FXCollections
 				.observableArrayList(someVariable);
@@ -537,7 +537,7 @@ public class CreateEventController implements Initializable, EventController {
 					parent.monthF();
 					((Node) (event.getSource())).getScene().getWindow().hide();
 				} catch (Exception e) {
-					System.out.println(e);
+					System.out.println("This is the error");
 				}
 			}
 		}
