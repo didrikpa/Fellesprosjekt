@@ -9,6 +9,7 @@ import java.util.List;
 import Model.Alarm;
 import Model.Group;
 import Model.Invite;
+import Model.Overlap;
 import Model.PersonalAppointment;
 import Model.User;
 
