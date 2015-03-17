@@ -538,7 +538,7 @@ public class WeekViewController implements Initializable {
 	            newEventLabel.setText(event.getEvent().getBeskrivelse());
 	            newEventLabel.setTextFill(eventLabelColor);
 	            newEventLabel.setAlignment(Pos.TOP_CENTER); 
-	            int overlap = event.getAntallOverlapp()+1;
+	            int overlap = event.getAntallOverlapp();
 	            Pane temp = pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes];
 				
 				float overlapFloat;
