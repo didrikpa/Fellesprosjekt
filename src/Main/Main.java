@@ -19,7 +19,6 @@ public class Main extends Application{
         root = (Parent) fxmlLoader.load(this.getClass().getResource("/Views/loginView.fxml"));
         ps = primaryStage;
         primaryStage.setScene(new Scene(root));
-        primaryStage.setMaximized(true);
         primaryStage.setTitle("Login");
         primaryStage.show();
     }
