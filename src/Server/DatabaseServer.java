@@ -270,7 +270,11 @@ public class DatabaseServer {
 		stmt.executeUpdate(sql);
 		ArrayList<User>gm = this.getGroupMembers(gpid);
 		if(gm != null ){
-			if(gm.contains(this.getUser()))gm.remove(this.getUser());
+			for(int i = 0; i < gm.size(); i++){
+				if(gm.get(i).getUsername().equalsIgnoreCase(Username)){
+					gm.remove(i);
+				}
+			}
 			for(User user:gm){
 				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
 				stmt.executeUpdate(sql);
@@ -290,9 +294,13 @@ public class DatabaseServer {
 			while(rs.next()){
 				pa.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
 			}
-			ArrayList<User>gm = this.getGroupMembers(group);
+			ArrayList <User> gm = this.getGroupMembers(group);
 			if(gm != null ){
-				if(gm.contains(this.getUser()))gm.remove(this.getUser());
+				for(int i = 0; i < gm.size(); i++){
+					if(gm.get(i).getUsername().equalsIgnoreCase(Username)){
+						gm.remove(i);
+					}
+				}
 				for(User user:gm){
 					sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
 					stmt.executeUpdate(sql);
