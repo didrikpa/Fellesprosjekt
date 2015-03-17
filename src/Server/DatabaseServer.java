@@ -290,7 +290,39 @@ public class DatabaseServer {
 			stmt.executeUpdate(sql);
 		}
 	}
-
+	
+	public ArrayList<Overlap> appointmentOverlap(Date dato) throws Exception{
+		ArrayList<Overlap> overlap = new ArrayList<Overlap>();
+		String sql = "SELECT * FROM Avtale WHERE Dato ='" + dato + "' AND Brukernavn ='" + this.Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			appointment.setDato(Date.valueOf(rs.getString("Dato")));
+			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointment.setOpprettetAv(rs.getString("Brukernavn"));
+			appointments.add(appointment);
+		}
+		for(PersonalAppointment pap : appointments){
+			Overlap mid = new Overlap();
+			mid.setEvent(pap);
+			overlap.add(mid);
+		}
+		for(Overlap pa : overlap){
+			for(Overlap p : overlap){
+				if(!pa.getEvent().equals(p.getEvent())){
+					if(p.getEvent().getStartTid().before(pa.getEvent().getSluttTid()) && pa.getEvent().getStartTid().before(p.getEvent().getSluttTid())){
+						pa.setAntallOverlapp();
+					}
+				}
+			}
+		}
+		return overlap;
+	}
 
 	public int createGroup(String Groupname, ArrayList<User>members) throws Exception{
 		int gpid = 0;
