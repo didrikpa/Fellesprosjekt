@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import Controller.CreateEventController;
 
 import com.sun.javafx.font.directwrite.RECT;
 import com.sun.javafx.geom.Point2D;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -66,7 +68,14 @@ public class WeekViewController implements Initializable {
 	private GregorianCalendar weekDatesInView[];
 	private ArrayList<Rectangle> eventsInView;
 	private ArrayList<Label> eventLabelsInView;
+	private CalendarViewController calMainController;
 	private ArrayList<PersonalAppointment> appointmentList;
+	
+	public void setCalendarViewController(CalendarViewController myCal){
+		
+		calMainController = myCal;
+		
+	}
 	
 	public WeekViewController(DatabaseServer loginServer){
 		
@@ -272,44 +281,89 @@ public class WeekViewController implements Initializable {
 		
 		try {
 			
-			ArrayList<PersonalAppointment> appointmentsForToday;
-			
 			for (GregorianCalendar weekDaysShowing : weekDatesInView){
 				
-			int appointmentDate = weekDaysShowing.get(GregorianCalendar.DATE);
-			int appointmentMonth = weekDaysShowing.get(GregorianCalendar.MONTH);
-			int appointmentYear = weekDaysShowing.get(GregorianCalendar.YEAR);
+				int appointmentDate = weekDaysShowing.get(GregorianCalendar.DATE);
+				int appointmentMonth = weekDaysShowing.get(GregorianCalendar.MONTH);
+				int appointmentYear = weekDaysShowing.get(GregorianCalendar.YEAR);
+					
+				//appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
 				
-			appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
-			
-			for ( PersonalAppointment event : appointmentsForToday){
+				ArrayList<Overlap> tempOverlapEvents = tempDatabaseServer.appointmentOverlap(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
+				
+				int totOLap;
+				int thisOLap = 1;
 				
 				
-				int startEventRowFifteenMinutes = (event.getStartTid().getHours()*4 + (event.getStartTid().getMinutes()/15));
-				int endEventRowFifteenMinutes = (event.getSluttTid().getHours()*4 + (event.getSluttTid().getMinutes()/15));
+			for ( Overlap event : tempOverlapEvents){
+				
+				
+				
+				System.out.println("Start tid er: " + event.getEvent().getStartTid());
+				System.out.println("Slutt tid er: " + event.getEvent().getSluttTid());
+				System.out.println("Beskrivelse: " + event.getEvent().getBeskrivelse());
+				System.out.println("Dato er: " + event.getEvent().getDato());
+				
+				
+				int startEventRowFifteenMinutes = (event.getEvent().getStartTid().getHours()*4 + (event.getEvent().getStartTid().getMinutes()/15));
+				int endEventRowFifteenMinutes = (event.getEvent().getSluttTid().getHours()*4 + (event.getEvent().getSluttTid().getMinutes()/15));
 				
 				int eventLength = endEventRowFifteenMinutes - startEventRowFifteenMinutes;
 				
 				Label newEventLabel = new Label();
-	            newEventLabel.setText(event.getBeskrivelse());
+	            newEventLabel.setText(event.getEvent().getBeskrivelse());
 	            newEventLabel.setTextFill(eventLabelColor);
-	            newEventLabel.setAlignment(Pos.TOP_CENTER);  
+	            newEventLabel.setAlignment(Pos.TOP_CENTER); 
+	            totOLap = event.getAntallOverlapp()+1;
+
+				float overlapFloat;
+				
+				if (thisOLap > 1){
+					overlapFloat  = (142/(totOLap))*(thisOLap-1);
+				}
+				else{
+					overlapFloat = 0.0f;
+				}
+				
+				if(thisOLap<totOLap){
+	            	thisOLap++;
+	            }
+	            else{
+	            	thisOLap=1;
+	            }
+				
 	            
 	            eventRect = new Rectangle();
-				eventRect.setWidth(142);
+				eventRect.setWidth(142/totOLap);
 				eventRect.setHeight(15*eventLength);
 				eventRect.setArcWidth(20);
 				eventRect.setArcHeight(20);
 				eventRect.setStrokeType(StrokeType.OUTSIDE);
 				eventRect.setFill(eventColor);
 				eventRect.setOpacity(0.5);
+				eventRect.setX(overlapFloat);
+				eventRect.setY(0);
+				newEventLabel.setLayoutX(overlapFloat);
 				
+				eventRect.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+					@Override
+					public void handle(MouseEvent event) {
+						
+						System.out.println("clicked on rect!!!!!!!!!!!!!");
+						
+					}
+					
+					
+					
+				});
+
 				eventsInView.add(eventRect);
 				eventLabelsInView.add(newEventLabel);
-				pne[event.getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
-				pne[event.getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
+
 				
-				
+				pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
+				pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
 			}
 			}
 		}
@@ -360,44 +414,89 @@ public class WeekViewController implements Initializable {
 	
 	try {
 		
-		ArrayList<PersonalAppointment> appointmentsForToday;
-		
 		for (GregorianCalendar weekDaysShowing : weekDatesInView){
 			
-		int appointmentDate = weekDaysShowing.get(GregorianCalendar.DATE);
-		int appointmentMonth = weekDaysShowing.get(GregorianCalendar.MONTH);
-		int appointmentYear = weekDaysShowing.get(GregorianCalendar.YEAR);
+			int appointmentDate = weekDaysShowing.get(GregorianCalendar.DATE);
+			int appointmentMonth = weekDaysShowing.get(GregorianCalendar.MONTH);
+			int appointmentYear = weekDaysShowing.get(GregorianCalendar.YEAR);
+				
+			//appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
 			
-		appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
-		
-		for ( PersonalAppointment event : appointmentsForToday){
+			ArrayList<Overlap> tempOverlapEvents = tempDatabaseServer.appointmentOverlap(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
+			
+			int totOLap;
+			int thisOLap = 1;
 			
 			
-			int startEventRowFifteenMinutes = (event.getStartTid().getHours()*4 + (event.getStartTid().getMinutes()/15));
-			int endEventRowFifteenMinutes = (event.getSluttTid().getHours()*4 + (event.getSluttTid().getMinutes()/15));
+		for ( Overlap event : tempOverlapEvents){
+			
+			
+			
+			System.out.println("Start tid er: " + event.getEvent().getStartTid());
+			System.out.println("Slutt tid er: " + event.getEvent().getSluttTid());
+			System.out.println("Beskrivelse: " + event.getEvent().getBeskrivelse());
+			System.out.println("Dato er: " + event.getEvent().getDato());
+			
+			
+			int startEventRowFifteenMinutes = (event.getEvent().getStartTid().getHours()*4 + (event.getEvent().getStartTid().getMinutes()/15));
+			int endEventRowFifteenMinutes = (event.getEvent().getSluttTid().getHours()*4 + (event.getEvent().getSluttTid().getMinutes()/15));
 			
 			int eventLength = endEventRowFifteenMinutes - startEventRowFifteenMinutes;
 			
 			Label newEventLabel = new Label();
-            newEventLabel.setText(event.getBeskrivelse());
+            newEventLabel.setText(event.getEvent().getBeskrivelse());
             newEventLabel.setTextFill(eventLabelColor);
-            newEventLabel.setAlignment(Pos.TOP_CENTER);  
+            newEventLabel.setAlignment(Pos.TOP_CENTER); 
+            totOLap = event.getAntallOverlapp()+1;
+
+			float overlapFloat;
+			
+			if (thisOLap > 1){
+				overlapFloat  = (142/(totOLap))*(thisOLap-1);
+			}
+			else{
+				overlapFloat = 0.0f;
+			}
+			
+			if(thisOLap<totOLap){
+            	thisOLap++;
+            }
+            else{
+            	thisOLap=1;
+            }
+			
             
             eventRect = new Rectangle();
-			eventRect.setWidth(142);
+			eventRect.setWidth(142/totOLap);
 			eventRect.setHeight(15*eventLength);
 			eventRect.setArcWidth(20);
 			eventRect.setArcHeight(20);
 			eventRect.setStrokeType(StrokeType.OUTSIDE);
 			eventRect.setFill(eventColor);
 			eventRect.setOpacity(0.5);
+			eventRect.setX(overlapFloat);
+			eventRect.setY(0);
+			newEventLabel.setLayoutX(overlapFloat);
 			
+			eventRect.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					
+					System.out.println("clicked on rect!!!!!!!!!!!!!");
+					
+				}
+				
+				
+				
+			});
+
 			eventsInView.add(eventRect);
 			eventLabelsInView.add(newEventLabel);
-			pne[event.getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
-			pne[event.getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
+
 			
-			
+			pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
+			pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
 		}
 		}
 	}
@@ -518,10 +617,14 @@ public class WeekViewController implements Initializable {
 				//appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
 				
 				ArrayList<Overlap> tempOverlapEvents = tempDatabaseServer.appointmentOverlap(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
-				//tempOverlapEvents.get(0).g
+				
+				int totOLap;
+				int thisOLap = 1;
 				
 				
 			for ( Overlap event : tempOverlapEvents){
+				
+				
 				
 				System.out.println("Start tid er: " + event.getEvent().getStartTid());
 				System.out.println("Slutt tid er: " + event.getEvent().getSluttTid());
@@ -538,21 +641,27 @@ public class WeekViewController implements Initializable {
 	            newEventLabel.setText(event.getEvent().getBeskrivelse());
 	            newEventLabel.setTextFill(eventLabelColor);
 	            newEventLabel.setAlignment(Pos.TOP_CENTER); 
-	            int overlap = event.getAntallOverlapp();
-	            Pane temp = pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes];
-				
+	            totOLap = event.getAntallOverlapp()+1;
+
 				float overlapFloat;
 				
-				if (overlap > 1){
-					overlapFloat  = 142/(overlap);
+				if (thisOLap > 1){
+					overlapFloat  = (142/(totOLap))*(thisOLap-1);
 				}
 				else{
 					overlapFloat = 0.0f;
 				}
 				
+				if(thisOLap<totOLap){
+	            	thisOLap++;
+	            }
+	            else{
+	            	thisOLap=1;
+	            }
+				
 	            
 	            eventRect = new Rectangle();
-				eventRect.setWidth(142/overlap);
+				eventRect.setWidth(142/totOLap);
 				eventRect.setHeight(15*eventLength);
 				eventRect.setArcWidth(20);
 				eventRect.setArcHeight(20);
@@ -561,6 +670,7 @@ public class WeekViewController implements Initializable {
 				eventRect.setOpacity(0.5);
 				eventRect.setX(overlapFloat);
 				eventRect.setY(0);
+				newEventLabel.setLayoutX(overlapFloat);
 				
 				eventRect.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -679,12 +789,11 @@ public class WeekViewController implements Initializable {
             	System.out.println("Drop occurred!");
             	Pane temp = (Pane) event.getGestureTarget();
             	System.out.println("Drag motherfucking done!!!!!!!!!!!!!!!!!!!!!");
-            	
-            	PersonalAppointment newEvent = new PersonalAppointment();
-            	newEvent.setBeskrivelse("New event");
-            	
-            	int column = GridPane.getColumnIndex(temp);
-//            	Date date;
+//            	
+//            	PersonalAppointment newEvent = new PersonalAppointment();
+//            	
+//            	int column = GridPane.getColumnIndex(temp);
+//            	Date date = new Date();
 //            	
 //            	switch (column){
 //            	
@@ -726,23 +835,32 @@ public class WeekViewController implements Initializable {
 //            	default:
 //            		break;
 //            			
-//            	
 //            	}
             	
 //            	System.out.println("column is: " + column);
-//            	System.out.println("date is " );
-//            	
-//            	LocalDate
-//            	
+            	System.out.println("date is " );
+            	
 //            	newEvent.setDato(java.sql.Date.valueOf(LocalDate.of(date.getYear(), date.getMonth()+1, date.getDate())));
-//            	java.sql.Date.valueOf(LocalDate)
-//            	
-//           
-//	            int startRowIndexForEvent = startEventRowCreation;
-//	            int numberOfRows = finalRow - startRowIndexForEvent;
-//	            int heightForRect = (numberOfRows) * 15;
-//
-//                event.consume();
+            	
+            	try{
+	        		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/createEventView.fxml"));
+	        		loader.setController(new CreateEventController(tempDatabaseServer, calMainController));
+	        		Stage stage = new Stage();
+	        		Parent root = loader.load();
+	        		stage.setScene(new Scene(root));
+	        		stage.setTitle("Create event");
+	        		stage.show();
+            	}
+            	catch(Exception e){
+            		System.out.println(e);
+            	}
+            	
+           
+	            int startRowIndexForEvent = startEventRowCreation;
+	            int numberOfRows = finalRow - startRowIndexForEvent;
+	            int heightForRect = (numberOfRows) * 15;
+
+                event.consume();
 		    }
 		});
 		
