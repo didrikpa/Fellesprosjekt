@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -178,6 +179,7 @@ public class DatabaseServer {
 			pa.setRomnavn(rs.getString("Romnavn"));
 			pa.setStartTid(rs.getTime("Starttid"));
 			pa.setSluttTid(rs.getTime("Slutttid"));
+			pa.setGruppeID(rs.getInt("GruppeID"));
 		}
 		return pa;
 	}
@@ -195,6 +197,7 @@ public class DatabaseServer {
 			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 			appointment.setRomnavn(rs.getString("Romnavn"));
 			appointment.setOpprettetAv(rs.getString("Brukernavn"));
+			appointment.setGruppeID(rs.getInt("GruppeID"));
 			appointments.add(appointment);
 		}
 		return appointments;
@@ -215,6 +218,7 @@ public class DatabaseServer {
 					appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 					appointment.setRomnavn(rs.getString("Romnavn"));
 					appointment.setOpprettetAv(rs.getString("Brukernavn"));
+					appointment.setGruppeID(rs.getInt("GruppeID"));
 					appointments.add(appointment);
 				}
 			}
@@ -236,6 +240,7 @@ public class DatabaseServer {
 				appointment.setBeskrivelse(rs.getString("Beskrivelse"));
 				appointment.setRomnavn(rs.getString("Romnavn"));
 				appointment.setOpprettetAv(rs.getString("Brukernavn"));
+				appointment.setGruppeID(rs.getInt("GruppeID"));
 				appointments.add(appointment);
 			}
 			return appointments;
@@ -255,15 +260,18 @@ public class DatabaseServer {
 			pa.setRomnavn(rs.getString("Romnavn"));
 			pa.setStartTid(rs.getTime("Starttid"));
 			pa.setSluttTid(rs.getTime("Slutttid"));
+			pa.setGruppeID(rs.getInt("GruppeID"));
 		}
 		return pa;
 	}
 
-	public void editAppointment(PersonalAppointment pa, ArrayList<User> invitedUsers) throws Exception {
-		String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
+	public void editAppointment(PersonalAppointment pa, int gpid) throws Exception {
+		String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "', GruppeID = '" + pa.getGruppeID() + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
-		if(invitedUsers != null ){
-			for(User user:invitedUsers){
+		ArrayList<User>gm = this.getGroupMembers(gpid);
+		if(gm != null ){
+			if(gm.contains(this.getUser()))gm.remove(this.getUser());
+			for(User user:gm){
 				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
 				stmt.executeUpdate(sql);
 			}
@@ -282,9 +290,13 @@ public class DatabaseServer {
 			while(rs.next()){
 				pa.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
 			}
-			for(User user:this.getGroupMembers(group)){
-				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
-				stmt.executeUpdate(sql);
+			ArrayList<User>gm = this.getGroupMembers(group);
+			if(gm != null ){
+				if(gm.contains(this.getUser()))gm.remove(this.getUser());
+				for(User user:gm){
+					sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
+					stmt.executeUpdate(sql);
+				}
 			}
 		}
 		else{
@@ -292,40 +304,7 @@ public class DatabaseServer {
 			stmt.executeUpdate(sql);
 		}
 	}
-	
-	public ArrayList<Overlap> appointmentOverlap(Date dato) throws Exception{
-		ArrayList<Overlap> overlap = new ArrayList<Overlap>();
-		String sql = "SELECT * FROM Avtale WHERE Dato ='" + dato + "' AND Brukernavn ='" + this.Username + "';";
-		ResultSet rs = stmt.executeQuery(sql);
-		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
-		while(rs.next()){
-			PersonalAppointment appointment = new PersonalAppointment();
-			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
-			appointment.setDato(Date.valueOf(rs.getString("Dato")));
-			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
-			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
-			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
-			appointment.setRomnavn(rs.getString("Romnavn"));
-			appointment.setOpprettetAv(rs.getString("Brukernavn"));
-			appointments.add(appointment);
-		}
-		for(PersonalAppointment pap : appointments){
-			Overlap mid = new Overlap();
-			mid.setEvent(pap);
-			overlap.add(mid);
-		}
-		for(Overlap pa : overlap){
-			for(Overlap p : overlap){
-				if(!pa.getEvent().equals(p.getEvent())){
-					if(p.getEvent().getStartTid().before(pa.getEvent().getSluttTid()) && pa.getEvent().getStartTid().before(p.getEvent().getSluttTid())){
-						pa.setAntallOverlapp();
-					}
-				}
-			}
-		}
-		Collections.sort(overlap);
-		return overlap;
-	}
+
 
 	public int createGroup(String Groupname, ArrayList<User>members) throws Exception{
 		int gpid = 0;
@@ -502,7 +481,41 @@ public class DatabaseServer {
 		}
 		return false;
 	}
-	
+
+	public ArrayList<Overlap> appointmentOverlap(Date dato) throws Exception{
+		ArrayList<Overlap> overlap = new ArrayList<Overlap>();
+		String sql = "SELECT * FROM Avtale WHERE Dato ='" + dato + "' AND Brukernavn ='" + this.Username + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList <PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+		while(rs.next()){
+			PersonalAppointment appointment = new PersonalAppointment();
+			appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+			appointment.setDato(Date.valueOf(rs.getString("Dato")));
+			appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+			appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+			appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+			appointment.setRomnavn(rs.getString("Romnavn"));
+			appointment.setOpprettetAv(rs.getString("Brukernavn"));
+			appointments.add(appointment);
+		}
+		for(PersonalAppointment pap : appointments){
+			Overlap mid = new Overlap();
+			mid.setEvent(pap);
+			overlap.add(mid);
+		}
+		for(Overlap pa : overlap){
+			for(Overlap p : overlap){
+				if(!pa.getEvent().equals(p.getEvent())){
+					if(p.getEvent().getStartTid().before(pa.getEvent().getSluttTid()) && pa.getEvent().getStartTid().before(p.getEvent().getSluttTid())){
+						pa.setAntallOverlapp();
+					}
+				}
+			}
+		}
+		Collections.sort(overlap);
+		return overlap;
+	}
+
 	public int getGroupId(String groupname) throws Exception{
 		Group en = new Group();
 		String sql = "SELECT Gruppe.Gruppenavn, Gruppe.GruppeID FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "' AND Gruppe.Gruppenavn = '" + groupname + "';";
@@ -512,7 +525,20 @@ public class DatabaseServer {
 		}
 		return en.getGroupID();
 	}
-	
+
+	public Group getGroup(int gpid) throws Exception{
+		Group group = new Group();
+		String sql = "SELECT * FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = '" + gpid + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+			Group en = new Group();
+			en.setGroupID(Integer.parseInt(rs.getString("GruppeID")));
+			en.setGroupName(rs.getString("Gruppenavn"));
+		}
+
+		return group;
+	}
+
 	public ArrayList<Group> getGroups() throws Exception{
 		ArrayList<Group> group = new ArrayList<Group>();
 		String sql = "SELECT Gruppe.Gruppenavn, Gruppe.GruppeID FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "';";
@@ -551,7 +577,7 @@ public class DatabaseServer {
 		}
 		return groupNames;
 	}
-	
+
 	public ArrayList<User> getGroupMembers(int gpid) throws Exception{
 		for(Group group : this.getGroups()){
 			if(group.getGroupID() == gpid){
@@ -561,37 +587,37 @@ public class DatabaseServer {
 		return null;
 	}
 
-//	public boolean equalsMembersGroup(String gn, ArrayList<User>members) throws Exception{
-//		String sql ="";
-//		ArrayList<User> groupMembers = new ArrayList<User>();
-//		sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + gn + "';";
-//		ResultSet rs = stmt.executeQuery(sql);
-//		while (rs.next()){
-//			User mid = this.getUser(rs.getString("Brukernavn"));
-//			groupMembers.add(mid);
-//		}
-//		for(User mem : groupMembers){
-//			if(!members.contains(mem))return false;
-//		}
-//
-//		return true;
-//	}
-//
-//	public boolean groupExists(ArrayList<User>members) throws Exception{
-//		String sql = "SELECT Gruppe.Gruppenavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.Brukernavn AND Bruker.Brukernavn = '" + this.Username + "' ;";
-//		ResultSet rs = stmt.executeQuery(sql);
-//		ArrayList<String> groupNames = new ArrayList<String>();
-//		while (rs.next()){
-//			String mid = "";
-//			mid += " " + (rs.getString("Gruppenavn"));
-//			groupNames.add(mid);
-//		}
-//		for(String gn : groupNames){
-//			if(!this.equalsMembersGroup(gn, members))return false;
-//		}
-//		return true;
-//	}
-	
+	//	public boolean equalsMembersGroup(String gn, ArrayList<User>members) throws Exception{
+	//		String sql ="";
+	//		ArrayList<User> groupMembers = new ArrayList<User>();
+	//		sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + gn + "';";
+	//		ResultSet rs = stmt.executeQuery(sql);
+	//		while (rs.next()){
+	//			User mid = this.getUser(rs.getString("Brukernavn"));
+	//			groupMembers.add(mid);
+	//		}
+	//		for(User mem : groupMembers){
+	//			if(!members.contains(mem))return false;
+	//		}
+	//
+	//		return true;
+	//	}
+	//
+	//	public boolean groupExists(ArrayList<User>members) throws Exception{
+	//		String sql = "SELECT Gruppe.Gruppenavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.Brukernavn AND Bruker.Brukernavn = '" + this.Username + "' ;";
+	//		ResultSet rs = stmt.executeQuery(sql);
+	//		ArrayList<String> groupNames = new ArrayList<String>();
+	//		while (rs.next()){
+	//			String mid = "";
+	//			mid += " " + (rs.getString("Gruppenavn"));
+	//			groupNames.add(mid);
+	//		}
+	//		for(String gn : groupNames){
+	//			if(!this.equalsMembersGroup(gn, members))return false;
+	//		}
+	//		return true;
+	//	}
+
 	public boolean groupExists(ArrayList<User>members) throws Exception{
 		ArrayList<Group> groups = this.getGroups();
 		boolean [] sjekket = new boolean[groups.size()];
@@ -682,5 +708,12 @@ public class DatabaseServer {
 		}
 		System.out.println(generatedPassword);
 	}
-
+	//	public static void main(String[] args) throws Exception{
+	//		DatabaseServer en = new DatabaseServer();
+	//		en.login("simonssl", "testtest");
+	//		Date to = new Date(115,2,17);
+	//		for(Overlap o : en.appointmentOverlap(to)){
+	//			System.out.println(o);
+	//		}
+	//	}
 }
