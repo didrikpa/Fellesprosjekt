@@ -28,14 +28,6 @@ public class Overlap implements Comparable<Overlap>{
 		if(this.getEvent().getStartTid().before(o.getEvent().getStartTid())){
 			return 1;
 		}
-		if(this.getEvent().getStartTid().equals(o.getEvent().getStartTid())){
-			if(this.antallOverlapp > o.antallOverlapp){
-				return 1;
-			}
-			else{
-				return 0;
-			}
-		}
 		else{
 			return 0;
 		}
