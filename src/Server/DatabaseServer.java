@@ -69,7 +69,7 @@ public class DatabaseServer {
 		}
 		return user;
 	}
-	
+
 	public User getUser(String usernamen) throws Exception {
 		User user = new User();
 		String sql = "SELECT * FROM Bruker WHERE Brukernavn = '" + usernamen + "';";
@@ -256,7 +256,7 @@ public class DatabaseServer {
 		}
 		return pa;
 	}
-	
+
 	public void editAppointment(PersonalAppointment pa, ArrayList<User> invitedUsers) throws Exception {
 		String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
@@ -266,43 +266,58 @@ public class DatabaseServer {
 				stmt.executeUpdate(sql);
 			}
 		}
-		
+
 	}
 
 
-	public void addAppointment(PersonalAppointment appointment, ArrayList<User> invitedUsers) throws Exception {
-		String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
-		stmt.executeUpdate(sql);
-		if(invitedUsers != null ){
+	public void addAppointment(PersonalAppointment appointment, int group) throws Exception {
+		if(group != 0){
+			String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + group + ");";
+			stmt.executeUpdate(sql);
 			sql = "SELECT * FROM Avtale WHERE Brukernavn = '" + Username + "' ORDER BY AvtaleID DESC LIMIT 1;";
 			ResultSet rs = stmt.executeQuery(sql);
 			PersonalAppointment pa = new PersonalAppointment();
 			while(rs.next()){
 				pa.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
 			}
-			for(User user:invitedUsers){
+			for(User user:this.getGroupMembers(group)){
 				sql = "INSERT INTO `simonssl_fpgp_fp`.`Invitasjon` (`InvitasjonID`, `Brukernavn`, `AvtaleID`, `Godtatt`) VALUES (NULL, '" + user.getUsername() + "','" + pa.getAvtaleID() + "', NULL);";
 				stmt.executeUpdate(sql);
 			}
 		}
+		else{
+			String sql = "INSERT INTO Avtale VALUES ( NULL,'" + appointment.getDato().toString() + "', '" + appointment.getStartTid().toString() +"', '" + appointment.getSluttTid().toString() +"', '" + appointment.getBeskrivelse() +"', '" + appointment.getRomnavn() +"', '" + Username + "'," + null + ");";
+			stmt.executeUpdate(sql);
+		}
 	}
-	
 
-    public void createGroup(String Groupname) throws Exception{
-        String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
-        stmt.executeQuery(sql);
-    }
-    
-    public List getAllGroups() throws SQLException{
-        List groupNames = new ArrayList();
-        String sql = "SELECT Gruppenavn FROM Gruppe;";
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()){
-            groupNames.add(rs.getString("Gruppenavn"));
-        }
-        return groupNames;
 
-    }
+	public int createGroup(String Groupname, ArrayList<User>members) throws Exception{
+		int gpid = 0;
+		String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
+		stmt.executeUpdate(sql);
+		sql = "SELECT * FROM Gruppe WHERE Gruppenavn = '" + Groupname + "' ORDER BY GruppeID DESC LIMIT 1;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			gpid = rs.getInt("GruppeID");
+		}
+		for(User user : members){
+			sql = "INSERT INTO Gruppemedlem VALUES('" + gpid + "', '" + user.getUsername() + "');";
+			stmt.executeUpdate(sql);
+		}
+		return gpid;
+	}
+
+	public ArrayList<String> getAllGroups() throws SQLException{
+		ArrayList<String> groupNames = new ArrayList<String>();
+		String sql = "SELECT Gruppenavn FROM Gruppe;";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()){
+			groupNames.add(rs.getString("Gruppenavn"));
+		}
+		return groupNames;
+
+	}
 	public void removeAppointment(PersonalAppointment pa) throws Exception{
 		ArrayList<PersonalAppointment>childs = appointmentChilds(pa);
 		for(PersonalAppointment pas:childs){
@@ -397,7 +412,7 @@ public class DatabaseServer {
 		}
 		return invitasjoner;
 	}
-	
+
 	public void removeInvite(PersonalAppointment pa) throws SQLException{
 		String sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
 		stmt.executeUpdate(sql);
@@ -452,7 +467,17 @@ public class DatabaseServer {
 		}
 		return false;
 	}
-
+	
+	public int getGroupId(String groupname) throws Exception{
+		Group en = new Group();
+		String sql = "SELECT Gruppe.Gruppenavn, Gruppe.GruppeID FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "' AND Gruppe.Gruppenavn = '" + groupname + "';";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()){
+			en.setGroupID(rs.getInt("GruppeID"));
+		}
+		return en.getGroupID();
+	}
+	
 	public ArrayList<Group> getGroups() throws Exception{
 		ArrayList<Group> group = new ArrayList<Group>();
 		String sql = "SELECT Gruppe.Gruppenavn, Gruppe.GruppeID FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + Username + "';";
@@ -482,26 +507,76 @@ public class DatabaseServer {
 		return group;
 	}
 
-    public List getGroupNames(String username) throws Exception{
-        List<String> groupNames = new ArrayList<String>();
-        String sql = "SELECT Gruppenavn FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + username + "';";
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()){
-            groupNames.add(rs.getString("Gruppenavn"));
-        }
-        return groupNames;
-    }
-
-	@SuppressWarnings("rawtypes")
-	public List getGroupMembers(String groupName) throws Exception{
-		List<String> groupMembers = new ArrayList<String>();
-		String sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + groupName + "';";
+	public ArrayList<String> getGroupNames(String username) throws Exception{
+		ArrayList<String> groupNames = new ArrayList<String>();
+		String sql = "SELECT Gruppenavn FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = '" + username + "';";
 		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()){
-			groupMembers.add(rs.getString("Fornavn"));
-			groupMembers.add(rs.getString("Etternavn"));
+			groupNames.add(rs.getString("Gruppenavn"));
 		}
-		return groupMembers;
+		return groupNames;
+	}
+	
+	public ArrayList<User> getGroupMembers(int gpid) throws Exception{
+		for(Group group : this.getGroups()){
+			if(group.getGroupID() == gpid){
+				return group.getUsers();
+			}
+		}
+		return null;
+	}
+
+//	public boolean equalsMembersGroup(String gn, ArrayList<User>members) throws Exception{
+//		String sql ="";
+//		ArrayList<User> groupMembers = new ArrayList<User>();
+//		sql = "SELECT Fornavn, Etternavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.BrukerNavn AND Gruppe.GruppeID = '" + gn + "';";
+//		ResultSet rs = stmt.executeQuery(sql);
+//		while (rs.next()){
+//			User mid = this.getUser(rs.getString("Brukernavn"));
+//			groupMembers.add(mid);
+//		}
+//		for(User mem : groupMembers){
+//			if(!members.contains(mem))return false;
+//		}
+//
+//		return true;
+//	}
+//
+//	public boolean groupExists(ArrayList<User>members) throws Exception{
+//		String sql = "SELECT Gruppe.Gruppenavn FROM Gruppe, Gruppemedlem, Bruker WHERE Gruppe.GruppeID = Gruppemedlem.GruppeID AND Gruppemedlem.Brukernavn = Bruker.Brukernavn AND Bruker.Brukernavn = '" + this.Username + "' ;";
+//		ResultSet rs = stmt.executeQuery(sql);
+//		ArrayList<String> groupNames = new ArrayList<String>();
+//		while (rs.next()){
+//			String mid = "";
+//			mid += " " + (rs.getString("Gruppenavn"));
+//			groupNames.add(mid);
+//		}
+//		for(String gn : groupNames){
+//			if(!this.equalsMembersGroup(gn, members))return false;
+//		}
+//		return true;
+//	}
+	
+	public boolean groupExists(ArrayList<User>members) throws Exception{
+		ArrayList<Group> groups = this.getGroups();
+		boolean [] sjekket = new boolean[groups.size()];
+		int ind = 0;
+		for(int i = 0; i < sjekket.length; i++){
+			sjekket[i] = false;
+		}
+		for(Group gruppe : groups){
+			if(gruppe.getUsers().size() != members.size()) sjekket[ind]=true;
+			for(User user : gruppe.getUsers()){
+				if(!members.contains(user)){
+					sjekket[ind] = true;
+				}
+			}
+			ind+=1;
+		}
+		for(boolean bol : sjekket){
+			if(!bol)return true;
+		}
+		return false;
 	}
 
 	public void respondOnInvite(Invite invite, boolean answer) throws Exception{
@@ -510,7 +585,7 @@ public class DatabaseServer {
 			stmt.executeUpdate(sql);
 			PersonalAppointment pa = this.getSpecificAppointment(invite.getAvtaleID());
 			pa.setAvtaleID(0);
-			this.addAppointment(pa, null);
+			this.addAppointment(pa, 0);
 			pa = this.getLastAppointment();
 			sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
 			stmt.executeUpdate(sql);
@@ -573,8 +648,4 @@ public class DatabaseServer {
 		System.out.println(generatedPassword);
 	}
 
-	public void quit() throws SQLException{
-		conn.close();
-		stmt.close();
-	}
 }
