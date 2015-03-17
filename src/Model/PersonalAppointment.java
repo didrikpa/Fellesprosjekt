@@ -4,8 +4,18 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class PersonalAppointment extends SuperEvent{
+	public int GruppeID;
+	public int getGruppeID() {
+		return GruppeID;
+	}
 
-	public PersonalAppointment(){}
+	public void setGruppeID(int gruppeID) {
+		GruppeID = gruppeID;
+	}
+
+	public PersonalAppointment(){
+		GruppeID = 0;
+	}
 	
 	public String getOpprettetAv() {
 		return super.getOpprettetAv();
