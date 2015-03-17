@@ -523,6 +523,7 @@ public class DatabaseServer {
 		while (rs.next()){
 			en.setGroupID(rs.getInt("GruppeID"));
 		}
+		if(groupname.equalsIgnoreCase("My groups"))return 0;
 		return en.getGroupID();
 	}
 
