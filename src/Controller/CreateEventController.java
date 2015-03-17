@@ -42,7 +42,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class CreateEventController implements Initializable {
+public class CreateEventController implements Initializable, EventController {
 	@FXML
 	AnchorPane createEventViewMainPane;
 	@FXML
