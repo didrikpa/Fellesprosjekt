@@ -4,7 +4,7 @@ public class Overlap implements Comparable<Overlap>{
 	PersonalAppointment event;
 	int antallOverlapp;
 	public Overlap(){
-		antallOverlapp = 1;
+		antallOverlapp = 0;
 		event = null;
 	}
 	public PersonalAppointment getEvent() {
