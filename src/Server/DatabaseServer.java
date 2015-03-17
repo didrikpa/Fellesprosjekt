@@ -322,6 +322,7 @@ public class DatabaseServer {
 				}
 			}
 		}
+		Collections.sort(overlap);
 		return overlap;
 	}
 
