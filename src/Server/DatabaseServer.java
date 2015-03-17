@@ -716,12 +716,3 @@ public class DatabaseServer {
 		}
 		System.out.println(generatedPassword);
 	}
-	//	public static void main(String[] args) throws Exception{
-	//		DatabaseServer en = new DatabaseServer();
-	//		en.login("simonssl", "testtest");
-	//		Date to = new Date(115,2,17);
-	//		for(Overlap o : en.appointmentOverlap(to)){
-	//			System.out.println(o);
-	//		}
-	//	}
-}
