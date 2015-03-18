@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -24,5 +25,10 @@
             </Pane>
          </children>
       </StackPane>
+      <Label layoutX="328.0" layoutY="72.0" text="phoibe Calendar">
+         <font>
+            <Font name="Daniel Black" size="49.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

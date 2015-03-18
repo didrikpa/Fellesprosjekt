@@ -10,7 +10,7 @@
 
 <AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane layoutX="236.0" layoutY="126.0" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+      <ScrollPane fx:id="weekViewScrollPane" layoutX="236.0" layoutY="126.0" pannable="true" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" vmax="23.0" vvalue="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
          <content>
             <AnchorPane prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;">
                <children>
