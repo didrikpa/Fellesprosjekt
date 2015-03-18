@@ -66,9 +66,16 @@ public class CreateGroupController{
     public void createGroup(String groupname){
         try {
         	server.createGroup(groupname, newGroup);
-            cec.setGroups();
+            if(eec == null){
+        	cec.setGroups();
             cec.createEventViewGroup.setValue(groupname);
             cec.participantList.setItems(FXCollections.observableArrayList(cec.selectedUsers));
+            }
+            else{
+            	eec.setGroups();
+                eec.createEventViewGroup.setValue(groupname);
+                eec.participantList.setItems(FXCollections.observableArrayList(cec.selectedUsers));
+            }
         }
         catch (Exception e)
         {
