@@ -263,7 +263,7 @@ public class DatabaseServer {
     }
 
     public void editAppointment(PersonalAppointment pa, int gpid) throws Exception {
-        String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "', GruppeID = '" + pa.getGruppeID() + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
+        String sql = "UPDATE Avtale SET `Dato` = '" + pa.getDato() + "', `Starttid` = '" + pa.getStartTid() + "',`Slutttid` = '" + pa.getSluttTid() + "',`Beskrivelse` = '" + pa.getBeskrivelse() + "',`Romnavn` = '" + pa.getRomnavn() + "', GruppeID = '" + gpid + "' WHERE `Avtale`.`AvtaleID` = " + pa.getAvtaleID() + ";";
         stmt.executeUpdate(sql);
         ArrayList<User> gm = this.getGroupMembers(gpid);
         if (gm != null) {
@@ -550,6 +550,7 @@ public class DatabaseServer {
             en.setGroupID(rs.getInt("GruppeID"));
         }
         if (groupname.equalsIgnoreCase("My groups")) return 0;
+        if (groupname.equalsIgnoreCase("Ny gruppe")) return 0;
         return en.getGroupID();
     }
 
@@ -558,11 +559,9 @@ public class DatabaseServer {
         String sql = "SELECT * FROM Gruppe, Gruppemedlem WHERE Gruppe.GruppeID = '" + gpid + "';";
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
-            Group en = new Group();
-            en.setGroupID(Integer.parseInt(rs.getString("GruppeID")));
-            en.setGroupName(rs.getString("Gruppenavn"));
+            group.setGroupID(Integer.parseInt(rs.getString("GruppeID")));
+            group.setGroupName(rs.getString("Gruppenavn"));
         }
-
         return group;
     }
 
