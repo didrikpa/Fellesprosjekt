@@ -38,6 +38,7 @@ public class AppointmentController implements Initializable{
 	@FXML Label apDescription;
 	@FXML Label invitedLabel;
 	@FXML Label opprettetAv;
+	@FXML Label alarmField;
 	@FXML ListView<String> invitedList;
 	@FXML TextField alarmIn;
 	@FXML ComboBox<String> alarmChoice;
@@ -68,6 +69,7 @@ public class AppointmentController implements Initializable{
 		toogleGoing = new ToggleButton();
 		toogleNotGoing = new ToggleButton();
 		invitedList = new ListView<String>();
+		alarmField = new Label();
 	}
 	
 	@FXML 
@@ -124,6 +126,7 @@ public class AppointmentController implements Initializable{
 				alarm.setAvtaleID(pa.getAvtaleID());
 				alarm.setBrukernavn(dbserver.Username);
 				dbserver.setAlarm(alarm);
+				alarmField.setText("Alarm: " + alarm.getTidspunkt());
 				alarmChoice.setVisible(false);
 				alarmIn.setVisible(false);
 				createAlarm.setVisible(false);
@@ -160,6 +163,19 @@ public class AppointmentController implements Initializable{
 		toogleGoing.setVisible(false);
 		toogleNotGoing.setVisible(false);
 		ArrayList<String>status = new ArrayList<String>();
+		Alarm larm = new Alarm(dbserver);
+		larm.setAvtaleID(pa.getAvtaleID());
+		larm.setBrukernavn(dbserver.Username);
+		try {
+			if(dbserver.alarmIsSet(larm) == null){
+				alarmField.setText("No alarm is set for this event!");
+			}
+			else{
+				alarmField.setText("Alarm : " + dbserver.alarmIsSet(larm).getTidspunkt());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		try {
 			for(Invite inv:dbserver.invitesSent(dbserver.getParentEvent(pa))){
 				status.add(inv.getBrukernavn() + " - " + inv.isGodtatt());
