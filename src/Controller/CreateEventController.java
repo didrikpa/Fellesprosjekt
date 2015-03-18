@@ -516,7 +516,7 @@ public class CreateEventController implements Initializable, EventController {
 						parent.monthB();
 						parent.monthF();
 						((Node) (event.getSource())).getScene().getWindow().hide();
-						//sendInvitationEmail();
+						sendInvitationEmail(databaseServer.getGroupMembers(gpid));
 					}
 					if(selectedUsers.size() > 0){
 						createGroup();
@@ -543,9 +543,9 @@ public class CreateEventController implements Initializable, EventController {
 		}
 	}
 
-	public void sendInvitationEmail() {
+	public void sendInvitationEmail(ArrayList<User> groupMembers) {
 		try {
-			for (int i = 0; i < selectedUsers.size(); i++) {
+			for (int i = 0; i < groupMembers.size(); i++) {
 				// Sender's email ID needs to be mentioned
 				String from = "awesome@calendar.com";
 
@@ -571,7 +571,7 @@ public class CreateEventController implements Initializable, EventController {
 					// Set To: header field of the header.
 					message.addRecipient(
 							Message.RecipientType.TO,
-							new InternetAddress(selectedUsers.get(i).getEmail()));
+							new InternetAddress(groupMembers.get(i).getEmail()));
 
 					// Set Subject: header field
 					message.setSubject("Invitation to meeting");
