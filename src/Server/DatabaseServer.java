@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import Model.Alarm;
@@ -336,8 +337,14 @@ public class DatabaseServer {
 	
 	}
 
-	public int createGroup(String Groupname, ArrayList<User> members) throws Exception {
-        int gpid = 0;
+	public int createGroup(String Groupname, ArrayList<User> member) throws Exception {
+		ArrayList<User> members = member;
+		members.add(this.getUser());
+		HashSet hs = new HashSet();
+		hs.addAll(members);
+		members.clear();
+		members.addAll(hs);
+		int gpid = 0;
         String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
         stmt.executeUpdate(sql);
         sql = "SELECT * FROM Gruppe WHERE Gruppenavn = '" + Groupname + "' ORDER BY GruppeID DESC LIMIT 1;";
