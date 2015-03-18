@@ -9,319 +9,241 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <ScrollPane fx:id="weekViewScrollPane" layoutX="236.0" layoutY="126.0" pannable="true" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" vmax="23.0" vvalue="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
-            <content>
-                <AnchorPane prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;">
-                    <children>
-                        <GridPane fx:id="weekGrid" layoutX="45.0" layoutY="407.0" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent; -fx-border-color: ;" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Label text="01.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-                                <Label text="02.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-                                <Label text="03.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-                                <Label text="05.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM" />
-                                <Label text="04.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM" />
-                                <Label text="06.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="23" GridPane.valignment="BOTTOM" />
-                                <Label text="07.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="27" GridPane.valignment="BOTTOM" />
-                                <Label text="08.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="31" GridPane.valignment="BOTTOM">
-                                    <GridPane.margin>
-                                        <Insets />
-                                    </GridPane.margin>
-                                </Label>
-                                <Label text="09.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="35" GridPane.valignment="BOTTOM" />
-                                <Label text="10.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="39" GridPane.valignment="BOTTOM" />
-                                <Label text="11.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="43" GridPane.valignment="BOTTOM" />
-                                <Label text="12.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="47" GridPane.valignment="BOTTOM" />
-                                <Label text="13.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="51" GridPane.valignment="BOTTOM" />
-                                <Label text="14.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="55" GridPane.valignment="BOTTOM" />
-                                <Label text="15.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="59" GridPane.valignment="BOTTOM" />
-                                <Label text="16.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="63" GridPane.valignment="BOTTOM" />
-                                <Label text="17.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="67" GridPane.valignment="BOTTOM" />
-                                <Label text="18.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="71" GridPane.valignment="BOTTOM" />
-                                <Label text="19.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="75" GridPane.valignment="BOTTOM" />
-                                <Label text="20.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="79" GridPane.valignment="BOTTOM" />
-                                <Label text="21.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="83" GridPane.valignment="BOTTOM" />
-                                <Label text="22.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="87" GridPane.valignment="BOTTOM" />
-                                <Label text="23.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="91" GridPane.valignment="BOTTOM" />
-                                <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-                                    <GridPane.margin>
-                                        <Insets left="120.0" />
-                                    </GridPane.margin>
-                                </Line>
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="23" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="27" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="31" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="35" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="39" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="43" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="47" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="51" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="55" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="59" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="63" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="67" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="71" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="75" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="79" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="83" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="87" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="91" GridPane.valignment="BOTTOM" />
-                                <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="95" GridPane.valignment="BOTTOM" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                                <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                            </children>
-                        </GridPane>
-                    </children>
-                </AnchorPane>
-            </content>
-        </ScrollPane>
-        <GridPane layoutX="-406.0" layoutY="21.0" prefHeight="66.0" prefWidth="1110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="120.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <Label fx:id="mondayDateLabel" text="monday.9." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="tuesdayDateLabel" text="tuesday.10." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="wedensdayDateLabel" text="wedensday.11." GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="thursdayDateLabel" text="thursday.12." GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="fridayDateLabel" text="friday.13." GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="saturdayDateLabel" text="saturday.14." GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Label fx:id="sundayDateLabel" text="sunday.15." GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-                    <font>
-                        <Font name="Helvetica Neue Thin" size="17.0" />
-                    </font>
-                </Label>
-                <Circle id="lightBlueCircle" fill="#1fffc1" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                    <GridPane.margin>
-                        <Insets left="10.0" top="20.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Circle id="greenCircle" fill="LIME" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.valignment="TOP">
-                    <GridPane.margin>
-                        <Insets bottom="25.0" left="10.0" top="10.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Circle id="blueCircle" fill="#5f9d9e" onKeyPressed="#changeColorBlue" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.valignment="TOP">
-                    <GridPane.margin>
-                        <Insets left="80.0" top="10.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Circle id="grayCircle" fill="GREY" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                    <GridPane.margin>
-                        <Insets left="80.0" top="20.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Circle id="redCircle" fill="ORANGE" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                    <GridPane.margin>
-                        <Insets left="45.0" top="20.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Circle id="lightOrangeCircle" fill="MAGENTA" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE">
-                    <GridPane.margin>
-                        <Insets bottom="27.0" left="45.0" />
-                    </GridPane.margin>
-                </Circle>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorLime" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="10.0" top="-30.0" />
-                    </GridPane.margin>
-                </Button>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorBlue" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="80.0" top="-30.0" />
-                    </GridPane.margin>
-                </Button>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorFuchsia" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="45.0" top="-30.0" />
-                    </GridPane.margin>
-                </Button>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorLightBlue" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="10.0" top="20.0" />
-                    </GridPane.margin>
-                </Button>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorOrange" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="45.0" top="20.0" />
-                    </GridPane.margin>
-                </Button>
-                <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" mnemonicParsing="false" onAction="#changeColorGray" opacity="0.0" prefHeight="20.0">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <GridPane.margin>
-                        <Insets left="80.0" top="20.0" />
-                    </GridPane.margin>
-                </Button>
-            </children>
-        </GridPane>
-    </children>
+   <children>
+      <ScrollPane fx:id="weekViewScrollPane" layoutX="236.0" layoutY="126.0" pannable="true" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" vmax="23.0" vvalue="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+         <content>
+            <AnchorPane prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent;">
+               <children>
+                  <GridPane fx:id="weekGrid" layoutX="45.0" layoutY="407.0" prefHeight="540.0" prefWidth="1110.0" style="-fx-focus-color: transparent; -fx-border-color: ;" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="200.0" minHeight="15.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="01.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Label text="02.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                        <Label text="03.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+                        <Label text="05.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM" />
+                        <Label text="04.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM" />
+                        <Label text="06.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="23" GridPane.valignment="BOTTOM" />
+                        <Label text="07.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="27" GridPane.valignment="BOTTOM" />
+                        <Label text="08.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="31" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <Label text="09.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="35" GridPane.valignment="BOTTOM" />
+                        <Label text="10.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="39" GridPane.valignment="BOTTOM" />
+                        <Label text="11.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="43" GridPane.valignment="BOTTOM" />
+                        <Label text="12.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="47" GridPane.valignment="BOTTOM" />
+                        <Label text="13.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="51" GridPane.valignment="BOTTOM" />
+                        <Label text="14.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="55" GridPane.valignment="BOTTOM" />
+                        <Label text="15.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="59" GridPane.valignment="BOTTOM" />
+                        <Label text="16.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="63" GridPane.valignment="BOTTOM" />
+                        <Label text="17.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="67" GridPane.valignment="BOTTOM" />
+                        <Label text="18.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="71" GridPane.valignment="BOTTOM" />
+                        <Label text="19.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="75" GridPane.valignment="BOTTOM" />
+                        <Label text="20.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="79" GridPane.valignment="BOTTOM" />
+                        <Label text="21.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="83" GridPane.valignment="BOTTOM" />
+                        <Label text="22.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="87" GridPane.valignment="BOTTOM" />
+                        <Label text="23.00" textFill="#8d8d8d" GridPane.halignment="CENTER" GridPane.rowIndex="91" GridPane.valignment="BOTTOM" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+                           <GridPane.margin>
+                              <Insets left="120.0" />
+                           </GridPane.margin>
+                        </Line>
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="11" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="15" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="19" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="23" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="27" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="31" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="35" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="39" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="43" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="47" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="51" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="55" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="59" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="63" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="67" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="71" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="75" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="79" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="83" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="87" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="91" GridPane.valignment="BOTTOM" />
+                        <Line endX="1110.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="95" GridPane.valignment="BOTTOM" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Line endY="3000.0" opacity="0.3" stroke="#a1a1a1" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <GridPane layoutX="-406.0" layoutY="21.0" prefHeight="66.0" prefWidth="1110.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="0.0" prefWidth="120.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="120.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="mondayDateLabel" text="monday.9." GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="tuesdayDateLabel" text="tuesday.10." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="wedensdayDateLabel" text="wedensday.11." GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="thursdayDateLabel" text="thursday.12." GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="fridayDateLabel" text="friday.13." GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="saturdayDateLabel" text="saturday.14." GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="sundayDateLabel" text="sunday.15." GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="Helvetica Neue Thin" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>
