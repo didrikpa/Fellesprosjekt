@@ -16,19 +16,22 @@
          <children>
               <Pane fx:id="monthViewPaneTop" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="1110.0" style="-fx-background-color: #98C7FF;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                      <Button layoutX="732.0" layoutY="43.0" mnemonicParsing="false" onAction="#manedFrem" text="&gt;" />
-                      <Button layoutX="349.0" layoutY="43.0" mnemonicParsing="false" onAction="#manedBak" text="&lt;" />
+                      <Button layoutX="732.0" layoutY="42.0" mnemonicParsing="false" onAction="#manedFrem" style="-fx-background-color: white;" text="&gt;" />
+                      <Button layoutX="349.0" layoutY="42.0" mnemonicParsing="false" onAction="#manedBak" style="-fx-background-color: white;" text="&lt;" />
       
                         </children>
               </Pane>
                 <Group StackPane.alignment="CENTER">
                     <children>
-                        <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToWeek" prefHeight="16.0" prefWidth="165.0" text="Week">
+                        <ToggleButton fx:id="toggleButtonWeek" layoutX="72.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToWeek" prefHeight="16.0" prefWidth="165.0" style="-fx-background-color: white;" text="Week">
                             <toggleGroup>
                                 <ToggleGroup fx:id="monthWeek" />
                             </toggleGroup>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </ToggleButton>
-                        <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToMonth" prefHeight="16.0" prefWidth="165.0" selected="true" text="Month" toggleGroup="$monthWeek" />
+                        <ToggleButton fx:id="toggleButtonMonth" layoutX="238.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToMonth" prefHeight="16.0" prefWidth="165.0" selected="true" style="-fx-background-color: white;" text="Month" toggleGroup="$monthWeek" />
                     </children>
                 </Group>
          </children>
@@ -391,7 +394,7 @@
           <ListView fx:id="searchList" prefHeight="82.0" prefWidth="243.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="26.0" />
       <Pane prefHeight="68.0" prefWidth="272.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
          <children>
-                <Button fx:id="notificationButton" layoutY="28.0" mnemonicParsing="false" onAction="#openNotification" prefHeight="38.0" prefWidth="221.0" text="Notifications">
+                <Button fx:id="notificationButton" layoutY="28.0" mnemonicParsing="false" onAction="#openNotification" prefHeight="38.0" prefWidth="221.0" style="-fx-background-color: white;" text="Notifications">
                     <font>
                         <Font size="20.0" />
                     </font>
