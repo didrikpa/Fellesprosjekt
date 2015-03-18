@@ -18,12 +18,14 @@ import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -63,6 +65,8 @@ public class EditEventController implements Initializable, EventController {
 	CheckBox allDayCheck;
 	@FXML
 	ComboBox<String> createEventViewGroup;
+
+
 	@FXML
 	private Label roomError;
 	@FXML
@@ -90,23 +94,22 @@ public class EditEventController implements Initializable, EventController {
 	ListView<User> userList;
 	@FXML
 	ListView<User> participantList;
-
-	int gruppeid;
-	PersonalAppointment personalAppointment;
-	PersonalAppointment opprinneligPa;
-	DatabaseServer databaseServer = new DatabaseServer();
-	Alarm alarm;
-	CalendarViewController parent;
-	Stage stage;
 	ArrayList<User> selectedUsers = new ArrayList<User>();
+	PersonalAppointment personalAppointment = new PersonalAppointment();
+	PersonalAppointment opprinneligPa = new PersonalAppointment();
+	DatabaseServer databaseServer = new DatabaseServer();
+	CalendarViewController parent;
+	Alarm alarm;
+	Stage stage;
+	int gruppeid;
 
-	public EditEventController(DatabaseServer server,PersonalAppointment pa ,CalendarViewController pt) {
+	public EditEventController(DatabaseServer server, PersonalAppointment pa , CalendarViewController pt) {
 		databaseServer = server;
-		alarm = new Alarm(databaseServer);
-		personalAppointment = pa;
-		opprinneligPa = fillIt(pa);
-		parent = pt;
 		gruppeid = 0;
+		opprinneligPa = pa;
+		alarm = new Alarm(databaseServer);
+		parent = pt;
+		personalAppointment = fillIt(pa);
 		init();
 		initialize(null, null);
 	}
@@ -125,6 +128,10 @@ public class EditEventController implements Initializable, EventController {
 	}
 
 	private void init(){
+		personalRadio = new RadioButton();
+		meetingRadio = new RadioButton();
+		roomLabel = new Label();
+		groupLabel = new Label();
 		createEventViewDatePicker = new DatePicker();
 		createEventViewStartMinutes = new ComboBox<Integer>();
 		createEventViewEndMinutes = new ComboBox<Integer>();
@@ -138,74 +145,54 @@ public class EditEventController implements Initializable, EventController {
 		notifyCombo = new ComboBox<String>();
 	}
 
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		java.util.Date fire = new java.util.Date(personalAppointment.getDato().getTime());
-		LocalDate date = fire.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		createEventViewDatePicker.setValue(date);
-		setDatePicker(createEventViewDatePicker);
-		createEventViewDatePicker.setValue(personalAppointment.getDato().toLocalDate());
-		setHourFrom();
-		setMinuteFrom();
-		setHourToo();
-		setMinuteToo();
-		createEventViewStartMinutes.setValue(personalAppointment.getStartTid().getMinutes());
-		createEventViewStartHours.setValue(personalAppointment.getStartTid().getHours());
-		createEventViewEndMinutes.setValue(personalAppointment.getSluttTid().getMinutes());
-		createEventViewEndHours.setValue(personalAppointment.getSluttTid().getHours());
-		createEventViewRoom.setValue(personalAppointment.getRomnavn());
-		setRoom();
-		if(createEventViewRoom.getValue().equalsIgnoreCase("PersonalRoom")){
-			createEventViewSearch.setDisable(true);
-			createEventViewRoom.setDisable(true);
-			createEventViewGroup.setDisable(true);
-		}
-		createEventViewTextArea.setText(personalAppointment.getBeskrivelse());
-		setNotifyComboValues();
-		setGroups();
+	@FXML
+	public void setGroups(){
 		try {
-			createEventViewGroup.setValue(databaseServer.getGroup(opprinneligPa.getGruppeID()).getGroupName());
-		} catch (Exception e1) {
-			e1.printStackTrace();
+			ArrayList<String>grup = databaseServer.getGroupNames(databaseServer.Username);
+			grup.add("Ny gruppe");
+			Collections.reverse(grup);
+			ObservableList<String> groupList = FXCollections.observableArrayList(grup);
+			createEventViewGroup.setItems(groupList);
+			createEventViewGroup.setValue(groupList.get(0));
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-		createEventViewGroup.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if((createEventViewGroup.getSelectionModel().getSelectedItem()).equalsIgnoreCase("Ny gruppe")){
-					gruppeid = 0;
-					createEventViewSearch.setDisable(false);
-					try {
-						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else {
-					try {
-						gruppeid = databaseServer.getGroupId((createEventViewGroup.getSelectionModel().getSelectedItem()));
-					} catch (Exception e) {
-						System.out.println(e);
-					}
-					createEventViewSearch.setDisable(true);
-					try {
-						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
-						participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(gruppeid)));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-
-			}
-		});
 	}
 
+	// is true if it is a personal appointment and false it it is a meeting
+	@FXML
+	public boolean appType() {
+		if (personalRadio.isSelected()) {
+			createEventViewRoom.setVisible(false);
+			roomLabel.setVisible(false);
+			createEventViewGroup.setVisible(false);
+			groupLabel.setVisible(false);
+			createEventViewSearch.setDisable(true);
+			return true;
+		} else {
+			createEventViewRoom.setVisible(true);
+			roomLabel.setVisible(true);
+			createEventViewGroup.setVisible(true);
+			groupLabel.setVisible(true);
+			createEventViewSearch.setDisable(false);
+			return false;
+		}
+	}
 
 	@FXML
 	public void searchUser() throws Exception {
 		userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		ArrayList<User> users = new ArrayList<User>();
-		users = userSearch(createEventViewSearch.getText(),
-				databaseServer.getUsers());
+		users = userSearch(createEventViewSearch.getText(), databaseServer.getUsers());
 		userList.setItems(FXCollections.observableArrayList(users));
+	}
+
+	@FXML
+	public void deleteInvitedUser(ActionEvent event) throws Exception {
+		ObservableList<User> participants = participantList.getSelectionModel()
+				.getSelectedItems();
+		selectedUsers.removeAll(participants);
+		participantList.setItems(FXCollections.observableArrayList(selectedUsers));
 	}
 
 	@FXML
@@ -223,37 +210,6 @@ public class EditEventController implements Initializable, EventController {
 		}
 		// Adds all the participants in the selected user list to the invited
 		// user pan.
-	}
-
-	public void createGroup() throws Exception{
-		ArrayList<User> al = selectedUsers;
-		HashSet hs = new HashSet();
-		hs.addAll(al);
-		al.clear();
-		al.addAll(hs);
-		if(!databaseServer.groupExists(al)){ 		
-			try{
-				FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
-				fxmlLoader.setController(new CreateGroupController(databaseServer, al, this));
-				stage = new Stage();
-				stage.setTitle("Create group");
-				stage.setScene(new Scene((Parent) fxmlLoader.load()));
-				stage.show();
-			}
-			catch (Exception e){
-				System.out.println(e);
-			}
-		}
-		else{
-			System.out.println("Group do exist");
-		}
-	}
-
-	@FXML
-	public void deleteInvitedUser(ActionEvent event) throws Exception {
-		ObservableList<User> participants = participantList.getSelectionModel()
-				.getSelectedItems();
-		selectedUsers.removeAll(participants);
 		participantList.setItems(FXCollections
 				.observableArrayList(selectedUsers));
 	}
@@ -283,6 +239,30 @@ public class EditEventController implements Initializable, EventController {
 		return namesOut;
 	}
 
+	public void createGroup() throws Exception{
+		ArrayList<User> al = selectedUsers;
+		HashSet hs = new HashSet();
+		hs.addAll(al);
+		al.clear();
+		al.addAll(hs);
+		if(!databaseServer.groupExists(al)){ 		
+			try{
+				FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
+				fxmlLoader.setController(new CreateGroupController(databaseServer, al, this));
+				stage = new Stage();
+				stage.setTitle("Create group");
+				stage.setScene(new Scene((Parent) fxmlLoader.load()));
+				stage.show();
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
+		}
+		else{
+			System.out.println("Group do exist");
+		}
+	}
+
 	@FXML
 	public static void setDatePicker(final DatePicker calender) {
 		calender.setValue(LocalDate.now());
@@ -306,6 +286,25 @@ public class EditEventController implements Initializable, EventController {
 	}
 
 	@FXML
+	public void lastsAllDay() {
+		if (allDayCheck.isSelected()) {
+			createEventViewStartHours.setValue(0);
+			createEventViewStartMinutes.setValue(0);
+			createEventViewEndHours.setValue(23);
+			createEventViewEndMinutes.setValue(59);
+			createEventViewEndMinutes.setDisable(true);
+			createEventViewEndHours.setDisable(true);
+			createEventViewStartMinutes.setDisable(true);
+			createEventViewStartHours.setDisable(true);
+		} else {
+			createEventViewEndMinutes.setDisable(false);
+			createEventViewEndHours.setDisable(false);
+			createEventViewStartMinutes.setDisable(false);
+			createEventViewStartHours.setDisable(false);
+		}
+	}
+
+	@FXML
 	public void setHourFrom() {
 		List<Integer> someVariableName = new ArrayList();
 		for (int i = 0; i < 24; i++)
@@ -319,7 +318,7 @@ public class EditEventController implements Initializable, EventController {
 	@FXML
 	public void setMinuteFrom() {
 		List<Integer> someVariableName = new ArrayList();
-		for (int i = 0; i < 60; i += 5)
+		for (int i = 0; i < 56; i += 5)
 			someVariableName.add(i);
 		ObservableList<Integer> minutes = FXCollections
 				.observableArrayList(someVariableName);
@@ -358,7 +357,7 @@ public class EditEventController implements Initializable, EventController {
 	public void setMinuteToo() {
 		int j = createEventViewStartMinutes.getValue();
 		List<Integer> someVariable = new ArrayList();
-		for (int i = 0; i < 60; i += 5)
+		for (int i = 0; i < 56; i += 5)
 			someVariable.add(i);
 		ObservableList<Integer> availableMinutes = FXCollections
 				.observableArrayList(someVariable);
@@ -388,21 +387,6 @@ public class EditEventController implements Initializable, EventController {
 		personalAppointment.setDato(java.sql.Date
 				.valueOf(createEventViewDatePicker.getValue()));
 	}
-
-	@FXML
-	public void setGroups(){
-		try {
-			ArrayList<String>grup = databaseServer.getGroupNames(databaseServer.Username);
-			grup.add("Ny gruppe");
-			Collections.reverse(grup);
-			ObservableList<String> groupList = FXCollections.observableArrayList(grup);
-			createEventViewGroup.setItems(groupList);
-			createEventViewGroup.setValue(groupList.get(0));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 
 	@FXML
 	public boolean validateTime() {
@@ -436,25 +420,6 @@ public class EditEventController implements Initializable, EventController {
 			personalAppointment.setStartTid(start);
 			personalAppointment.setSluttTid(end);
 			return true;
-		}
-	}
-
-	@FXML
-	public void lastsAllDay() {
-		if (allDayCheck.isSelected()) {
-			createEventViewStartHours.setValue(0);
-			createEventViewStartMinutes.setValue(0);
-			createEventViewEndHours.setValue(23);
-			createEventViewEndMinutes.setValue(59);
-			createEventViewEndMinutes.setDisable(true);
-			createEventViewEndHours.setDisable(true);
-			createEventViewStartMinutes.setDisable(true);
-			createEventViewStartHours.setDisable(true);
-		} else {
-			createEventViewEndMinutes.setDisable(false);
-			createEventViewEndHours.setDisable(false);
-			createEventViewStartMinutes.setDisable(false);
-			createEventViewStartHours.setDisable(false);
 		}
 	}
 
@@ -533,6 +498,8 @@ public class EditEventController implements Initializable, EventController {
 			return false;
 		}else {
 			roomError.setVisible(false);
+			if (!appType())
+				personalAppointment.setRomnavn(createEventViewRoom.getValue());
 			return true;
 		}
 	}
@@ -540,65 +507,41 @@ public class EditEventController implements Initializable, EventController {
 	@FXML
 	public void createEvent(ActionEvent event) throws Exception {
 		setDato();
-		if (validateTime() && validateRoom() && validateDescription() && validateNotification()){
-			if(isChanged()){
-				for(PersonalAppointment pa : databaseServer.appointmentChilds(opprinneligPa)){
-					databaseServer.removeAppointment(pa);
+		if(validateTime() && validateRoom() && validateDescription() && validateNotification()) {
+			try {
+				if(isChanged()) {
+					if(!createEventViewGroup.getValue().equalsIgnoreCase("Ny gruppe") || opprinneligPa.getRomnavn().equalsIgnoreCase("PersonalRoom")){
+						int gpid = databaseServer.getGroupId(createEventViewGroup.getValue());
+						for(PersonalAppointment pa : databaseServer.appointmentChilds(opprinneligPa)){
+							databaseServer.removeAppointment(pa);
+						}
+						databaseServer.removeInvite(opprinneligPa);
+						databaseServer.editAppointment(personalAppointment,gpid);
+						alarm.setBrukernavn(databaseServer.Username);
+						alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
+						if(alarm.getTidspunkt() != null)databaseServer.setAlarm(alarm);
+						parent.monthB();
+						parent.monthF();
+						((Node) (event.getSource())).getScene().getWindow().hide();
+						sendInvitationEmail(databaseServer.getGroupMembers(gpid));
+					}
+					if(selectedUsers.size() > 0){
+						createGroup();
+					}
 				}
-				databaseServer.removeInvite(opprinneligPa);
-				databaseServer.editAppointment(personalAppointment, databaseServer.getGroupId(createEventViewGroup.getValue()));
-				parent.monthB();
-				parent.monthF();
-				((Node) (event.getSource())).getScene().getWindow().hide();
-			}
-			else{
-				((Node) (event.getSource())).getScene().getWindow().hide();
+				else{
+					((Node) (event.getSource())).getScene().getWindow().hide();
+				}
+			}catch (Exception e) {
+				System.out.println(e);
 			}
 		}
+
 	}
 
-
-	private boolean isChanged() throws Exception{
-		if(!personalAppointment.getBeskrivelse().equalsIgnoreCase(opprinneligPa.getBeskrivelse())){
-			return true;
-		}
-		if(!(personalAppointment.getDato().equals(opprinneligPa.getDato()))){
-			return true;
-		}
-		if(!(personalAppointment.getStartTid().equals(opprinneligPa.getStartTid()))){
-			return true;
-		}
-		if(!personalAppointment.getSluttTid().equals(opprinneligPa.getSluttTid())){
-			return true;
-		}
-		if(!databaseServer.invitesSent(opprinneligPa).equals(selectedUsers)){
-			return true;
-		}
-		if(!personalAppointment.getRomnavn().equals(opprinneligPa.getRomnavn())){
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isChangedDNT() throws Exception{
-		if(!(personalAppointment.getDato().equals(opprinneligPa.getDato()))){
-			return true;
-		}
-		if(!(personalAppointment.getStartTid().equals(opprinneligPa.getStartTid()))){
-			return true;
-		}
-		if(!personalAppointment.getSluttTid().equals(opprinneligPa.getSluttTid())){
-			return true;
-		}
-		if(!personalAppointment.getRomnavn().equals(opprinneligPa.getRomnavn())){
-			return true;
-		}
-		return false;
-	}
-
-	public void sendInvitationEmail() {
+	public void sendInvitationEmail(ArrayList<User> groupMembers) {
 		try {
-			for (int i = 0; i < selectedUsers.size(); i++) {
+			for (int i = 0; i < groupMembers.size(); i++) {
 				// Sender's email ID needs to be mentioned
 				String from = "awesome@calendar.com";
 
@@ -624,7 +567,7 @@ public class EditEventController implements Initializable, EventController {
 					// Set To: header field of the header.
 					message.addRecipient(
 							Message.RecipientType.TO,
-							new InternetAddress(selectedUsers.get(i).getEmail()));
+							new InternetAddress(groupMembers.get(i).getEmail()));
 
 					// Set Subject: header field
 					message.setSubject("Invitation to meeting");
@@ -649,8 +592,6 @@ public class EditEventController implements Initializable, EventController {
 
 					// Send message
 					Transport.send(message);
-					System.out.println("Sent message successfully to "
-							+ selectedUsers.get(i).getEmail());
 
 				} catch (MessagingException mex) {
 					mex.printStackTrace();
@@ -661,10 +602,120 @@ public class EditEventController implements Initializable, EventController {
 		}
 	}
 
+	private boolean isChanged() throws Exception{
+		if(!personalAppointment.getBeskrivelse().equalsIgnoreCase(opprinneligPa.getBeskrivelse())){
+			return true;
+		}
+		if(!(personalAppointment.getDato().equals(opprinneligPa.getDato()))){
+			return true;
+		}
+		if(!(personalAppointment.getStartTid().equals(opprinneligPa.getStartTid()))){
+			return true;
+		}
+		if(!personalAppointment.getSluttTid().equals(opprinneligPa.getSluttTid())){
+			return true;
+		}
+		if(!databaseServer.invitesSent(opprinneligPa).equals(selectedUsers)){
+			return true;
+		}
+		if(!personalAppointment.getRomnavn().equals(opprinneligPa.getRomnavn())){
+			return true;
+		}
+		if(personalAppointment.getGruppeID() != (opprinneligPa.getGruppeID())){
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isChangedDNT() throws Exception{
+		if(!(personalAppointment.getDato().equals(opprinneligPa.getDato()))){
+			return true;
+		}
+		if(!(personalAppointment.getStartTid().equals(opprinneligPa.getStartTid()))){
+			return true;
+		}
+		if(!personalAppointment.getSluttTid().equals(opprinneligPa.getSluttTid())){
+			return true;
+		}
+		if(!personalAppointment.getRomnavn().equals(opprinneligPa.getRomnavn())){
+			return true;
+		}
+		return false;
+	}
+
+
 	@FXML
 	public void cancelEvent(ActionEvent event) throws Exception {
 		parent.notifications();
 		((Node) (event.getSource())).getScene().getWindow().hide();
 	}
-}
 
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		createEventViewTextArea.setText(opprinneligPa.getBeskrivelse());
+		setDatePicker(createEventViewDatePicker);
+		createEventViewDatePicker.setValue(opprinneligPa.getDato().toLocalDate());
+		setHourFrom();
+		setMinuteFrom();
+		setHourToo();
+		setMinuteToo();
+		createEventViewStartMinutes.setValue(personalAppointment.getStartTid().getMinutes());
+		createEventViewStartHours.setValue(personalAppointment.getStartTid().getHours());
+		createEventViewEndMinutes.setValue(personalAppointment.getSluttTid().getMinutes());
+		createEventViewEndHours.setValue(personalAppointment.getSluttTid().getHours());
+		setRoom();
+		createEventViewRoom.setValue(opprinneligPa.getRomnavn());
+		setNotifyComboValues();
+		if(opprinneligPa.getRomnavn().equalsIgnoreCase("PersonalRoom")){
+			personalRadio.setSelected(true);
+			personalRadio.setDisable(true);
+			meetingRadio.setDisable(true);
+		}
+		else{
+			meetingRadio.setSelected(true);
+			personalRadio.setDisable(true);
+			meetingRadio.setDisable(true);
+		}
+		appType();
+		setGroups();
+		try {
+			String gname = databaseServer.getGroup(opprinneligPa.GruppeID).getGroupName();
+			createEventViewGroup.setValue(gname);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
+		try {
+			participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(opprinneligPa.GruppeID)));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		createEventViewGroup.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if((createEventViewGroup.getSelectionModel().getSelectedItem()).equalsIgnoreCase("Ny gruppe")){
+					gruppeid = 0;
+					createEventViewSearch.setDisable(false);
+					try {
+						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					try {
+						gruppeid = databaseServer.getGroupId((createEventViewGroup.getSelectionModel().getSelectedItem()));
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+					createEventViewSearch.setDisable(true);
+					try {
+						participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+						participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(gruppeid)));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
+	}
+}
