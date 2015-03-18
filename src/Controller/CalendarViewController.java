@@ -164,6 +164,12 @@ public class CalendarViewController implements Initializable {
 				updatelMonth();
 			}
 		}
+		else {
+			midViewTo.clearlastEventRect();
+			midViewTo.refreshView();
+			midViewTo.weekBackward();
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
+		}
 	}
 
 	public void monthF() throws Exception {
@@ -178,6 +184,12 @@ public class CalendarViewController implements Initializable {
 				midViewEn.setMonth(aar, maned, groupCal);
 				updatelMonth();
 			}
+		}
+		else {
+			midViewTo.clearlastEventRect();
+			midViewTo.refreshView();
+			midViewTo.weekForward();
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
 		}
 	}
 
