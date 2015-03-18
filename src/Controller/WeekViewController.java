@@ -52,8 +52,6 @@ import Server.DatabaseServer;
 import Model.Overlap;
 import Model.PersonalAppointment;
 
-
-
 public class WeekViewController implements Initializable {
 
 	@FXML
@@ -187,16 +185,9 @@ public class WeekViewController implements Initializable {
 		
 	}
 	
-	public void setCalendarViewController(CalendarViewController myCal){
-		
-		calMainController = myCal;
-		
-	}
-	
-	public WeekViewController(DatabaseServer loginServer){
-		
+	public WeekViewController(DatabaseServer loginServer, CalendarViewController cvc){
+		calMainController = cvc;
 		tempDatabaseServer = loginServer;
-		
 	}
 	
 	private void initWeekdayLabels(){
