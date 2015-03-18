@@ -680,6 +680,7 @@ public class EditEventController implements Initializable, EventController {
 		try {
 			String gname = databaseServer.getGroup(opprinneligPa.GruppeID).getGroupName();
 			createEventViewGroup.setValue(gname);
+			createEventViewSearch.setDisable(true);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
