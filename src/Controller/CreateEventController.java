@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.net.URL;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -31,10 +30,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import Server.*;
 import Model.*;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -89,17 +86,17 @@ public class CreateEventController implements Initializable, EventController {
 	@FXML
 	TextField notifyInt;
 	@FXML
-	ComboBox notifyCombo;
-	PersonalAppointment personalAppointment = new PersonalAppointment();
-	DatabaseServer databaseServer = new DatabaseServer();
-	Alarm alarm;
-	CalendarViewController parent;
-	Stage stage;
+	ComboBox<String> notifyCombo;
 	@FXML
 	ListView<User> userList;
 	@FXML
 	ListView<User> participantList;
 	ArrayList<User> selectedUsers = new ArrayList<User>();
+	PersonalAppointment personalAppointment = new PersonalAppointment();
+	DatabaseServer databaseServer = new DatabaseServer();
+	CalendarViewController parent;
+	Alarm alarm;
+	Stage stage;
 	int gruppeid;
 
 	public CreateEventController(DatabaseServer server, CalendarViewController pt) {
@@ -108,44 +105,6 @@ public class CreateEventController implements Initializable, EventController {
 		alarm = new Alarm(databaseServer);
 		parent = pt;
 	}
-
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		setDatePicker(createEventViewDatePicker);
-		setHourFrom();
-		setMinuteFrom();
-		setHourToo();
-		setMinuteToo();
-		setRoom();
-		appType();
-		setNotifyComboValues();
-		setGroups();
-		createEventViewGroup.setOnAction((event) -> {
-			if((createEventViewGroup.getSelectionModel().getSelectedItem()).equalsIgnoreCase("Ny gruppe")){
-				gruppeid = 0;
-				createEventViewSearch.setDisable(false);
-				try {
-					participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			else {
-				try {
-					gruppeid = databaseServer.getGroupId((createEventViewGroup.getSelectionModel().getSelectedItem()));
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-				createEventViewSearch.setDisable(true);
-				try {
-					participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
-					participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(gruppeid)));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 
 	@FXML
 	public void setGroups(){
@@ -178,31 +137,6 @@ public class CreateEventController implements Initializable, EventController {
 			groupLabel.setVisible(true);
 			createEventViewSearch.setDisable(false);
 			return false;
-		}
-	}
-
-	public void createGroup() throws Exception{
-		ArrayList<User> al = selectedUsers;
-		al.add(databaseServer.getUser());
-		HashSet hs = new HashSet();
-		hs.addAll(al);
-		al.clear();
-		al.addAll(hs);
-		if(!databaseServer.groupExists(al)){ 		
-			try{
-				FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
-				fxmlLoader.setController(new CreateGroupController(databaseServer, al, this));
-				stage = new Stage();
-				stage.setTitle("Create group");
-				stage.setScene(new Scene((Parent) fxmlLoader.load()));
-				stage.show();
-			}
-			catch (Exception e){
-				System.out.println(e);
-			}
-		}
-		else{
-			System.out.println("Group do exist");
 		}
 	}
 
@@ -264,6 +198,31 @@ public class CreateEventController implements Initializable, EventController {
 			}
 		}
 		return namesOut;
+	}
+
+	public void createGroup() throws Exception{
+		ArrayList<User> al = selectedUsers;
+		al.add(databaseServer.getUser());
+		HashSet hs = new HashSet();
+		hs.addAll(al);
+		al.clear();
+		al.addAll(hs);
+		if(!databaseServer.groupExists(al)){ 		
+			try{
+				FXMLLoader fxmlLoader = new FXMLLoader((getClass().getResource("/Views/createGroupView.fxml")));
+				fxmlLoader.setController(new CreateGroupController(databaseServer, al, this));
+				stage = new Stage();
+				stage.setTitle("Create group");
+				stage.setScene(new Scene((Parent) fxmlLoader.load()));
+				stage.show();
+			}
+			catch (Exception e){
+				System.out.println(e);
+			}
+		}
+		else{
+			System.out.println("Group do exist");
+		}
 	}
 
 	@FXML
@@ -612,5 +571,41 @@ public class CreateEventController implements Initializable, EventController {
 		parent.notifications();
 		((Node) (event.getSource())).getScene().getWindow().hide();
 	}
-}
 
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		setDatePicker(createEventViewDatePicker);
+		setHourFrom();
+		setMinuteFrom();
+		setHourToo();
+		setMinuteToo();
+		setRoom();
+		appType();
+		setNotifyComboValues();
+		setGroups();
+		createEventViewGroup.setOnAction((event) -> {
+			if((createEventViewGroup.getSelectionModel().getSelectedItem()).equalsIgnoreCase("Ny gruppe")){
+				gruppeid = 0;
+				createEventViewSearch.setDisable(false);
+				try {
+					participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				try {
+					gruppeid = databaseServer.getGroupId((createEventViewGroup.getSelectionModel().getSelectedItem()));
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				createEventViewSearch.setDisable(true);
+				try {
+					participantList.setItems(FXCollections.observableArrayList(new ArrayList<User>()));
+					participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(gruppeid)));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+}

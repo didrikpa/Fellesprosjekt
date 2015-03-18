@@ -309,7 +309,34 @@ public class DatabaseServer {
     }
 
 
-    public int createGroup(String Groupname, ArrayList<User> members) throws Exception {
+    public void removeAppointment(PersonalAppointment pa) throws Exception {
+	    ArrayList<PersonalAppointment> childs = appointmentChilds(pa);
+	    for (PersonalAppointment pas : childs) {
+	        String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pas.getAvtaleID() + ";";
+	        stmt.executeUpdate(sql);
+	        sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pas.getAvtaleID() + ";";
+	        stmt.executeUpdate(sql);
+	        sql = "DELETE FROM Alarm WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+	        stmt.executeUpdate(sql);
+	        sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+	        stmt.executeUpdate(sql);
+	        sql = "DELETE FROM Avtale WHERE AvtaleID = " + pas.getAvtaleID() + ";";
+	        stmt.executeUpdate(sql);
+	    }
+	    String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
+	    stmt.executeUpdate(sql);
+	    sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
+	    stmt.executeUpdate(sql);
+	    sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+	    stmt.executeUpdate(sql);
+	    sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+	    stmt.executeUpdate(sql);
+	    sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
+	    stmt.executeUpdate(sql);
+	
+	}
+
+	public int createGroup(String Groupname, ArrayList<User> members) throws Exception {
         int gpid = 0;
         String sql = "INSERT INTO Gruppe VALUES(NULL,'" + Groupname + "', NULL, '" + Username + "');";
         stmt.executeUpdate(sql);
@@ -333,33 +360,6 @@ public class DatabaseServer {
             groupNames.add(rs.getString("Gruppenavn"));
         }
         return groupNames;
-
-    }
-
-    public void removeAppointment(PersonalAppointment pa) throws Exception {
-        ArrayList<PersonalAppointment> childs = appointmentChilds(pa);
-        for (PersonalAppointment pas : childs) {
-            String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pas.getAvtaleID() + ";";
-            stmt.executeUpdate(sql);
-            sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pas.getAvtaleID() + ";";
-            stmt.executeUpdate(sql);
-            sql = "DELETE FROM Alarm WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-            stmt.executeUpdate(sql);
-            sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-            stmt.executeUpdate(sql);
-            sql = "DELETE FROM Avtale WHERE AvtaleID = " + pas.getAvtaleID() + ";";
-            stmt.executeUpdate(sql);
-        }
-        String sql = "DELETE FROM Underavtale WHERE OpphavsavtaleID = " + pa.getAvtaleID() + ";";
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Underavtale WHERE UnderavtaleID = " + pa.getAvtaleID() + ";";
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Alarm WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Invitasjon WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-        stmt.executeUpdate(sql);
-        sql = "DELETE FROM Avtale WHERE AvtaleID = " + pa.getAvtaleID() + ";";
-        stmt.executeUpdate(sql);
 
     }
 
@@ -400,7 +400,40 @@ public class DatabaseServer {
         }
     }
 
-    public Invite getInvite(PersonalAppointment pap) throws Exception {
+    public ArrayList<Overlap> appointmentOverlap(Date dato) throws Exception {
+	    ArrayList<Overlap> overlap = new ArrayList<Overlap>();
+	    String sql = "SELECT * FROM Avtale WHERE Dato ='" + dato + "' AND Brukernavn ='" + this.Username + "';";
+	    ResultSet rs = stmt.executeQuery(sql);
+	    ArrayList<PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
+	    while (rs.next()) {
+	        PersonalAppointment appointment = new PersonalAppointment();
+	        appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
+	        appointment.setDato(Date.valueOf(rs.getString("Dato")));
+	        appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
+	        appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
+	        appointment.setBeskrivelse(rs.getString("Beskrivelse"));
+	        appointment.setRomnavn(rs.getString("Romnavn"));
+	        appointment.setOpprettetAv(rs.getString("Brukernavn"));
+	        appointments.add(appointment);
+	    }
+	    for (PersonalAppointment pap : appointments) {
+	        Overlap mid = new Overlap();
+	        mid.setEvent(pap);
+	        overlap.add(mid);
+	    }
+	    for (Overlap pa : overlap) {
+	        for (Overlap p : overlap) {
+	            if (!pa.getEvent().equals(p.getEvent())) {
+	                if (p.getEvent().getStartTid().before(pa.getEvent().getSluttTid()) && pa.getEvent().getStartTid().before(p.getEvent().getSluttTid())) {
+	                    pa.setAntallOverlapp();
+	                }
+	            }
+	        }
+	    }
+	    return overlap;
+	}
+
+	public Invite getInvite(PersonalAppointment pap) throws Exception {
         String sql = "SELECT * FROM Invitasjon WHERE AvtaleID ='" + getParentEvent(pap).getAvtaleID() + "' AND Brukernavn = '" + Username + "';";
         ResultSet rs = stmt.executeQuery(sql);
         Invite invite = new Invite(this);
@@ -451,7 +484,24 @@ public class DatabaseServer {
         return invitasjoner;
     }
 
-    @SuppressWarnings("rawtypes")
+    public void respondOnInvite(Invite invite, boolean answer) throws Exception {
+	    if (answer) {
+	        String sql = "UPDATE Invitasjon SET Godtatt ='1' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+	        stmt.executeUpdate(sql);
+	        PersonalAppointment pa = this.getSpecificAppointment(invite.getAvtaleID());
+	        pa.setAvtaleID(0);
+	        this.addAppointment(pa, 0);
+	        pa = this.getLastAppointment();
+	        sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
+	        stmt.executeUpdate(sql);
+	
+	    } else {
+	        String sql = "UPDATE Invitasjon SET Godtatt ='0' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
+	        stmt.executeUpdate(sql);
+	    }
+	}
+
+	@SuppressWarnings("rawtypes")
     public List getRoomName() throws Exception {
         List<String> romnavn = new ArrayList<String>();
         String sql = "SELECT Romnavn FROM Møterom;";
@@ -483,39 +533,6 @@ public class DatabaseServer {
             }
         }
         return false;
-    }
-
-    public ArrayList<Overlap> appointmentOverlap(Date dato) throws Exception {
-        ArrayList<Overlap> overlap = new ArrayList<Overlap>();
-        String sql = "SELECT * FROM Avtale WHERE Dato ='" + dato + "' AND Brukernavn ='" + this.Username + "';";
-        ResultSet rs = stmt.executeQuery(sql);
-        ArrayList<PersonalAppointment> appointments = new ArrayList<PersonalAppointment>();
-        while (rs.next()) {
-            PersonalAppointment appointment = new PersonalAppointment();
-            appointment.setAvtaleID(Integer.parseInt(rs.getString("AvtaleID")));
-            appointment.setDato(Date.valueOf(rs.getString("Dato")));
-            appointment.setStartTid(Time.valueOf(rs.getString("Starttid")));
-            appointment.setSluttTid(Time.valueOf(rs.getString("Slutttid")));
-            appointment.setBeskrivelse(rs.getString("Beskrivelse"));
-            appointment.setRomnavn(rs.getString("Romnavn"));
-            appointment.setOpprettetAv(rs.getString("Brukernavn"));
-            appointments.add(appointment);
-        }
-        for (PersonalAppointment pap : appointments) {
-            Overlap mid = new Overlap();
-            mid.setEvent(pap);
-            overlap.add(mid);
-        }
-        for (Overlap pa : overlap) {
-            for (Overlap p : overlap) {
-                if (!pa.getEvent().equals(p.getEvent())) {
-                    if (p.getEvent().getStartTid().before(pa.getEvent().getSluttTid()) && pa.getEvent().getStartTid().before(p.getEvent().getSluttTid())) {
-                        pa.setAntallOverlapp();
-                    }
-                }
-            }
-        }
-        return overlap;
     }
 
     public int getGroupId(String groupname) throws Exception {
@@ -641,23 +658,6 @@ public class DatabaseServer {
             if (!bol) return true;
         }
         return false;
-    }
-
-    public void respondOnInvite(Invite invite, boolean answer) throws Exception {
-        if (answer) {
-            String sql = "UPDATE Invitasjon SET Godtatt ='1' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
-            stmt.executeUpdate(sql);
-            PersonalAppointment pa = this.getSpecificAppointment(invite.getAvtaleID());
-            pa.setAvtaleID(0);
-            this.addAppointment(pa, 0);
-            pa = this.getLastAppointment();
-            sql = "INSERT INTO Underavtale VALUES ('" + pa.getAvtaleID() + "','" + invite.getAvtaleID() + "');";
-            stmt.executeUpdate(sql);
-
-        } else {
-            String sql = "UPDATE Invitasjon SET Godtatt ='0' WHERE Brukernavn ='" + invite.getBrukernavn() + "' AND InvitasjonID ='" + invite.getInvitasjonsID() + "';";
-            stmt.executeUpdate(sql);
-        }
     }
 
     public void setAlarm(Alarm alarm) throws Exception {
