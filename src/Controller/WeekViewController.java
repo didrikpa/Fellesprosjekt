@@ -97,8 +97,6 @@ public class WeekViewController implements Initializable {
 				int appointmentDate = weekDaysShowing.get(GregorianCalendar.DATE);
 				int appointmentMonth = weekDaysShowing.get(GregorianCalendar.MONTH);
 				int appointmentYear = weekDaysShowing.get(GregorianCalendar.YEAR);
-					
-				//appointmentsForToday = tempDatabaseServer.getAppointment(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
 				
 				ArrayList<Overlap> tempOverlapEvents = tempDatabaseServer.appointmentOverlap(java.sql.Date.valueOf(LocalDate.of(appointmentYear, appointmentMonth+1, appointmentDate)));
 				
@@ -173,9 +171,14 @@ public class WeekViewController implements Initializable {
 				eventsInView.add(eventRect);
 				eventLabelsInView.add(newEventLabel);
 
-				
+				if (event.getEvent().getDato().getDay()==0){
+					pne[7][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
+					pne[7][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
+				}
+				else{
 				pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventsInView.get(eventsInView.size()-1));
 				pne[event.getEvent().getDato().getDay()][startEventRowFifteenMinutes].getChildren().add(eventLabelsInView.get(eventLabelsInView.size()-1));
+				}
 			}
 			}
 		}
@@ -676,7 +679,7 @@ public class WeekViewController implements Initializable {
             			
             	}
 
-            	double startTimeHour = Math.floor(((startEventRowCreation*15)+15)/60);
+            	double startTimeHour = Math.floor(((startEventRowCreation*15))/60);
             	double startTimeMinutes = ((((startEventRowCreation*15)))%60);
             	
             	System.out.println("Start time hour is: " + startTimeHour);
