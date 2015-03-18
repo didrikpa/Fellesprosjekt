@@ -509,7 +509,8 @@ public class CreateEventController implements Initializable, EventController {
 			if (validateTime() && validateRoom() && validateDescription() && validateNotification()) {
 				try {
 					if(!createEventViewGroup.getValue().equalsIgnoreCase("Ny gruppe")){
-						databaseServer.addAppointment(personalAppointment, databaseServer.getGroupId(createEventViewGroup.getValue()));
+						int gpid = databaseServer.getGroupId(createEventViewGroup.getValue());
+						databaseServer.addAppointment(personalAppointment, gpid);
 						alarm.setBrukernavn(databaseServer.Username);
 						alarm.setAvtaleID(databaseServer.getLastAppointment().getAvtaleID());
 						if(alarm.getTidspunkt() != null)databaseServer.setAlarm(alarm);
