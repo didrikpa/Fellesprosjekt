@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import Model.Alarm;
 import Model.Group;
 import Model.Invite;
@@ -680,6 +681,18 @@ public class DatabaseServer {
             alarmer.add(alarm);
         }
         return alarmer;
+    }
+    public Alarm alarmIsSet(Alarm alarm) throws Exception{
+    	String sql = "Select * FROM Alarm WHERE AvtaleID = '" + alarm.getAvtaleID() + "' AND Brukernavn = '" + alarm.getBrukernavn() + "';";
+    	ResultSet rs = stmt.executeQuery(sql);
+    	Alarm alarmen = new Alarm(this);
+    	while(rs.next()){
+    		alarmen.setAvtaleID(rs.getInt("AvtaleID"));
+    		alarmen.setBrukernavn(rs.getString("Brukernavn"));
+    		alarmen.setTidspunkt(rs.getTimestamp("Tidspunkt"));
+    	}
+    	if(alarmen.getTidspunkt() == null)return null;
+    	return alarmen;
     }
 
     public void removeAlarm(Alarm alarm) throws SQLException {
