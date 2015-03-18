@@ -1,6 +1,8 @@
 package Tests;
 
+import Model.Invite;
 import Model.User;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import Model.PersonalAppointment;
@@ -18,6 +20,10 @@ public class DatabaseServerTest {
     DatabaseServer server2;
     User user1;
     User user2;
+    PersonalAppointment ap;
+    PersonalAppointment ap1;
+    PersonalAppointment shareAp;
+    PersonalAppointment returnAp;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +52,7 @@ public class DatabaseServerTest {
 
     @Test
     public void testHendelsetidspunktTrue() throws Exception {
-        PersonalAppointment ap = new PersonalAppointment();
+        ap = new PersonalAppointment();
         Date date = new Date(115,2,20);
         ap.setDato(date);
         Time startTime = new Time(12, 00,00);
@@ -63,32 +69,23 @@ public class DatabaseServerTest {
 
     @Test
     public void testHendelsetidspunktFalse() throws Exception {
-        PersonalAppointment ap = new PersonalAppointment();
+        ap1 = new PersonalAppointment();
         Date date = new Date(115, 2, 21);
-        ap.setDato(date);
+        ap1.setDato(date);
         Time startTime = new Time(12, 00, 00);
-        ap.setStartTid(startTime);
+        ap1.setStartTid(startTime);
         Time endTime = new Time(12, 30, 00);
-        ap.setSluttTid(endTime);
-        ap.setRomnavn("Realfagkantina");
-        ap.setBeskrivelse("This is a second test.");
-        server.addAppointment(ap, 2);
+        ap1.setSluttTid(endTime);
+        ap1.setRomnavn("Realfagkantina");
+        ap1.setBeskrivelse("This is a second test.");
+        server.addAppointment(ap1, 2);
         PersonalAppointment returnAp = server.getLastAppointment();
         Date wrongDate = new Date(115, 4, 20);
         assertNotSame(wrongDate, returnAp.getDato());
     }
     @Test
     public void shareAppointment(){
-        ArrayList<User> userList = new ArrayList<User>();
-        userList.add(user1);
-        userList.add(user2);
-        try{
-            server.createGroup("TestGroup",userList);}
-        catch (Exception e){
-            System.out.println(e);
-        }
-
-        PersonalAppointment shareAp = new PersonalAppointment();
+        shareAp = new PersonalAppointment();
         Date date = new Date(115, 3,25);
         shareAp.setDato(date);
         Time startTime = new Time(12,00,00);
@@ -96,6 +93,44 @@ public class DatabaseServerTest {
         shareAp.setStartTid(startTime);
         shareAp.setSluttTid(endTime);
         shareAp.setRomnavn("Realfagkantina");
-        
+        shareAp.setBeskrivelse("This is a third test.");
+        try{
+            shareAp.setGruppeID(server.getGroupId("TestGroup"));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try{
+            server.addAppointment(shareAp, server.getGroupId("TestGroup"));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try{
+            shareAp = server.getSpecificAppointment(server.getLastAppointment().getAvtaleID());}
+        catch (Exception e){
+            System.out.println(e);
+        }
+        Invite inv = new Invite(server2);
+        try{
+            inv = server2.getInvite(shareAp);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        try{
+            returnAp = server2.getSpecificAppointment(inv.getAvtaleID());
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        assertEquals(shareAp.getAvtaleID(),returnAp.getAvtaleID());
+        assertEquals(shareAp.getDato(), returnAp.getDato());
+        assertEquals(shareAp.getStartTid(), returnAp.getStartTid());
+        assertEquals(shareAp.getBeskrivelse(), returnAp.getBeskrivelse());
+
+
+    }
+    @After
+    public void tearDown() throws Exception{
+
     }
 }
