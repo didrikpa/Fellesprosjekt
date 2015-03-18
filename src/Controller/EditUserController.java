@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -133,47 +134,47 @@ public class EditUserController implements Initializable{
                 validatePassword();
                 validateMail();
                 if(!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().trim().isEmpty() && !editUserPaneRepeatPassword.getText().trim().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if(!editUserPaneEmail.getText().trim().isEmpty() && !editUserPanePhone.getText().trim().isEmpty() && isPasswordEmpty()){
                 validateMail();
                 validatePhone();
                 if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPanePhone.getText().trim().isEmpty() && isPasswordEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePhone();
                 validatePassword();
                 if (!editUserPanePhone.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
                 validateMail();
                 if (!editUserPaneEmail.getText().trim().isEmpty() && !editUserPaneOldPassword.getText().trim().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }
             else if (!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
                 validatePassword();
                 if (!editUserPaneOldPassword.getText().isEmpty() && !editUserPaneNewPassword.getText().isEmpty() && !editUserPaneRepeatPassword.getText().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if (!editUserPanePhone.getText().isEmpty() && isPasswordEmpty()){
                 validatePhone();
                 if (!editUserPanePhone.getText().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if (!editUserPaneEmail.getText().isEmpty() && isPasswordEmpty()){
                 validateMail();
                 if (!editUserPaneEmail.getText().isEmpty()){
-                    updateUser();
+                    updateUser(event);
                 }
 
             }else if(!editUserPaneOldPassword.getText().isEmpty()){
@@ -204,7 +205,7 @@ public class EditUserController implements Initializable{
         }
         return true;
     }
-    public void updateUser() throws Exception{
+    public void updateUser(ActionEvent event) throws Exception{
         if (mailChanged()){
             user.setEmail(editUserPaneEmail.getText());
         }
@@ -215,7 +216,7 @@ public class EditUserController implements Initializable{
             user.setPassword(editUserPaneNewPassword.getText());
         }
         server.editUser(user);
-        switchView();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
 
     public boolean isEmptyFields(){
@@ -227,17 +228,9 @@ public class EditUserController implements Initializable{
 
     @FXML
     public void cancelAction(ActionEvent event) throws Exception{
-    	switchView();
+        ((Node) (event.getSource())).getScene().getWindow().hide();
     }
-    private void switchView() throws Exception{
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/calendarView.fxml"));
-        loader.setController(new CalendarViewController(server));
-        stage = (Stage) editUserPane.getScene().getWindow();
-        Parent scene = loader.load();
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Calendar");
-        stage.show();
-    }
+
     @FXML
     public boolean isPasswordEmpty(){
         if(editUserPaneOldPassword.getText().isEmpty() && editUserPaneNewPassword.getText().isEmpty() && editUserPaneRepeatPassword.getText().isEmpty()){
