@@ -275,7 +275,8 @@ public class MonthViewController {
 	
 	private void grayLabel(){
 		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date date = new java.sql.Date(utilDate.getTime());
+	    	java.sql.Date date = new java.sql.Date(utilDate.getTime());
+	    	date.setDate(date.getDate()-1);
 		if(paneDates[0].before(date)){
 			date00.setStyle("-fx-background-color: #d3d3d3");
 		}
