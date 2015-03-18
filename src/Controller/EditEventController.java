@@ -227,7 +227,6 @@ public class EditEventController implements Initializable, EventController {
 
 	public void createGroup() throws Exception{
 		ArrayList<User> al = selectedUsers;
-		al.add(databaseServer.getUser());
 		HashSet hs = new HashSet();
 		hs.addAll(al);
 		al.clear();
@@ -547,13 +546,10 @@ public class EditEventController implements Initializable, EventController {
 					databaseServer.removeAppointment(pa);
 				}
 				databaseServer.removeInvite(opprinneligPa);
-				int gpid = databaseServer.getGroupId(createEventViewGroup.getValue());
-				databaseServer.editAppointment(personalAppointment, gpid);
+				databaseServer.editAppointment(personalAppointment, databaseServer.getGroupId(createEventViewGroup.getValue()));
 				parent.monthB();
 				parent.monthF();
 				((Node) (event.getSource())).getScene().getWindow().hide();
-				sendInvitationEmail(databaseServer.getGroupMembers(gpid));
-				
 			}
 			else{
 				((Node) (event.getSource())).getScene().getWindow().hide();
@@ -600,9 +596,9 @@ public class EditEventController implements Initializable, EventController {
 		return false;
 	}
 
-	public void sendInvitationEmail(ArrayList<User> groupMembers) {
+	public void sendInvitationEmail() {
 		try {
-			for (int i = 0; i < groupMembers.size(); i++) {
+			for (int i = 0; i < selectedUsers.size(); i++) {
 				// Sender's email ID needs to be mentioned
 				String from = "awesome@calendar.com";
 
@@ -628,7 +624,7 @@ public class EditEventController implements Initializable, EventController {
 					// Set To: header field of the header.
 					message.addRecipient(
 							Message.RecipientType.TO,
-							new InternetAddress(groupMembers.get(i).getEmail()));
+							new InternetAddress(selectedUsers.get(i).getEmail()));
 
 					// Set Subject: header field
 					message.setSubject("Invitation to meeting");
@@ -653,6 +649,8 @@ public class EditEventController implements Initializable, EventController {
 
 					// Send message
 					Transport.send(message);
+					System.out.println("Sent message successfully to "
+							+ selectedUsers.get(i).getEmail());
 
 				} catch (MessagingException mex) {
 					mex.printStackTrace();
