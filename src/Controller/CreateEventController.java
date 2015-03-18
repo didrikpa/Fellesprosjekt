@@ -62,8 +62,8 @@ public class CreateEventController implements Initializable, EventController {
 	CheckBox allDayCheck;
 	@FXML
 	ComboBox<String> createEventViewGroup;
-	
-	
+
+
 	@FXML
 	private Label roomError;
 	@FXML
@@ -202,7 +202,6 @@ public class CreateEventController implements Initializable, EventController {
 
 	public void createGroup() throws Exception{
 		ArrayList<User> al = selectedUsers;
-		al.add(databaseServer.getUser());
 		HashSet hs = new HashSet();
 		hs.addAll(al);
 		al.clear();
@@ -609,3 +608,4 @@ public class CreateEventController implements Initializable, EventController {
 		});
 	}
 }
+
