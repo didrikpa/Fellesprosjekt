@@ -665,8 +665,14 @@ public class DatabaseServer {
     }
 
     public void setAlarm(Alarm alarm) throws Exception {
-        String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
-        stmt.executeUpdate(sql);
+    	if(this.alarmIsSet(alarm) == null){
+    		String sql = "INSERT INTO Alarm VALUES ('" + alarm.getBrukernavn() + "','" + alarm.getAvtaleID() + "', '" + alarm.getTidspunkt() + "');";
+    		stmt.executeUpdate(sql);
+    	}	
+    	else{
+    		String sql = "UPDATE Alarm SET AvtaleID ='" + alarm.getAvtaleID() + "', Brukernavn ='" + alarm.getBrukernavn() + "', Tidspunkt = '" + alarm.getTidspunkt() + "' WHERE Brukernavn ='" + this.Username + "' AND AvtaleID = '" + alarm.getAvtaleID() + "';";
+    		stmt.executeUpdate(sql);
+    	}
     }
 
     public ArrayList<Alarm> getAlarm() throws Exception {
