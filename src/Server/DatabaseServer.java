@@ -4,11 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
 import Model.Alarm;
 import Model.Group;
 import Model.Invite;
@@ -340,7 +337,7 @@ public class DatabaseServer {
 	public int createGroup(String Groupname, ArrayList<User> member) throws Exception {
 		ArrayList<User> members = member;
 		members.add(this.getUser());
-		HashSet hs = new HashSet();
+		HashSet<User> hs = new HashSet<User>();
 		hs.addAll(members);
 		members.clear();
 		members.addAll(hs);
