@@ -117,12 +117,7 @@ public class CalendarViewController implements Initializable {
 				midViewEn.setMonth(aar, maned, groupCal);
 				updatelMonth();
 			}
-		} else {
-			midViewTo.clearlastEventRect();
-			midViewTo.setCalendarViewController(this);
-			midViewTo.weekBackward();
-			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
-		}
+		} 
 	}
 
 	@FXML
@@ -138,17 +133,12 @@ public class CalendarViewController implements Initializable {
 				midViewEn.setMonth(aar, maned, groupCal);
 				updatelMonth();
 			}
-		} else {
-			midViewTo.clearlastEventRect();
-			midViewTo.setCalendarViewController(this);
-			midViewTo.weekForward();
-			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
 		}
 	}
 
 	public void monthB() throws Exception {
 		notifications();
-		if (!midViewEn.equals(null)) {
+		if (midViewTo == null) {
 			if (groupCal == null) {
 				maned -= 1;
 				midViewEn.setMonth(aar, maned, null);
@@ -159,11 +149,16 @@ public class CalendarViewController implements Initializable {
 				updatelMonth();
 			}
 		}
+		else {
+			midViewTo.clearlastEventRect();
+			midViewTo.weekBackward();
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
+		}
 	}
 
 	public void monthF() throws Exception {
 		notifications();
-		if (!midViewEn.equals(null)) {
+		if (midViewTo == null) {
 			if (groupCal == null) {
 				maned += 1;
 				midViewEn.setMonth(aar, maned, null);
@@ -173,6 +168,11 @@ public class CalendarViewController implements Initializable {
 				midViewEn.setMonth(aar, maned, groupCal);
 				updatelMonth();
 			}
+		}
+		else {
+			midViewTo.clearlastEventRect();
+			midViewTo.weekForward();
+			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
 		}
 	}
 
@@ -236,7 +236,7 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		mainViewMid.getChildren().clear();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/weekView.fxml"));
-		midViewTo = new WeekViewController(server);
+		midViewTo = new WeekViewController(server,this);
 		loader.setController(midViewTo);
 		midViewEn = null;
 		groupCal = null;
