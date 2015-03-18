@@ -282,253 +282,253 @@ public class MonthViewController {
 			date00.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date00.setStyle("-fx-background-color: white");
+			date00.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[1].getMonth() != date.getMonth()){
 			date10.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date10.setStyle("-fx-background-color: white");
+			date10.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[2].getMonth() != date.getMonth()){
 			date20.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date20.setStyle("-fx-background-color: white");
+			date20.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[3].getMonth() != date.getMonth()){
 			date30.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date30.setStyle("-fx-background-color: white");
+			date30.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[4].getMonth() != date.getMonth()){
 			date40.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date40.setStyle("-fx-background-color: white");
+			date40.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[5].getMonth() != date.getMonth()){
 			date50.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date50.setStyle("-fx-background-color: white");
+			date50.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[6].getMonth() != date.getMonth()){
 			date60.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date60.setStyle("-fx-background-color: white");
+			date60.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[7].getMonth() != date.getMonth()){
 			date01.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date01.setStyle("-fx-background-color: white");
+			date01.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[8].getMonth() != date.getMonth()){
 			date11.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date11.setStyle("-fx-background-color: white");
+			date11.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[9].getMonth() != date.getMonth()){
 			date21.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date21.setStyle("-fx-background-color: white");
+			date21.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[10].getMonth() != date.getMonth()){
 			date31.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date31.setStyle("-fx-background-color: white");
+			date31.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[11].getMonth() != date.getMonth()){
 			date41.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date41.setStyle("-fx-background-color: white");
+			date41.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[12].getMonth() != date.getMonth()){
 			date51.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date51.setStyle("-fx-background-color: white");
+			date51.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[13].getMonth() != date.getMonth()){
 			date61.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date61.setStyle("-fx-background-color: white");
+			date61.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[14].getMonth() != date.getMonth()){
 			date02.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date02.setStyle("-fx-background-color: white");
+			date02.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[15].getMonth() != date.getMonth()){
 			date12.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date12.setStyle("-fx-background-color: white");
+			date12.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[16].getMonth() != date.getMonth()){
 			date22.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date22.setStyle("-fx-background-color: white");
+			date22.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[17].getMonth() != date.getMonth()){
 			date32.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date32.setStyle("-fx-background-color: white");
+			date32.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[18].getMonth() != date.getMonth()){
 			date42.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date42.setStyle("-fx-background-color: white");
+			date42.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[19].getMonth() != date.getMonth()){
 			date52.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date52.setStyle("-fx-background-color: white");
+			date52.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[20].getMonth() != date.getMonth()){
 			date62.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date62.setStyle("-fx-background-color: white");
+			date62.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[21].getMonth() != date.getMonth()){
 			date03.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date03.setStyle("-fx-background-color: white");
+			date03.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[22].getMonth() != date.getMonth()){
 			date13.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date13.setStyle("-fx-background-color: white");
+			date13.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[23].getMonth() != date.getMonth()){
 			date23.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date23.setStyle("-fx-background-color: white");
+			date23.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[24].getMonth() != date.getMonth()){
 			date33.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date33.setStyle("-fx-background-color: white");
+			date33.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[25].getMonth() != date.getMonth()){
 			date43.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date43.setStyle("-fx-background-color: white");
+			date43.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[26].getMonth() != date.getMonth()){
 			date53.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date53.setStyle("-fx-background-color: white");
+			date53.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[27].getMonth() != date.getMonth()){
 			date63.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date63.setStyle("-fx-background-color: white");
+			date63.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[28].getMonth() != date.getMonth()){
 			date04.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date04.setStyle("-fx-background-color: white");
+			date04.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[29].getMonth() != date.getMonth()){
 			date14.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date14.setStyle("-fx-background-color: white");
+			date14.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[30].getMonth() != date.getMonth()){
 			date24.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date24.setStyle("-fx-background-color: white");
+			date24.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[31].getMonth() != date.getMonth()){
 			date34.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date34.setStyle("-fx-background-color: white");
+			date34.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[32].getMonth() != date.getMonth()){
 			date44.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date44.setStyle("-fx-background-color: white");
+			date44.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[33].getMonth() != date.getMonth()){
 			date54.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date54.setStyle("-fx-background-color: white");
+			date54.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[34].getMonth() != date.getMonth()){
 			date64.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date64.setStyle("-fx-background-color: white");
+			date64.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[35].getMonth() != date.getMonth()){
 			date05.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date05.setStyle("-fx-background-color: white");
+			date05.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[36].getMonth() != date.getMonth()){
 			date15.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date15.setStyle("-fx-background-color: white");
+			date15.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[37].getMonth() != date.getMonth()){
 			date25.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date25.setStyle("-fx-background-color: white");
+			date25.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[38].getMonth() != date.getMonth()){
 			date35.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date35.setStyle("-fx-background-color: white");
+			date35.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[39].getMonth() != date.getMonth()){
 			date45.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date45.setStyle("-fx-background-color: white");
+			date45.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[40].getMonth() != date.getMonth()){
 			date55.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date55.setStyle("-fx-background-color: white");
+			date55.setStyle("-fx-background-color: transparent");
 		}
 		if(paneDates[41].getMonth() != date.getMonth()){
 			date65.setStyle("-fx-background-color: #d3d3d3");
 		}
 		else{
-			date65.setStyle("-fx-background-color: white");
+			date65.setStyle("-fx-background-color: transparent");
 		}
 	}
 
