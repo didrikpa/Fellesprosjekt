@@ -298,7 +298,7 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserView.fxml"));
 		loader.setController(new EditUserController(server));
-		stage = (Stage) mainMonthViewPane.getScene().getWindow();
+        stage = new Stage();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Edit user");
