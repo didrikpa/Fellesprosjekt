@@ -118,6 +118,7 @@ public class CalendarViewController implements Initializable {
 				updatelMonth();
 			}
 		} else {
+			midViewTo.clearlastEventRect();
 			midViewTo.setCalendarViewController(this);
 			midViewTo.weekBackward();
 			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
@@ -129,7 +130,6 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		if (midViewEn != null) {
 			if (groupCal == null) {
-
 				maned += 1;
 				midViewEn.setMonth(aar, maned, null);
 				updatelMonth();
@@ -139,6 +139,7 @@ public class CalendarViewController implements Initializable {
 				updatelMonth();
 			}
 		} else {
+			midViewTo.clearlastEventRect();
 			midViewTo.setCalendarViewController(this);
 			midViewTo.weekForward();
 			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
@@ -298,7 +299,7 @@ public class CalendarViewController implements Initializable {
 		notifications();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/editUserView.fxml"));
 		loader.setController(new EditUserController(server));
-        stage = new Stage();
+		stage = (Stage) mainMonthViewPane.getScene().getWindow();
 		Parent root = loader.load();
 		stage.setScene(new Scene(root));
 		stage.setTitle("Edit user");
