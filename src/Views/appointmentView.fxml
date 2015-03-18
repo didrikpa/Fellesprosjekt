@@ -28,5 +28,6 @@
       <Label fx:id="invitedLabel" layoutX="502.0" layoutY="109.0" text="Inviterte" />
       <Label layoutX="40.0" layoutY="181.0" text="Opprettet av:" />
       <Label fx:id="opprettetAv" layoutX="150.0" layoutY="181.0" prefHeight="15.0" prefWidth="161.0" />
+      <Label fx:id="alarmField" layoutX="356.0" layoutY="14.0" prefHeight="15.0" prefWidth="264.0" />
    </children>
 </AnchorPane>
