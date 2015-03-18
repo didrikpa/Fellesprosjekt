@@ -150,6 +150,7 @@ public class CalendarViewController implements Initializable {
 			}
 		}
 		else {
+			midViewTo.refreshView();
 			midViewTo.clearlastEventRect();
 			midViewTo.weekBackward();
 			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
@@ -170,6 +171,7 @@ public class CalendarViewController implements Initializable {
 			}
 		}
 		else {
+			midViewTo.refreshView();
 			midViewTo.clearlastEventRect();
 			midViewTo.weekForward();
 			labelMonth.setText(midViewTo.getMonth() + " " +  midViewTo.getYear());
