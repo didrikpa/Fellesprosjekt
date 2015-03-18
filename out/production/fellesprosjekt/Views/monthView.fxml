@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-       <GridPane gridLinesVisible="true" prefHeight="20.0" prefWidth="1110.0" style="-fx-background-color: #d3d3d3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="560.0" prefWidth="1110.0" style="-fx-focus-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+       <GridPane prefHeight="20.0" prefWidth="1110.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,40 +23,22 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
            <children>
-               <Label text="Monday">
+               <Label text="Monday" GridPane.halignment="CENTER">
                    <GridPane.margin>
-                       <Insets left="45.0" />
+                       <Insets />
                    </GridPane.margin></Label>
-               <Label text="Tuesday" GridPane.columnIndex="1">
-                   <padding>
-                       <Insets left="45.0" />
-                   </padding></Label>
-               <Label text="Wednesday" GridPane.columnIndex="2">
-                   <padding>
-                       <Insets left="30.0" />
-                   </padding></Label>
-               <Label text="Thursday" GridPane.columnIndex="3">
-                   <padding>
-                       <Insets left="40.0" />
-                   </padding></Label>
-               <Label text="Friday" GridPane.columnIndex="4">
-                   <padding>
-                       <Insets left="45.0" />
-                   </padding></Label>
-               <Label text="Saturday" GridPane.columnIndex="5">
-                   <padding>
-                       <Insets left="40.0" />
-                   </padding></Label>
-               <Label text="Sunday" GridPane.columnIndex="6">
-                   <padding>
-                       <Insets left="40.0" />
-                   </padding></Label>
+               <Label text="Tuesday" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+               <Label text="Wednesday" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+               <Label text="Thursday" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+               <Label text="Friday" GridPane.columnIndex="4" GridPane.halignment="CENTER" />
+               <Label text="Saturday" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+               <Label text="Sunday" GridPane.columnIndex="6" GridPane.halignment="CENTER" />
            </children>
          <rotationAxis>
             <Point3D />
          </rotationAxis>
        </GridPane>
-      <GridPane fx:id="gridPane" layoutY="20.0" onMouseClicked="#clickGrid" prefHeight="540.0" prefWidth="1110.0" style="-fx-hgap: 0,5; -fx-grid-lines-visible: True; -fx-vgap: 0,5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <GridPane fx:id="gridPane" gridLinesVisible="true" layoutY="20.0" onMouseClicked="#clickGrid" prefHeight="540.0" prefWidth="1110.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,229 +62,355 @@
              <!--The panes in the calendar are indexed with "paneXX", and date-labels are indexed "dateXX"-->
              <!--Where XX's reference gridindexes, collumns are indexed first, then rows. -->
              <!--Row 1-->
-            <Pane fx:id="pane00" prefHeight="200.0" prefWidth="200.0">
+            <StackPane fx:id="pane00" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="date00" alignment="TOP_RIGHT" layoutX="138.0" layoutY="3.0" text="26" />
-                  <Pane fx:id="sane00" layoutX="12.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane10" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                  <Label fx:id="date00" alignment="TOP_RIGHT" layoutX="138.0" layoutY="3.0" text="26" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane00" layoutX="12.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane10" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="date10" layoutX="138.0" layoutY="3.0" text="27" />
-                  <Pane fx:id="sane10" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane20" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                  <Label fx:id="date10" layoutX="138.0" layoutY="3.0" text="27" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane10" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane20" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                <children>
-                  <Label fx:id="date20" layoutX="138.0" layoutY="3.0" text="28" />
-                  <Pane fx:id="sane20" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane30" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+                  <Label fx:id="date20" layoutX="138.0" layoutY="3.0" text="28" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane20" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane30" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                <children>
-                  <Label fx:id="date30" layoutX="138.0" layoutY="3.0" text="29" />
-                  <Pane fx:id="sane30" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane40" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+                  <Label fx:id="date30" layoutX="138.0" layoutY="3.0" text="29" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane30" layoutX="4.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane40" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                <children>
-                  <Label fx:id="date40" layoutX="138.0" layoutY="3.0" text="30" />
-                  <Pane fx:id="sane40" layoutX="3.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane50" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+                  <Label fx:id="date40" layoutX="138.0" layoutY="3.0" text="30" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane40" layoutX="3.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane50" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                <children>
-                  <Label fx:id="date50" layoutX="138.0" layoutY="3.0" text="31" />
-                  <Pane fx:id="sane50" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0" />
-               </children></Pane>
-            <Pane fx:id="pane60" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+                  <Label fx:id="date50" layoutX="138.0" layoutY="3.0" text="31" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane50" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane60" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                <children>
-                  <Label fx:id="date60" layoutX="138.0" layoutY="3.0" text="1" textFill="RED" />
-                  <Pane fx:id="sane60" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
+                  <Label fx:id="date60" layoutX="138.0" layoutY="3.0" text="1" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane60" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
 
              <!--Row 2-->
-            <Pane fx:id="pane01" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <StackPane fx:id="pane01" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date01" layoutX="138.0" layoutY="3.0" text="2" />
-                  <Pane fx:id="sane01" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="date01" layoutX="138.0" layoutY="3.0" text="2" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane01" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane11" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date11" layoutX="138.0" layoutY="3.0" text="3" />
-                  <Pane fx:id="sane11" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane21" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label fx:id="date11" layoutX="138.0" layoutY="3.0" text="3" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane11" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane21" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date21" layoutX="138.0" layoutY="3.0" text="4" />
-                  <Pane fx:id="sane21" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane31" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <Label fx:id="date21" layoutX="138.0" layoutY="3.0" text="4" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane21" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane31" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date31" layoutX="138.0" layoutY="3.0" text="5" />
-                  <Pane fx:id="sane31" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane41" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                  <Label fx:id="date31" layoutX="138.0" layoutY="3.0" text="5" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane31" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane41" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date41" layoutX="138.0" layoutY="3.0" text="6" />
-                  <Pane fx:id="sane41" layoutX="5.0" layoutY="2.0" prefHeight="90.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane51" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                  <Label fx:id="date41" layoutX="138.0" layoutY="3.0" text="6" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane41" layoutX="5.0" layoutY="2.0" prefHeight="90.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane51" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date51" layoutX="138.0" layoutY="3.0" text="7" />
-                  <Pane fx:id="sane51" layoutX="1.0" layoutY="1.0" prefHeight="90.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane61" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                  <Label fx:id="date51" layoutX="138.0" layoutY="3.0" text="7" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane51" layoutX="1.0" layoutY="1.0" prefHeight="90.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane61" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="date61" layoutX="138.0" layoutY="3.0" text="8" textFill="RED" />
-                  <Pane fx:id="sane61" layoutX="3.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0" />
+                  <Label fx:id="date61" layoutX="138.0" layoutY="3.0" text="8" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane61" layoutX="3.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
                </children>
-            </Pane>
+           </StackPane>
 
              <!--Row 3-->
-            <Pane fx:id="pane02" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <StackPane fx:id="pane02" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date02" layoutX="138.0" layoutY="3.0" text="9" />
-                  <Pane fx:id="sane02" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="119.0" />
-               </children></Pane>
-            <Pane fx:id="pane12" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="date02" layoutX="138.0" layoutY="3.0" text="9" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane02" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="119.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane12" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date12" layoutX="138.0" layoutY="3.0" text="10" />
-                  <Pane fx:id="sane12" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane22" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Label fx:id="date12" layoutX="138.0" layoutY="3.0" text="10" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane12" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane22" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date22" layoutX="138.0" layoutY="3.0" text="11" />
-                  <Pane fx:id="sane22" layoutX="3.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane32" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <Label fx:id="date22" layoutX="138.0" layoutY="3.0" text="11" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane22" layoutX="3.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane32" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date32" layoutX="138.0" layoutY="3.0" text="12" />
-                  <Pane fx:id="sane32" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane42" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                  <Label fx:id="date32" layoutX="138.0" layoutY="3.0" text="12" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane32" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane42" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date42" layoutX="138.0" layoutY="3.0" text="13" />
-                  <Pane fx:id="sane42" layoutX="2.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane52" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                  <Label fx:id="date42" layoutX="138.0" layoutY="3.0" text="13" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane42" layoutX="2.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane52" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date52" layoutX="138.0" layoutY="3.0" text="14" />
-                  <Pane fx:id="sane52" layoutX="4.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane62" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                  <Label fx:id="date52" layoutX="138.0" layoutY="3.0" text="14" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane52" layoutX="4.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane62" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="date62" layoutX="138.0" layoutY="3.0" text="15" textFill="RED" />
-                  <Pane fx:id="sane62" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
+                  <Label fx:id="date62" layoutX="138.0" layoutY="3.0" text="15" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane62" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
 
              <!--Row 4-->
-            <Pane fx:id="pane03" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <StackPane fx:id="pane03" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date03" layoutX="138.0" layoutY="3.0" text="16" />
-                  <Pane fx:id="sane03" layoutX="11.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane13" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="date03" layoutX="138.0" layoutY="3.0" text="16" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane03" layoutX="11.0" layoutY="3.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane13" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date13" layoutX="138.0" layoutY="3.0" text="17" />
-                  <Pane fx:id="sane13" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane23" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Label fx:id="date13" layoutX="138.0" layoutY="3.0" text="17" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane13" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane23" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date23" layoutX="138.0" layoutY="3.0" text="18" />
-                  <Pane fx:id="sane23" layoutX="2.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane33" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                  <Label fx:id="date23" layoutX="138.0" layoutY="3.0" text="18" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane23" layoutX="2.0" layoutY="2.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane33" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date33" layoutX="138.0" layoutY="3.0" text="19" />
-                  <Pane fx:id="sane33" layoutX="6.0" layoutY="3.0" prefHeight="84.0" prefWidth="144.0" />
-               </children></Pane>
-            <Pane fx:id="pane43" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                  <Label fx:id="date33" layoutX="138.0" layoutY="3.0" text="19" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane33" layoutX="6.0" layoutY="3.0" prefHeight="84.0" prefWidth="144.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane43" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date43" layoutX="138.0" layoutY="3.0" text="20" />
-                  <Pane fx:id="sane43" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane53" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                  <Label fx:id="date43" layoutX="138.0" layoutY="3.0" text="20" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane43" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane53" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date53" layoutX="138.0" layoutY="3.0" text="21" />
-                  <Pane fx:id="sane53" layoutX="2.0" layoutY="1.0" prefHeight="90.0" prefWidth="144.0" />
+                  <Label fx:id="date53" layoutX="138.0" layoutY="3.0" text="21" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane53" layoutX="2.0" layoutY="1.0" prefHeight="90.0" prefWidth="144.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
                </children>
-            </Pane>
-            <Pane fx:id="pane63" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+           </StackPane>
+            <StackPane fx:id="pane63" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="date63" layoutX="138.0" layoutY="3.0" text="22" textFill="RED" />
-                  <Pane fx:id="sane63" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
+                  <Label fx:id="date63" layoutX="138.0" layoutY="3.0" text="22" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane63" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
 
              <!--Row 5-->
-            <Pane fx:id="pane04" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+            <StackPane fx:id="pane04" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date04" layoutX="138.0" layoutY="3.0" text="23" />
-                  <Pane fx:id="sane04" layoutX="9.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane14" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Label fx:id="date04" layoutX="138.0" layoutY="3.0" text="23" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane04" layoutX="9.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane14" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date14" layoutX="138.0" layoutY="3.0" text="24" />
-                  <Pane fx:id="sane14" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane24" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Label fx:id="date14" layoutX="138.0" layoutY="3.0" text="24" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane14" layoutX="5.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane24" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date24" layoutX="138.0" layoutY="3.0" text="25" />
-                  <Pane fx:id="sane24" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane34" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <Label fx:id="date24" layoutX="138.0" layoutY="3.0" text="25" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane24" layoutX="3.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane34" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date34" layoutX="138.0" layoutY="3.0" text="26" />
-                  <Pane fx:id="sane34" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane44" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <Label fx:id="date34" layoutX="138.0" layoutY="3.0" text="26" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane34" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane44" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date44" layoutX="138.0" layoutY="3.0" text="27" />
-                  <Pane fx:id="sane44" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane54" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                  <Label fx:id="date44" layoutX="138.0" layoutY="3.0" text="27" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane44" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane54" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date54" layoutX="138.0" layoutY="3.0" text="28" />
-                  <Pane fx:id="sane54" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0" />
-               </children></Pane>
-            <Pane fx:id="pane64" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
+                  <Label fx:id="date54" layoutX="138.0" layoutY="3.0" text="28" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane54" layoutX="5.0" layoutY="4.0" prefHeight="84.0" prefWidth="132.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane64" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <children>
-                  <Label fx:id="date64" layoutX="138.0" layoutY="3.0" text="1" textFill="RED" />
-                  <Pane fx:id="sane64" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0" />
+                  <Label fx:id="date64" layoutX="138.0" layoutY="3.0" text="1" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane64" layoutX="4.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
                </children>
-            </Pane>
+           </StackPane>
 
              <!--Row 6-->
-            <Pane fx:id="pane05" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+            <StackPane fx:id="pane05" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date05" layoutX="138.0" layoutY="3.0" text="2" />
-                  <Pane fx:id="sane05" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane15" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="date05" layoutX="138.0" layoutY="3.0" text="2" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane05" layoutX="11.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane15" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date15" layoutX="138.0" layoutY="3.0" text="3" />
-                  <Pane fx:id="sane15" layoutX="13.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0" />
-               </children></Pane>
-            <Pane fx:id="pane25" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Label fx:id="date15" layoutX="138.0" layoutY="3.0" text="3" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane15" layoutX="13.0" layoutY="4.0" prefHeight="84.0" prefWidth="125.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane25" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date25" layoutX="138.0" layoutY="3.0" text="4" />
-                  <Pane fx:id="sane25" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane35" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                  <Label fx:id="date25" layoutX="138.0" layoutY="3.0" text="4" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane25" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane35" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date35" layoutX="138.0" layoutY="3.0" text="5" />
-                  <Pane fx:id="sane35" layoutX="3.0" layoutY="5.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane45" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                  <Label fx:id="date35" layoutX="138.0" layoutY="3.0" text="5" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane35" layoutX="3.0" layoutY="5.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane45" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date45" layoutX="138.0" layoutY="3.0" text="6" />
-                  <Pane fx:id="sane45" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane55" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                  <Label fx:id="date45" layoutX="138.0" layoutY="3.0" text="6" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane45" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane55" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date55" layoutX="138.0" layoutY="3.0" text="7" />
-                  <Pane fx:id="sane55" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
-            <Pane fx:id="pane65" prefHeight="156.0" prefWidth="138.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                  <Label fx:id="date55" layoutX="138.0" layoutY="3.0" text="7" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane55" layoutX="1.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
+            <StackPane fx:id="pane65" prefHeight="156.0" prefWidth="138.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <children>
-                  <Label fx:id="date65" layoutX="138.0" layoutY="3.0" text="8" textFill="RED" />
-                  <Pane fx:id="sane65" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0" />
-               </children></Pane>
+                  <Label fx:id="date65" layoutX="138.0" layoutY="3.0" text="8" textFill="RED" StackPane.alignment="TOP_RIGHT" />
+                  <Pane fx:id="sane65" layoutX="2.0" layoutY="3.0" prefHeight="84.0" prefWidth="136.0">
+                          <StackPane.margin>
+                        <Insets left="10.0" />
+                     </StackPane.margin></Pane>
+               </children></StackPane>
          </children>
          <rotationAxis>
             <Point3D />
