@@ -85,6 +85,8 @@ public class EditEventController implements Initializable, EventController {
 	@FXML
 	Label roomLabel;
 	@FXML
+	Label roomLabel1;
+	@FXML
 	Label groupLabel;
 	@FXML
 	TextField notifyInt;
@@ -131,6 +133,7 @@ public class EditEventController implements Initializable, EventController {
 		personalRadio = new RadioButton();
 		meetingRadio = new RadioButton();
 		roomLabel = new Label();
+		roomLabel1 = new Label();
 		groupLabel = new Label();
 		createEventViewDatePicker = new DatePicker();
 		createEventViewStartMinutes = new ComboBox<Integer>();
@@ -450,7 +453,7 @@ public class EditEventController implements Initializable, EventController {
 			}
 		} catch (Exception e) {
 			alarm.setTidspunkt(null);
-			return false;
+			return true;
 		}
 		return false;
 	}
@@ -669,6 +672,9 @@ public class EditEventController implements Initializable, EventController {
 		setRoom();
 		createEventViewRoom.setValue(opprinneligPa.getRomnavn());
 		setNotifyComboValues();
+		notifyCombo.setVisible(false);
+		notifyInt.setVisible(false);
+		roomLabel1.setVisible(false);
 		if(opprinneligPa.getRomnavn().equalsIgnoreCase("PersonalRoom")){
 			personalRadio.setSelected(true);
 			personalRadio.setDisable(true);
@@ -689,7 +695,10 @@ public class EditEventController implements Initializable, EventController {
 			e2.printStackTrace();
 		}
 		try {
-			participantList.setItems(FXCollections.observableArrayList(databaseServer.getGroupMembers(opprinneligPa.GruppeID)));
+			ArrayList <User> u = new ArrayList<User>();
+			ArrayList <User> q = databaseServer.getGroupMembers(opprinneligPa.GruppeID);
+			if(q != null)u.addAll(q);
+			if(u.size() > 0)participantList.setItems(FXCollections.observableArrayList());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
