@@ -136,6 +136,7 @@ public class CreateEventController implements Initializable, EventController {
 			createEventViewGroup.setVisible(true);
 			groupLabel.setVisible(true);
 			createEventViewSearch.setDisable(false);
+            setDatePicker(createEventViewDatePicker);
 			return false;
 		}
 	}
@@ -572,7 +573,7 @@ public class CreateEventController implements Initializable, EventController {
 	}
 
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		setDatePicker(createEventViewDatePicker);
+		//setDatePicker(createEventViewDatePicker);
 		setHourFrom();
 		setMinuteFrom();
 		setHourToo();
