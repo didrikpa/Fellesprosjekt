@@ -608,4 +608,3 @@ public class CreateEventController implements Initializable, EventController {
 		});
 	}
 }
-
