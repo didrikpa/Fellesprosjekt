@@ -143,6 +143,7 @@ public class EditEventController implements Initializable, EventController {
 		createEventViewGroup = new ComboBox<String>();
 		participantList = new ListView<User>();
 		notifyCombo = new ComboBox<String>();
+		notifyInt = new TextField();
 	}
 
 	@FXML
@@ -449,7 +450,7 @@ public class EditEventController implements Initializable, EventController {
 			}
 		} catch (Exception e) {
 			alarm.setTidspunkt(null);
-			return true;
+			return false;
 		}
 		return false;
 	}
@@ -622,6 +623,9 @@ public class EditEventController implements Initializable, EventController {
 			return true;
 		}
 		if(personalAppointment.getGruppeID() != (opprinneligPa.getGruppeID())){
+			return true;
+		}
+		if(alarm.getTidspunkt() != null){
 			return true;
 		}
 		return false;
