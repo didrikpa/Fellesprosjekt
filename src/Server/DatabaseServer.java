@@ -16,9 +16,9 @@ import Model.User;
 
 public class DatabaseServer {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/simonssl_fpgp_fp";
-    static final String USER = "simonssl_fpgp";
-    static final String PASS = "Vierbest";
+    static final String DB_URL = "jdbc:mysql://mysql.stud.ntnu.no/...";
+    static final String USER = "";
+    static final String PASS = "";
     public String Username;
     private String Password;
     Connection conn;
